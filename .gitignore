@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.idea
+yarn.lock
+gunak-web-app2.iml
+package-lock.json
