@@ -2,13 +2,15 @@
   "name": "gunak-web-app2",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:6001",
   "dependencies": {
     "prop-types": "^15.6.2",
     "ra-data-json-server": "^2.4.2",
     "react": "^16.6.1",
     "react-admin": "^2.4.2",
     "react-dom": "^16.6.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "lodash": "^4.17.11"
   },
   "scripts": {
     "start": "react-scripts start",
