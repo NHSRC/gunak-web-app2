@@ -1,4 +1,4 @@
-import { AUTH_LOGIN } from 'react-admin';
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK } from 'react-admin';
 import _ from 'lodash';
 
 export default (type, params) => {
@@ -19,11 +19,17 @@ export default (type, params) => {
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
                 }
-                return response.json();
             })
-            .then(({ token }) => {
-                localStorage.setItem('token', token);
+            .then(() => {
+                localStorage.setItem('token', "LOGGED IN");
             });
+    }
+    if (type === AUTH_LOGOUT) {
+        localStorage.removeItem('token');
+        return Promise.resolve();
+    }
+    if (type === AUTH_CHECK) {
+        return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
     }
     return Promise.resolve();
 }

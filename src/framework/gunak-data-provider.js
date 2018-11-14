@@ -39,13 +39,12 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             case GET_LIST: {
                 const { page, perPage } = params.pagination;
                 const { field, order } = params.sort;
+
+                //?lastModifiedDate=1900-01-01T00:00:00.001Z&size=200&page=0&deviceId=2f030d32b0a7b634
+
                 const query = {
-                    sort: JSON.stringify([field, order]),
-                    range: JSON.stringify([
-                        (page - 1) * perPage,
-                        page * perPage - 1,
-                    ]),
-                    filter: JSON.stringify(params.filter),
+                    page: page - 1,
+                    size: perPage
                 };
                 url = `${apiUrl}/${resource}?${stringify(query)}`;
                 break;
@@ -109,20 +108,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         switch (type) {
             case GET_LIST:
             case GET_MANY_REFERENCE:
-                if (!headers.has('content-range')) {
-                    throw new Error(
-                        'The Content-Range header is missing in the HTTP Response. The simple REST data provider expects responses for lists of resources to contain this header with the total number of results to build the pagination. If you are using CORS, did you declare Content-Range in the Access-Control-Expose-Headers header?'
-                    );
-                }
+                let resources = json['_embedded'][resource];
                 return {
-                    data: json,
-                    total: parseInt(
-                        headers
-                            .get('content-range')
-                            .split('/')
-                            .pop(),
-                        10
-                    ),
+                    data: resources,
+                    total: resources.length,
                 };
             case CREATE:
                 return { data: { ...params.data, id: json.id } };
