@@ -1,8 +1,8 @@
 import React from 'react';
 import { List, Datagrid, TextField, EmailField, EditButton, SimpleForm, DisabledInput, TextInput, Edit } from 'react-admin';
 
-export const AssessmentToolModeList = props => (
-    <List {...props} title='Programs'>
+export const ChecklistList = props => (
+    <List {...props} title='Checklists'>
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="name" />
@@ -11,7 +11,7 @@ export const AssessmentToolModeList = props => (
     </List>
 );
 
-export const AssessmentToolModeEdit = props => (
+export const ChecklistEdit = props => (
     <Edit {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
