@@ -2,22 +2,14 @@ import React from 'react';
 import {Datagrid, DisabledInput, Edit, EditButton, FunctionField, List, ReferenceManyField, SimpleForm, TextField, TextInput, UrlField} from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
 
-export const ChecklistList = props => (
-    <List {...props} title='Checklists'>
+export const AreaOfConcernList = props => (
+    <List {...props} title='Area of concerns'>
         <Datagrid rowClick="edit">
             <TextField source="id" />
+            <TextField source="reference" />
             <TextField source="name" />
-            <ChildrenField source="areaOfConcern" label="Area of concerns" cellLabel="View"/>
+            <ChildrenField source="standard" label="Standards" cellLabel="View"/>
             <EditButton />
         </Datagrid>
     </List>
-);
-
-export const ChecklistEdit = props => (
-    <Edit {...props}>
-        <SimpleForm>
-            <DisabledInput source="id" />
-            <TextInput source="name" />
-        </SimpleForm>
-    </Edit>
 );
