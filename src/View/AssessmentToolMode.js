@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Datagrid, TextField, EmailField, EditButton, SimpleForm, DisabledInput, TextInput, Edit } from 'react-admin';
+import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
 
 export const AssessmentToolModeList = props => (
     <List {...props} title='Programs'>

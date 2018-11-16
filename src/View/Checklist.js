@@ -1,5 +1,5 @@
 import React from 'react';
-import {Datagrid, DisabledInput, Edit, EditButton, FunctionField, List, ReferenceManyField, SimpleForm, TextField, TextInput, UrlField} from 'react-admin';
+import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
 
 export const ChecklistList = props => (
@@ -7,7 +7,7 @@ export const ChecklistList = props => (
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="name" />
-            <ChildrenField source="areaOfConcern" label="Area of concerns" cellLabel="View"/>
+            <ChildrenField source="areaOfConcern" label="Area of concerns"/>
             <EditButton />
         </Datagrid>
     </List>

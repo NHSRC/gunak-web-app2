@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { stringify } from 'query-string';
 import {
     fetchUtils,
@@ -40,8 +41,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 const { page, perPage } = params.pagination;
                 const { field, order } = params.sort;
 
-                //?lastModifiedDate=1900-01-01T00:00:00.001Z&size=200&page=0&deviceId=2f030d32b0a7b634
-
                 const query = {
                     page: page - 1,
                     size: perPage
@@ -53,10 +52,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 url = `${apiUrl}/${resource}/${params.id}`;
                 break;
             case GET_MANY: {
-                const query = {
-                    filter: JSON.stringify({ id: params.ids }),
-                };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                url = `${apiUrl}/${resource}/search/findAllById?ids=${_.join(params["ids"])}`;
                 break;
             }
             case GET_MANY_REFERENCE: {
@@ -109,9 +105,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             case GET_LIST:
             case GET_MANY_REFERENCE:
                 let resources = json['_embedded'][resource];
+                let page = json['page'];
                 return {
                     data: resources,
-                    total: resources.length,
+                    total: page["totalElements"]
+                };
+            case GET_MANY:
+                return {
+                    data: json['_embedded'][resource]
                 };
             case CREATE:
                 return { data: { ...params.data, id: json.id } };
