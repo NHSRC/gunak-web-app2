@@ -7,6 +7,7 @@ import {AssessmentToolList} from './View/AssessmentTool';
 import {ChecklistList} from './View/Checklist';
 import {AreaOfConcernList} from './View/AreaOfConcern';
 import {StandardList} from './View/Standard';
+import {MeasurableElementList} from './View/MeasurableElement';
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
@@ -15,7 +16,7 @@ const App = () => (
         <Resource name="checklist" list={ChecklistList} options={{ label: 'Checklists' }}/>
         <Resource name="areaOfConcern" list={AreaOfConcernList} options={{ label: 'Area of concerns' }}/>
         <Resource name="standard" list={StandardList} options={{ label: 'Standards' }}/>
-        <Resource name="measurableElement" list={ListGuesser} options={{ label: 'Measurable elements' }}/>
+        <Resource name="measurableElement" list={MeasurableElementList} options={{ label: 'Measurable elements' }}/>
         <Resource name="checkpoint" list={ListGuesser} options={{ label: 'Checkpoints' }}/>
         <Resource name="state" list={ListGuesser} options={{ label: 'States' }}/>
         <Resource name="district" list={ListGuesser} options={{ label: 'Districts' }}/>

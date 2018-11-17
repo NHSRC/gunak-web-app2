@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import {stringify} from 'query-string';
 import {CREATE, DELETE, DELETE_MANY, fetchUtils, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE, UPDATE_MANY,} from 'react-admin';
-import UrlUtil from "./UrlUtil";
+import ParentResource from "./ParentResource";
 
 /**
  * Maps react-admin queries to a simple REST API
@@ -40,8 +40,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 if (_.isNil(filter) || _.isEmpty(filter)) {
                     url = `${apiUrl}/${resource}?${pagination}`;
                 } else {
-                    url = `${apiUrl}/${resource}/${UrlUtil.getFindByParentResourcePath(filter)}?${pagination}&${UrlUtil.getParentParamString(filter)}`;
-                    console.log(url);
+                    url = `${apiUrl}/${resource}/${ParentResource.getResourcePath_ByParent(filter)}?${pagination}&${ParentResource.getParentParamString(filter)}`;
                 }
 
                 break;
