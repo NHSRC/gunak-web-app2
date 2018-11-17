@@ -1,1 +1,2 @@
 Need to expose id and foreign key reference ids.
+Find by parent id leads to methods on repository which clash with method for the same on the entity for JSON expose

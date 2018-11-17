@@ -1,17 +1,7 @@
 import _ from 'lodash';
-import { stringify } from 'query-string';
-import {
-    fetchUtils,
-    GET_LIST,
-    GET_ONE,
-    GET_MANY,
-    GET_MANY_REFERENCE,
-    CREATE,
-    UPDATE,
-    UPDATE_MANY,
-    DELETE,
-    DELETE_MANY,
-} from 'react-admin';
+import {stringify} from 'query-string';
+import {CREATE, DELETE, DELETE_MANY, fetchUtils, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE, UPDATE_MANY,} from 'react-admin';
+import UrlUtil from "./UrlUtil";
 
 /**
  * Maps react-admin queries to a simple REST API
@@ -39,13 +29,21 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         switch (type) {
             case GET_LIST: {
                 const { page, perPage } = params.pagination;
-                const { field, order } = params.sort;
 
                 const query = {
                     page: page - 1,
                     size: perPage
                 };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+
+                let pagination = stringify(query);
+                let filter = params["filter"];
+                if (_.isNil(filter) || _.isEmpty(filter)) {
+                    url = `${apiUrl}/${resource}?${pagination}`;
+                } else {
+                    url = `${apiUrl}/${resource}/${UrlUtil.getFindByParentResourcePath(filter)}?${pagination}&${UrlUtil.getParentParamString(filter)}`;
+                    console.log(url);
+                }
+
                 break;
             }
             case GET_ONE:
@@ -100,7 +98,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      * @returns {Object} Data response
      */
     const convertHTTPResponse = (response, type, resource, params) => {
-        const { headers, json } = response;
+        const { json } = response;
         switch (type) {
             case GET_LIST:
             case GET_MANY_REFERENCE:

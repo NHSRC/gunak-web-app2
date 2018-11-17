@@ -1,8 +1,8 @@
 import React from 'react';
-import { Admin, Resource, ListGuesser, EditGuesser } from 'react-admin';
+import {Admin, ListGuesser, Resource} from 'react-admin';
 import dataProvider from './framework/gunak-data-provider';
 import authProvider from './framework/auth-provider';
-import {AssessmentToolModeList, AssessmentToolModeEdit} from './View/AssessmentToolMode';
+import {AssessmentToolModeEdit, AssessmentToolModeList} from './View/AssessmentToolMode';
 import {AssessmentToolList} from './View/AssessmentTool';
 import {ChecklistList} from './View/Checklist';
 import {AreaOfConcernList} from './View/AreaOfConcern';
