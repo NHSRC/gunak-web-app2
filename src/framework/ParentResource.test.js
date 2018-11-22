@@ -3,7 +3,7 @@ import ParentResource from "./ParentResource";
 
 it('getFindByParentResourcePath', () => {
     let filter = new ParentResource("standard", "name", 1);
-    assert.equal(ParentResource.getResourcePath_ByParent(filter), "search/findByStandard/");
+    assert.equal(ParentResource.getResourcePath_ByParent(filter), "search/findByStandard");
 });
 
 it('getParentParamString', () => {

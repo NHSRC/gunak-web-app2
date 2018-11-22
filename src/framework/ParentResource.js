@@ -9,7 +9,7 @@ class ParentResource {
     }
 
     static getResourcePath_ByParent(parentResource) {
-        return `search/findBy${_.upperFirst(parentResource.name)}/`;
+        return `search/findBy${_.upperFirst(parentResource.name)}`;
     }
 
     static getParentParamString(parentResource) {
