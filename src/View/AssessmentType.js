@@ -4,9 +4,9 @@ import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, 
 export const AssessmentTypeList = props => (
     <List {...props} title='Assessment types'>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
             <TextField source="name" />
             <TextField source="shortName" />
+            <TextField source="id" />
         </Datagrid>
     </List>
 );

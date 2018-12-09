@@ -4,8 +4,8 @@ import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, 
 export const AssessmentToolModeList = props => (
     <List {...props} title='Programs'>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
             <TextField source="name" />
+            <TextField source="id" />
         </Datagrid>
     </List>
 );

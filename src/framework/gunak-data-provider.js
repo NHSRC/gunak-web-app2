@@ -70,12 +70,12 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case UPDATE:
-                url = `${apiUrl}/${resource}/${params.id}`;
+                url = `${apiUrl}/${resource}s`;
                 options.method = 'PUT';
                 options.body = JSON.stringify(params.data);
                 break;
             case CREATE:
-                url = `${apiUrl}/${resource}`;
+                url = `${apiUrl}/${resource}s`;
                 options.method = 'POST';
                 options.body = JSON.stringify(params.data);
                 break;

@@ -4,8 +4,8 @@ import {Create, Datagrid, DisabledInput, Edit, List, SimpleForm, TextField, Text
 export const DepartmentList = props => (
     <List {...props} title='Departments'>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
             <TextField source="name" />
+            <TextField source="id" />
         </Datagrid>
     </List>
 );

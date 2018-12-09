@@ -6,16 +6,16 @@ import {GunakReferenceInput} from "../components/Inputs";
 export const ChecklistList = props => (
     <List {...props} title='Checklists'>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField source="name" />
             <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
                 <TextField source="name"/>
             </ReferenceField>
+            <TextField source="name" />
             <ReferenceField label="Department" source="departmentId" reference="department">
                 <TextField source="name"/>
             </ReferenceField>
             <ChildrenField source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name"/>
             <EditButton />
+            <TextField source="id" />
         </Datagrid>
     </List>
 );

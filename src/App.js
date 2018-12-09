@@ -7,23 +7,24 @@ import {DepartmentCreate, DepartmentEdit, DepartmentList} from './View/Departmen
 import {AssessmentToolModeEdit, AssessmentToolModeList} from './View/AssessmentToolMode';
 import {AssessmentToolEdit, AssessmentToolList} from './View/AssessmentTool';
 import {ChecklistCreate, ChecklistEdit, ChecklistList} from './View/Checklist';
-import {AreaOfConcernList} from './View/AreaOfConcern';
+import {AreaOfConcernCreate, AreaOfConcernEdit, AreaOfConcernList} from './View/AreaOfConcern';
 import {StandardList} from './View/Standard';
 import {MeasurableElementList} from './View/MeasurableElement';
 import {IndicatorDefinitionList} from './View/IndicatorDefinition';
+import {CheckpointEdit, CheckpointList} from "./View/Checkpoint";
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
-        <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{ label: 'Programs' }}/>
+        <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{ label: 'Assessment Types' }}/>
         <Resource name="department" list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} options={{ label: 'Departments' }}/>
 
         <Resource name="assessmentToolMode" list={AssessmentToolModeList} edit={AssessmentToolModeEdit} options={{ label: 'Programs' }}/>
         <Resource name="assessmentTool" list={AssessmentToolList} edit={AssessmentToolEdit} options={{ label: 'Assessment Tools' }}/>
         <Resource name="checklist" list={ChecklistList} edit={ChecklistEdit} create={ChecklistCreate} options={{ label: 'Checklists' }}/>
-        <Resource name="areaOfConcern" list={AreaOfConcernList} options={{ label: 'Area of concerns' }}/>
+        <Resource name="areaOfConcern" list={AreaOfConcernList} edit={AreaOfConcernEdit} create={AreaOfConcernCreate} options={{ label: 'Area of concerns' }}/>
         <Resource name="standard" list={StandardList} options={{ label: 'Standards' }}/>
         <Resource name="measurableElement" list={MeasurableElementList} options={{ label: 'Measurable elements' }}/>
-        <Resource name="checkpoint" list={ListGuesser} options={{ label: 'Checkpoints' }}/>
+        <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} options={{ label: 'Checkpoints' }}/>
 
         <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{ label: 'Indicator definitions' }}/>
 
@@ -33,8 +34,8 @@ const App = () => (
         <Resource name="facilityType" list={ListGuesser} options={{ label: 'Facility types' }}/>
 
         {/*Include device*/}
-        <Resource name="facilityAssessment" list={ListGuesser} options={{ label: 'Programs' }}/>
-        <Resource name="checkpointScore" list={ListGuesser} options={{ label: 'Programs' }}/>
+        <Resource name="facilityAssessment" list={ListGuesser} options={{ label: 'Assessments' }}/>
+        <Resource name="checkpointScore" list={ListGuesser} options={{ label: 'Scores' }}/>
         <Resource name="indicator" list={ListGuesser} options={{ label: 'Indicators' }}/>
 
         <Resource name="user" list={ListGuesser} options={{ label: 'Users' }}/>
