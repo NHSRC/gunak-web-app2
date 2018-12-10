@@ -9,7 +9,7 @@ import {AssessmentToolEdit, AssessmentToolList} from './View/AssessmentTool';
 import {ChecklistCreate, ChecklistEdit, ChecklistList} from './View/Checklist';
 import {AreaOfConcernCreate, AreaOfConcernEdit, AreaOfConcernList} from './View/AreaOfConcern';
 import {StandardCreate, StandardEdit, StandardList} from './View/Standard';
-import {MeasurableElementList} from './View/MeasurableElement';
+import {MeasurableElementCreate, MeasurableElementEdit, MeasurableElementList} from './View/MeasurableElement';
 import {IndicatorDefinitionList} from './View/IndicatorDefinition';
 import {CheckpointEdit, CheckpointList} from "./View/Checkpoint";
 
@@ -23,7 +23,7 @@ const App = () => (
         <Resource name="checklist" list={ChecklistList} edit={ChecklistEdit} create={ChecklistCreate} options={{ label: 'Checklists' }}/>
         <Resource name="areaOfConcern" list={AreaOfConcernList} edit={AreaOfConcernEdit} create={AreaOfConcernCreate} options={{ label: 'Area of concerns' }}/>
         <Resource name="standard" list={StandardList} create={StandardCreate} edit={StandardEdit} options={{ label: 'Standards' }}/>
-        <Resource name="measurableElement" list={MeasurableElementList} options={{ label: 'Measurable elements' }}/>
+        <Resource name="measurableElement" list={MeasurableElementList} create={MeasurableElementCreate} edit={MeasurableElementEdit} options={{ label: 'Measurable elements' }}/>
         <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} options={{ label: 'Checkpoints' }}/>
 
         <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{ label: 'Indicator definitions' }}/>

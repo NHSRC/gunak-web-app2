@@ -23,7 +23,7 @@ export const StandardCreate = (props) => (
         <SimpleForm>
             <TextInput source="reference"/>
             <TextInput source="name"/>
-            <GunakReferenceInput label="Area of concern" optionText="name" source="areaOfConcern"/>
+            <GunakReferenceInput label="Area of concern" optionText="reference" source="areaOfConcern"/>
         </SimpleForm>
     </Create>
 );
@@ -34,7 +34,7 @@ export const StandardEdit = props => (
             <DisabledInput source="id" />
             <TextInput source="reference"/>
             <TextInput source="name" />
-            <GunakReferenceInput label="Area of concern" optionText="name" source="areaOfConcern"/>
+            <GunakReferenceInput label="Area of concern" optionText="reference" source="areaOfConcern"/>
         </SimpleForm>
     </Edit>
 );
