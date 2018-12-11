@@ -2,6 +2,7 @@ import _ from 'lodash';
 import {stringify} from 'query-string';
 import {CREATE, DELETE, DELETE_MANY, fetchUtils, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE, UPDATE_MANY,} from 'react-admin';
 import ParentResource from "./ParentResource";
+import Filter from "./Filter";
 
 /**
  * Maps react-admin queries to a simple REST API
@@ -37,9 +38,12 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
 
                 let pagination = stringify(query);
                 let filter = params["filter"];
-                if (_.isNil(filter) || _.isEmpty(filter)) {
+                let typeOfListing = Filter.getTypeOfListing(filter);
+                if (typeOfListing === Filter.ENTITY) {
                     url = `${apiUrl}/${resource}?${pagination}`;
-                } else {
+                } else if (typeOfListing === Filter.ENTITY_BY_PARAM_LIKE) {
+                    url = `${apiUrl}/${resource}/search/find?${stringify(filter)}&${pagination}`;
+                } else if (typeOfListing === Filter.ENTITY_BY_PARENT) {
                     url = `${apiUrl}/${resource}/${ParentResource.getResourcePath_ByParent(filter)}?${pagination}&${ParentResource.getParentParamString(filter)}`;
                 }
 

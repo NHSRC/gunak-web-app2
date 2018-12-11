@@ -11,7 +11,7 @@ import {AreaOfConcernCreate, AreaOfConcernEdit, AreaOfConcernList} from './View/
 import {StandardCreate, StandardEdit, StandardList} from './View/Standard';
 import {MeasurableElementCreate, MeasurableElementEdit, MeasurableElementList} from './View/MeasurableElement';
 import {IndicatorDefinitionList} from './View/IndicatorDefinition';
-import {CheckpointEdit, CheckpointList} from "./View/Checkpoint";
+import {CheckpointCreate, CheckpointEdit, CheckpointList} from "./View/Checkpoint";
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
@@ -24,7 +24,7 @@ const App = () => (
         <Resource name="areaOfConcern" list={AreaOfConcernList} edit={AreaOfConcernEdit} create={AreaOfConcernCreate} options={{ label: 'Area of concerns' }}/>
         <Resource name="standard" list={StandardList} create={StandardCreate} edit={StandardEdit} options={{ label: 'Standards' }}/>
         <Resource name="measurableElement" list={MeasurableElementList} create={MeasurableElementCreate} edit={MeasurableElementEdit} options={{ label: 'Measurable elements' }}/>
-        <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} options={{ label: 'Checkpoints' }}/>
+        <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} create={CheckpointCreate} options={{ label: 'Checkpoints' }}/>
 
         <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{ label: 'Indicator definitions' }}/>
 

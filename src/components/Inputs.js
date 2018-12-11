@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {required, ReferenceInput, SelectInput} from 'react-admin';
+import {required, ReferenceInput, SelectInput, AutocompleteInput} from 'react-admin';
 
-export const GunakReferenceInput = ({label, source, optionText, record, mandatory = true}) => {
-    return <ReferenceInput label={label} source={`${source}Id`} reference={`${source}`} validate={mandatory ? [required("Mandatory")] : []}>
-        <SelectInput optionText={optionText}/>
+export const GunakReferenceInput = ({label, source, optionText, record, mandatory = true, autoComplete = false}) => {
+    return <ReferenceInput label={label} source={`${source}Id`} reference={`${source}`} validate={mandatory ? [required("Mandatory")] : []} perPage={20}>
+        {autoComplete ? <AutocompleteInput source={source} optionText={optionText}/> : <SelectInput optionText={optionText}/>}
     </ReferenceInput>;
 };
 
@@ -13,5 +13,6 @@ GunakReferenceInput.propTypes = {
     record: PropTypes.object,
     source: PropTypes.string.isRequired,
     optionText: PropTypes.string.isRequired,
-    mandatory: PropTypes.bool
+    mandatory: PropTypes.bool,
+    autoComplete: PropTypes.bool
 };
