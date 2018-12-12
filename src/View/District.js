@@ -6,8 +6,13 @@ import {GunakReferenceInput} from "../components/Inputs";
 export const DistrictList = props => (
     <List {...props} title='Districts'>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
             <TextField source="name" />
+            <ReferenceField label="State" source="stateId" reference="state">
+                <TextField source="name" />
+            </ReferenceField>
+            <ChildrenField source="facility" label="Facilities" parent="district" parentDisplayField="name"/>
+            <EditButton/>
+            <TextField source="id" />
         </Datagrid>
     </List>
 );
