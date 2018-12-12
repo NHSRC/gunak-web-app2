@@ -2,9 +2,13 @@ import React from 'react';
 import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required} from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
 import {GunakReferenceInput} from "../components/Inputs";
+import ParentResource from "../framework/ParentResource";
+import Parent from "../components/Parent";
 
 export const StandardList = props => (
-    <List {...props} title='Standards'>
+    <div>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <List {...props} title='Standards'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="reference" />
             <TextField source="name" />
@@ -15,7 +19,7 @@ export const StandardList = props => (
             <EditButton />
             <TextField source="id" />
         </Datagrid>
-    </List>
+    </List></div>
 );
 
 export const StandardCreate = (props) => (

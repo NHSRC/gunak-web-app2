@@ -2,9 +2,13 @@ import React from 'react';
 import ChildrenField from "../components/ChildrenField";
 import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
+import ParentResource from "../framework/ParentResource";
+import Parent from "../components/Parent";
 
 export const DistrictList = props => (
-    <List {...props} title='Districts'>
+    <div>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <List {...props} title='Districts'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
             <ReferenceField label="State" source="stateId" reference="state">
@@ -14,7 +18,7 @@ export const DistrictList = props => (
             <EditButton/>
             <TextField source="id" />
         </Datagrid>
-    </List>
+    </List></div>
 );
 
 export const DistrictCreate = (props) => (

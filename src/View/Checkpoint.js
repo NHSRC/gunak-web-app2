@@ -9,8 +9,8 @@ import {
     EditButton,
     List,
     LongTextInput,
-    NumberInput,
     NumberField,
+    NumberInput,
     ReferenceField,
     SimpleForm,
     TextField
@@ -18,15 +18,13 @@ import {
 import {parseUrl} from 'query-string';
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
-import _ from "lodash";
 import {GunakReferenceInput} from "../components/Inputs";
 
 export const CheckpointList = props => {
-    let parentResource = ParentResource.parse(props.history.location.search);
     return (
         <div>
-            {_.isNil(parentResource) ? null : <Parent parentResource={parentResource}/>}
-            <List {...props} title='Checkpoints'>
+            <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+            <List {...props} title='Checkpoints'perPage={30}>
                 <Datagrid rowClick="edit">
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement">
                         <TextField source="reference"/>

@@ -4,7 +4,7 @@ import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, 
 import {GunakReferenceInput} from "../components/Inputs";
 
 export const StateList = props => (
-    <List {...props} title='States'>
+    <List {...props} title='States'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
             <ChildrenField source="district" label="Districts" parent="state" parentDisplayField="name"/>

@@ -1,17 +1,15 @@
 import React from 'react';
-import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required} from 'react-admin';
+import {Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
 import {parseUrl} from 'query-string';
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
-import _ from "lodash";
 import {GunakReferenceInput} from "../components/Inputs";
 
 export const MeasurableElementList = props => {
-    let parentResource = ParentResource.parse(props.history.location.search);
     return (
         <div>
-            {_.isNil(parentResource) ? null : <Parent parentResource={parentResource}/>}
+            <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
             <List {...props} title='Measurable elements'>
                 <Datagrid rowClick="edit">
                     <TextField source="reference"/>

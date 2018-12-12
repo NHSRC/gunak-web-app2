@@ -22,9 +22,13 @@ import {
     NumberField
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
+import ParentResource from "../framework/ParentResource";
+import Parent from "../components/Parent";
 
 export const FacilityList = props => (
-    <List {...props} title='Facilities'>
+    <div>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <List {...props} title='Facilities'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="name"/>
             <ReferenceField label="Facility Type" source="facilityTypeId" reference="facilityType">
@@ -33,7 +37,7 @@ export const FacilityList = props => (
             <EditButton/>
             <TextField source="id"/>
         </Datagrid>
-    </List>
+    </List></div>
 );
 
 let getForm = function (isCreate) {
