@@ -15,6 +15,7 @@ import {CheckpointCreate, CheckpointEdit, CheckpointList} from "./View/Checkpoin
 import {StateCreate, StateEdit, StateList} from "./View/State";
 import {DistrictCreate, DistrictEdit, DistrictList} from "./View/District";
 import {FacilityCreate, FacilityEdit, FacilityList} from "./View/Facility";
+import {FacilityTypeList} from "./View/FacilityType";
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
@@ -34,7 +35,7 @@ const App = () => (
         <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{ label: 'States' }}/>
         <Resource name="district" list={DistrictList} create={DistrictCreate} edit={DistrictEdit} options={{ label: 'Districts' }}/>
         <Resource name="facility" list={FacilityList} create={FacilityCreate} edit={FacilityEdit} options={{ label: 'Facilities' }}/>
-        <Resource name="facilityType" list={ListGuesser} options={{ label: 'Facility types' }}/>
+        <Resource name="facilityType" list={FacilityTypeList} options={{ label: 'Facility types' }}/>
 
         {/*Include device*/}
         <Resource name="facilityAssessment" list={ListGuesser} options={{ label: 'Assessments' }}/>
