@@ -10,8 +10,9 @@ import {ChecklistCreate, ChecklistEdit, ChecklistList} from './View/Checklist';
 import {AreaOfConcernCreate, AreaOfConcernEdit, AreaOfConcernList} from './View/AreaOfConcern';
 import {StandardCreate, StandardEdit, StandardList} from './View/Standard';
 import {MeasurableElementCreate, MeasurableElementEdit, MeasurableElementList} from './View/MeasurableElement';
-import {IndicatorDefinitionList} from './View/IndicatorDefinition';
+import {IndicatorDefinitionCreate, IndicatorDefinitionEdit, IndicatorDefinitionList} from './View/IndicatorDefinition';
 import {CheckpointCreate, CheckpointEdit, CheckpointList} from "./View/Checkpoint";
+import {StateCreate, StateEdit, StateList} from "./View/State";
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
@@ -28,7 +29,7 @@ const App = () => (
 
         <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{ label: 'Indicator definitions' }}/>
 
-        <Resource name="state" list={ListGuesser} options={{ label: 'States' }}/>
+        <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{ label: 'States' }}/>
         <Resource name="district" list={ListGuesser} options={{ label: 'Districts' }}/>
         <Resource name="facility" list={ListGuesser} options={{ label: 'Facilities' }}/>
         <Resource name="facilityType" list={ListGuesser} options={{ label: 'Facility types' }}/>

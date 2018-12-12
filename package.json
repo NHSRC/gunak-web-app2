@@ -6,11 +6,12 @@
   "dependencies": {
     "prop-types": "^15.6.2",
     "ra-data-json-server": "^2.4.2",
-    "react": "^16.6.1",
-    "react-admin": "^2.4.2",
-    "react-dom": "^16.6.1",
+    "react": "^16.6.3",
+    "react-admin": "^2.5.1",
+    "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "ra-language-english": "^2.3.0"
   },
   "devDependencies": {
     "chai": "^4.2.0"
