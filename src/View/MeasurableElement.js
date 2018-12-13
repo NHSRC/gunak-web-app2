@@ -5,6 +5,7 @@ import {parseUrl} from 'query-string';
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
 import {GunakReferenceInput} from "../components/Inputs";
+import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const MeasurableElementList = props => {
     return (
@@ -28,21 +29,21 @@ export const MeasurableElementList = props => {
 
 export const MeasurableElementCreate = (props) => (
     <Create {...props}>
-        <SimpleForm>
-            <TextInput source="reference"/>
-            <TextInput source="name"/>
-            <GunakReferenceInput label="Standard" optionText="reference" source="standard"/>
-        </SimpleForm>
+        {getForm(props, true)}
     </Create>
 );
 
+let getForm = function (props, isCreate) {
+    return <SimpleForm>
+        {isCreate ? <DisabledInput source="id"/> : null}
+        <TextInput source="reference"/>
+        <TextInput source="name"/>
+        <GunakReferenceInput label="Standard" optionText="reference" source="standard"/>
+        <ChildrenNameFieldPair source="checkpoint" label="Checkpoints" parent="measurableElement" parentDisplayField="name" history={props.history}/>
+    </SimpleForm>;
+};
 export const MeasurableElementEdit = props => (
     <Edit {...props}>
-        <SimpleForm>
-            <DisabledInput source="id" />
-            <TextInput source="reference"/>
-            <TextInput source="name" />
-            <GunakReferenceInput label="Standard" optionText="reference" source="standard"/>
-        </SimpleForm>
+        {getForm(props, false)}
     </Edit>
 );

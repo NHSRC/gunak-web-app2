@@ -18,15 +18,13 @@ import ChildrenField from "../components/ChildrenField";
 import {GunakReferenceInput} from "../components/Inputs";
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
+import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const ChecklistList = props => (
     <div>
         <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
         <List {...props} title='Checklists'>
             <Datagrid>
-                <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
-                    <TextField source="name"/>
-                </ReferenceField>
                 <TextField source="name"/>
                 <ReferenceField label="Department" source="departmentId" reference="department">
                     <TextField source="name"/>
@@ -34,27 +32,30 @@ export const ChecklistList = props => (
                 <ChildrenField source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history}/>
                 <EditButton/>
                 <TextField source="id"/>
+                <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
+                    <TextField source="name"/>
+                </ReferenceField>
             </Datagrid>
         </List></div>
 );
 
+let getForm = function (props, isCreate) {
+    return <SimpleForm>
+        {isCreate ? <DisabledInput source="id"/> : null}
+        <TextInput source="name" validate={[required("Mandatory")]}/>
+        <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
+        <GunakReferenceInput label="Department" optionText="name" source="department"/>
+        <ChildrenNameFieldPair source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history}/>
+    </SimpleForm>;
+};
 export const ChecklistEdit = props => (
     <Edit {...props}>
-        <SimpleForm>
-            <DisabledInput source="id"/>
-            <TextInput source="name" validate={[required("Mandatory")]}/>
-            <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
-            <GunakReferenceInput label="Department" optionText="name" source="department"/>
-        </SimpleForm>
+        {getForm(props, false)}
     </Edit>
 );
 
 export const ChecklistCreate = (props) => (
     <Create {...props}>
-        <SimpleForm>
-            <TextInput source="name" validate={[required("Mandatory")]}/>
-            <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
-            <GunakReferenceInput label="Department" optionText="name" source="department"/>
-        </SimpleForm>
+        {getForm(props, true)}
     </Create>
 );

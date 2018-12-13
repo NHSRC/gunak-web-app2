@@ -3,6 +3,7 @@ import {Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, Tex
 import ChildrenField from "../components/ChildrenField";
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
+import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const AreaOfConcernList = props => (
     <div>
@@ -19,21 +20,22 @@ export const AreaOfConcernList = props => (
     </div>
 );
 
+let getForm = function (props, isCreate) {
+    return <SimpleForm>
+        {isCreate ? null : <DisabledInput source="id"/>}
+        <TextInput source="reference"/>
+        <TextInput source="name"/>
+        <ChildrenNameFieldPair source="standard" label="Standards" parent="areaOfConcern" parentDisplayField="reference" history={props.history}/>
+    </SimpleForm>;
+};
 export const AreaOfConcernEdit = props => (
     <Edit {...props}>
-        <SimpleForm>
-            <DisabledInput source="id"/>
-            <TextInput source="reference"/>
-            <TextInput source="name"/>
-        </SimpleForm>
+        {getForm(props, false)}
     </Edit>
 );
 
 export const AreaOfConcernCreate = (props) => (
     <Create {...props} title="Create new area of concern">
-        <SimpleForm>
-            <TextInput source="reference"/>
-            <TextInput source="name"/>
-        </SimpleForm>
+        {getForm(props, true)}
     </Create>
 );

@@ -4,6 +4,7 @@ import ChildrenField from "../components/ChildrenField";
 import {GunakReferenceInput} from "../components/Inputs";
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
+import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const StandardList = props => (
     <div>
@@ -24,21 +25,22 @@ export const StandardList = props => (
 
 export const StandardCreate = (props) => (
     <Create {...props}>
-        <SimpleForm>
-            <TextInput source="reference"/>
-            <TextInput source="name"/>
-            <GunakReferenceInput label="Area of concern" optionText="reference" source="areaOfConcern"/>
-        </SimpleForm>
+        {getForm(props, true)}
     </Create>
 );
 
+let getForm = function (props, isCreate) {
+    return <SimpleForm>
+        {isCreate ? <DisabledInput source="id"/> : null}
+        <TextInput source="reference"/>
+        <TextInput source="name"/>
+        <GunakReferenceInput label="Area of concern" optionText="reference" source="areaOfConcern"/>
+        <ChildrenNameFieldPair source="measurableElement" label="Measurable Elements" parent="standard" parentDisplayField="name" history={props.history}/>
+    </SimpleForm>;
+};
+
 export const StandardEdit = props => (
     <Edit {...props}>
-        <SimpleForm>
-            <DisabledInput source="id" />
-            <TextInput source="reference"/>
-            <TextInput source="name" />
-            <GunakReferenceInput label="Area of concern" optionText="reference" source="areaOfConcern"/>
-        </SimpleForm>
+        {getForm(props, false)}
     </Edit>
 );

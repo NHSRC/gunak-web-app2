@@ -2,6 +2,7 @@ import React from 'react';
 import ChildrenField from "../components/ChildrenField";
 import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
+import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const StateList = props => (
     <List {...props} title='States'perPage={30}>
@@ -14,10 +15,11 @@ export const StateList = props => (
     </List>
 );
 
-let getForm = function (isCreate) {
+let getForm = function (props, isCreate) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name"/>
+        <ChildrenNameFieldPair source="district" label="Districts" parent="state" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };
 export const StateCreate = (props) => (
