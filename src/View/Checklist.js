@@ -48,7 +48,7 @@ let getForm = function (props, isCreate) {
         <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
         <GunakReferenceInput label="Department" optionText="name" source="department"/>
         <BooleanInput source="inactive"/>
-        <ChildrenNameFieldPair source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history}/>
+        <ChildrenNameFieldPair source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history} />
     </SimpleForm>;
 };
 export const ChecklistEdit = props => (
