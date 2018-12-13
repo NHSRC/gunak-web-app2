@@ -1,18 +1,18 @@
 import React from 'react';
 import {
+    BooleanField,
+    BooleanInput,
+    Create,
     Datagrid,
     DisabledInput,
     Edit,
     EditButton,
     List,
+    ReferenceField,
+    required,
     SimpleForm,
     TextField,
-    TextInput,
-    ReferenceField,
-    Create,
-    ReferenceInput,
-    SelectInput,
-    required
+    TextInput
 } from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
 import {GunakReferenceInput} from "../components/Inputs";
@@ -32,6 +32,7 @@ export const ChecklistList = props => (
                 <ChildrenField source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history}/>
                 <ChildrenField source="areaOfConcern" label="Area of concerns" parent="checklist" parentDisplayField="name" history={props.history}/>
                 <EditButton/>
+                <BooleanField source="inactive"/>
                 <TextField source="id"/>
                 <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
                     <TextField source="name"/>
@@ -46,6 +47,7 @@ let getForm = function (props, isCreate) {
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
         <GunakReferenceInput label="Department" optionText="name" source="department"/>
+        <BooleanInput source="inactive"/>
         <ChildrenNameFieldPair source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };

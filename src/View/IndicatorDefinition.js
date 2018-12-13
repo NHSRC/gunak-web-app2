@@ -1,5 +1,20 @@
 import React from 'react';
-import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField} from 'react-admin';
+import {
+    BooleanField,
+    BooleanInput,
+    Create,
+    Datagrid,
+    DisabledInput,
+    Edit,
+    EditButton,
+    List,
+    NumberField,
+    NumberInput,
+    ReferenceField,
+    SimpleForm,
+    TextField,
+    TextInput
+} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 
 export const IndicatorDefinitionList = props => (
@@ -16,6 +31,7 @@ export const IndicatorDefinitionList = props => (
                 <TextField source="name"/>
             </ReferenceField>
             <EditButton/>
+            <BooleanField source="inactive"/>
             <TextField source="id" />
         </Datagrid>
     </List>
@@ -31,6 +47,7 @@ let getForm = function (isCreate) {
         <TextInput source="symbol"/>
         <NumberInput source="sortOrder"/>
         <TextInput source="codedValues"/>
+        <BooleanInput source="inactive"/>
         <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
     </SimpleForm>;
 };

@@ -1,26 +1,6 @@
 import React from 'react';
-import ChildrenField from "../components/ChildrenField";
 
-import {
-    Datagrid,
-    DisabledInput,
-    Edit,
-    EditButton,
-    List,
-    SimpleForm,
-    TextField,
-    TextInput,
-    ReferenceField,
-    Create,
-    ReferenceInput,
-    SelectInput,
-    required,
-    BooleanField,
-    LongTextInput,
-    BooleanInput,
-    NumberInput,
-    NumberField
-} from 'react-admin';
+import {BooleanField, Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
@@ -35,6 +15,7 @@ export const FacilityList = props => (
                 <TextField source="name"/>
             </ReferenceField>
             <EditButton/>
+            <BooleanField source="inactive"/>
             <TextField source="id"/>
         </Datagrid>
     </List></div>

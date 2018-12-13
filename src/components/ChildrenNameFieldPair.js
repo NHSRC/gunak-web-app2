@@ -8,8 +8,7 @@ const ChildrenNameFieldPair = ({source, parent, parentDisplayField, history, lab
         <br/>
         <br/>
         <br/>
-        <InputLabel>{label}</InputLabel>
-        <br/>
+        <InputLabel>{label}</InputLabel><span> - </span>
         <ChildrenField history={history} parent={parent} parentDisplayField={parentDisplayField} source={source} record={record} label={label}/>
     </div>
 };

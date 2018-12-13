@@ -1,10 +1,11 @@
 import React from 'react';
-import {Create, Datagrid, DisabledInput, Edit, List, SimpleForm, TextField, TextInput} from 'react-admin';
+import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, List, SimpleForm, TextField, TextInput} from 'react-admin';
 
 export const DepartmentList = props => (
     <List {...props} title='Departments'>
         <Datagrid rowClick="edit">
             <TextField source="name" />
+            <BooleanField source="inactive"/>
             <TextField source="id" />
         </Datagrid>
     </List>
@@ -23,6 +24,7 @@ export const DepartmentCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="name" />
+            <BooleanInput source="inactive"/>
         </SimpleForm>
     </Create>
 );

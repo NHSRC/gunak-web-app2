@@ -1,7 +1,6 @@
 import React from 'react';
 import ChildrenField from "../components/ChildrenField";
-import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField} from 'react-admin';
-import {GunakReferenceInput} from "../components/Inputs";
+import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const StateList = props => (
@@ -10,6 +9,7 @@ export const StateList = props => (
             <TextField source="name" />
             <ChildrenField source="district" label="Districts" parent="state" parentDisplayField="name" history={props.history}/>
             <EditButton/>
+            <BooleanField source="inactive"/>
             <TextField source="id" />
         </Datagrid>
     </List>
@@ -19,6 +19,7 @@ let getForm = function (props, isCreate) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name"/>
+        <BooleanInput source="inactive"/>
         <ChildrenNameFieldPair source="district" label="Districts" parent="state" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };

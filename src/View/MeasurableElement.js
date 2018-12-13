@@ -1,5 +1,5 @@
 import React from 'react';
-import {Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
+import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
 import {parseUrl} from 'query-string';
 import ParentResource from "../framework/ParentResource";
@@ -20,6 +20,7 @@ export const MeasurableElementList = props => {
                     </ReferenceField>
                     <ChildrenField source="checkpoint" label="Checkpoints" parent="measurableElement" parentDisplayField="name" history={props.history}/>
                     <EditButton/>
+                    <BooleanField source="inactive"/>
                     <TextField source="id"/>
                 </Datagrid>
             </List>
@@ -39,6 +40,7 @@ let getForm = function (props, isCreate) {
         <TextInput source="reference"/>
         <TextInput source="name"/>
         <GunakReferenceInput label="Standard" optionText="reference" source="standard"/>
+        <BooleanInput source="inactive"/>
         <ChildrenNameFieldPair source="checkpoint" label="Checkpoints" parent="measurableElement" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };

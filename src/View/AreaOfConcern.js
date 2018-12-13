@@ -1,5 +1,5 @@
 import React from 'react';
-import {Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
+import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
@@ -14,6 +14,7 @@ export const AreaOfConcernList = props => (
                 <TextField source="name"/>
                 <ChildrenField source="standard" label="Standards" parent="areaOfConcern" parentDisplayField="reference" history={props.history}/>
                 <EditButton/>
+                <BooleanField source="inactive"/>
                 <TextField source="id"/>
             </Datagrid>
         </List>
@@ -25,6 +26,7 @@ let getForm = function (props, isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="reference"/>
         <TextInput source="name"/>
+        <BooleanInput source="inactive"/>
         <ChildrenNameFieldPair source="standard" label="Standards" parent="areaOfConcern" parentDisplayField="reference" history={props.history}/>
     </SimpleForm>;
 };

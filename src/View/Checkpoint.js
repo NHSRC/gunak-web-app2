@@ -36,6 +36,7 @@ export const CheckpointList = props => {
                     <BooleanField source="assessmentMethodStaffInterview" label="AM Staff Interview"/>
                     <BooleanField source="assessmentMethodPatientInterview" label="AM Patient Interview"/>
                     <BooleanField source="assessmentMethodRecordReview" label="AM Record Review"/>
+                    <BooleanField source="inactive"/>
                     <EditButton/>
                     <TextField source="id"/>
                     <ReferenceField label="Checklist" source="checklistId" reference="checklist">
@@ -59,6 +60,7 @@ let form = function (isCreate) {
         <BooleanInput source="assessmentMethodStaffInterview"/>
         <BooleanInput source="assessmentMethodPatientInterview"/>
         <BooleanInput source="assessmentMethodRecordReview"/>
+        <BooleanInput source="inactive"/>
     </SimpleForm>;
 };
 export const CheckpointEdit = props => (
