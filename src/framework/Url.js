@@ -2,8 +2,9 @@ import _ from "lodash";
 import {parseUrl} from 'query-string';
 
 class Url {
-    constructor(urlString) {
-        let obj = parseUrl(urlString);
+    constructor(path) {
+        this.path = path;
+        let obj = parseUrl(this.fullString());
         let split = _.split(obj.url, "/", 3);
         if (split.length > 1) this.resource = split[1];
         if (split.length > 2) this.id = split[2];
@@ -21,6 +22,14 @@ class Url {
 
     hasFilter() {
         return !_.isNil(this.filter);
+    }
+
+    fullString() {
+        if (this.path instanceof Object) {
+            return this.path.pathname + this.path.search;
+        } else {
+            return this.path;
+        }
     }
 }
 

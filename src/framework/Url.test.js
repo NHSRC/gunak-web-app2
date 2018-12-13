@@ -17,6 +17,10 @@ describe('Url.test.js', () => {
         let url = new Url("/checkpoint?filter={\"name\":\"checklist\",\"display\":\"Emergency\",\"id\":1}");
         assert.equal(url.resource, "checkpoint");
         assert.exists(url.filter);
+
+        url = new Url({pathname: "/checkpoint", search: "?filter={\"name\":\"checklist\",\"display\":\"Emergency\",\"id\":1}"});
+        assert.equal(url.resource, "checkpoint");
+        assert.exists(url.filter);
     });
 
     it('should tell whether url is listing', function () {

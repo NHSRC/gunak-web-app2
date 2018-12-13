@@ -30,6 +30,7 @@ export const ChecklistList = props => (
                     <TextField source="name"/>
                 </ReferenceField>
                 <ChildrenField source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history}/>
+                <ChildrenField source="areaOfConcern" label="Area of concerns" parent="checklist" parentDisplayField="name" history={props.history}/>
                 <EditButton/>
                 <TextField source="id"/>
                 <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">

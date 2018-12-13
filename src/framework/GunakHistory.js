@@ -24,19 +24,19 @@ class GunakHistory {
     }
 
     push(path, state) {
-        console.log(`TRYING PUSH: ${path}, ${JSON.stringify(state)}, ${this.length}`);
         let url = new Url(path);
+        console.log(`TRYING PUSH: ${url.fullString()}, ${JSON.stringify(state)}, ${this.length}`);
         if (url.isResourceListing() && this.list.length > 1 && new Url(_.last(this.list)).isResourcePage() && new Url(this.list[this.list.length - 2]).hasFilter()) {
             let childrenForParentPath = this.list[this.list.length - 2];
-            return this._push(childrenForParentPath, state);
+            return this._push(new Url(childrenForParentPath), state);
         }
-        return this._push(path, state);
+        return this._push(url, state);
     }
 
-    _push(path, state) {
-        console.log(`PUSHING: ${path}`);
-        this.list.push(path);
-        return this.history.push(path, state);
+    _push(url, state) {
+        console.log(`PUSHING: ${url.fullString()}`);
+        this.list.push(url.fullString());
+        return this.history.push(url.fullString(), state);
     }
 
     replace(path, state) {
