@@ -25,7 +25,7 @@ export const CheckpointList = props => {
         <div>
             <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
             <List {...props} title='Checkpoints'perPage={30}>
-                <Datagrid rowClick="edit">
+                <Datagrid>
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement">
                         <TextField source="reference"/>
                     </ReferenceField>

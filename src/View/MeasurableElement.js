@@ -17,7 +17,7 @@ export const MeasurableElementList = props => {
                     <ReferenceField label="Standard" source="standardId" reference="standard">
                         <TextField source="reference"/>
                     </ReferenceField>
-                    <ChildrenField source="checkpoint" label="Checkpoints" parent="measurableElement" parentDisplayField="name"/>
+                    <ChildrenField source="checkpoint" label="Checkpoints" parent="measurableElement" parentDisplayField="name" history={props.history}/>
                     <EditButton/>
                     <TextField source="id"/>
                 </Datagrid>

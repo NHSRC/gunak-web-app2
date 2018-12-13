@@ -14,7 +14,7 @@ export const DistrictList = props => (
             <ReferenceField label="State" source="stateId" reference="state">
                 <TextField source="name" />
             </ReferenceField>
-            <ChildrenField source="facility" label="Facilities" parent="district" parentDisplayField="name"/>
+            <ChildrenField source="facility" label="Facilities" parent="district" parentDisplayField="name" history={props.history}/>
             <EditButton/>
             <TextField source="id" />
         </Datagrid>

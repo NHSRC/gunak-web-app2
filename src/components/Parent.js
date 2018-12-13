@@ -15,7 +15,7 @@ const Parent = ({parentResource}) => {
 };
 
 Parent.propTypes = {
-    parentResource: PropTypes.object.isRequired
+    parentResource: PropTypes.object
 };
 
 export default Parent;

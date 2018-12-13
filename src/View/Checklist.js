@@ -23,7 +23,7 @@ export const ChecklistList = props => (
     <div>
         <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
         <List {...props} title='Checklists'>
-            <Datagrid rowClick="edit">
+            <Datagrid>
                 <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
                     <TextField source="name"/>
                 </ReferenceField>
@@ -31,7 +31,7 @@ export const ChecklistList = props => (
                 <ReferenceField label="Department" source="departmentId" reference="department">
                     <TextField source="name"/>
                 </ReferenceField>
-                <ChildrenField source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name"/>
+                <ChildrenField source="checkpoint" label="Checkpoints" parent="checklist" parentDisplayField="name" history={props.history}/>
                 <EditButton/>
                 <TextField source="id"/>
             </Datagrid>

@@ -15,7 +15,7 @@ export const StandardList = props => (
             <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern">
                 <TextField source="reference" />
             </ReferenceField>
-            <ChildrenField source="measurableElement" label="Measurable Elements" parent="standard" parentDisplayField="name"/>
+            <ChildrenField source="measurableElement" label="Measurable Elements" parent="standard" parentDisplayField="name" history={props.history}/>
             <EditButton />
             <TextField source="id" />
         </Datagrid>

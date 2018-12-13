@@ -7,7 +7,7 @@ export const StateList = props => (
     <List {...props} title='States'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
-            <ChildrenField source="district" label="Districts" parent="state" parentDisplayField="name"/>
+            <ChildrenField source="district" label="Districts" parent="state" parentDisplayField="name" history={props.history}/>
             <EditButton/>
             <TextField source="id" />
         </Datagrid>

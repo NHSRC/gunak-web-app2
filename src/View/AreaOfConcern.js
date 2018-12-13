@@ -11,7 +11,7 @@ export const AreaOfConcernList = props => (
             <Datagrid rowClick="edit">
                 <TextField source="reference"/>
                 <TextField source="name"/>
-                <ChildrenField source="standard" label="Standards" parent="areaOfConcern" parentDisplayField="reference"/>
+                <ChildrenField source="standard" label="Standards" parent="areaOfConcern" parentDisplayField="reference" history={props.history}/>
                 <EditButton/>
                 <TextField source="id"/>
             </Datagrid>
