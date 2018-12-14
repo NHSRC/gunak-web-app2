@@ -13,10 +13,8 @@ import {
     NumberInput,
     ReferenceField,
     SimpleForm,
-    TextField,
-    Link
+    TextField
 } from 'react-admin';
-import {parseUrl} from 'query-string';
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
 import {GunakReferenceInput} from "../components/Inputs";

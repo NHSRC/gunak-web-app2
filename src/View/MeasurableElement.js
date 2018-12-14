@@ -1,7 +1,6 @@
 import React from 'react';
 import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
 import ChildrenField from "../components/ChildrenField";
-import {parseUrl} from 'query-string';
 import ParentResource from "../framework/ParentResource";
 import Parent from "../components/Parent";
 import {GunakReferenceInput} from "../components/Inputs";

@@ -10,7 +10,7 @@ import {ChecklistCreate, ChecklistEdit, ChecklistList} from './View/Checklist';
 import {AreaOfConcernCreate, AreaOfConcernEdit, AreaOfConcernList} from './View/AreaOfConcern';
 import {StandardCreate, StandardEdit, StandardList} from './View/Standard';
 import {MeasurableElementCreate, MeasurableElementEdit, MeasurableElementList} from './View/MeasurableElement';
-import {IndicatorDefinitionCreate, IndicatorDefinitionEdit, IndicatorDefinitionList} from './View/IndicatorDefinition';
+import {IndicatorDefinitionList} from './View/IndicatorDefinition';
 import {CheckpointCreate, CheckpointEdit, CheckpointList} from "./View/Checkpoint";
 import {StateCreate, StateEdit, StateList} from "./View/State";
 import {DistrictCreate, DistrictEdit, DistrictList} from "./View/District";
@@ -18,6 +18,7 @@ import {FacilityCreate, FacilityEdit, FacilityList} from "./View/Facility";
 import {FacilityTypeList} from "./View/FacilityType";
 import createHistory from 'history/createHashHistory';
 import GunakHistory from "./framework/GunakHistory";
+import {FacilityAssessmentList} from "./View/FacilityAssessment";
 
 const history = new GunakHistory(createHistory());
 
@@ -43,7 +44,7 @@ const App = () => (
         <Resource name="facilityType" list={FacilityTypeList} options={{label: 'Facility types'}}/>
 
         {/*Include device*/}
-        <Resource name="facilityAssessment" list={ListGuesser} options={{label: 'Assessments'}}/>
+        <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}}/>
         <Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>
         <Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>
 
