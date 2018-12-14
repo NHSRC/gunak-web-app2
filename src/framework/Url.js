@@ -26,10 +26,14 @@ class Url {
 
     fullString() {
         if (this.path instanceof Object) {
-            return this.path.pathname + this.path.search;
+            return this.path.pathname + (_.isNil(this.path.search) ? "" : this.path.search);
         } else {
             return this.path;
         }
+    }
+
+    getPath() {
+        return this.path;
     }
 }
 

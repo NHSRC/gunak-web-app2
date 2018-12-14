@@ -7,7 +7,7 @@ import Parent from "../components/Parent";
 
 export const FacilityList = props => (
     <div>
-        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add Facility" childResource="facility"/>
         <List {...props} title='Facilities'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="name"/>

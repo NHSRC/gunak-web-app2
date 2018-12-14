@@ -13,7 +13,8 @@ import {
     NumberInput,
     ReferenceField,
     SimpleForm,
-    TextField
+    TextField,
+    Link
 } from 'react-admin';
 import {parseUrl} from 'query-string';
 import ParentResource from "../framework/ParentResource";
@@ -21,10 +22,11 @@ import Parent from "../components/Parent";
 import {GunakReferenceInput} from "../components/Inputs";
 
 export const CheckpointList = props => {
+    let parentResource = ParentResource.parse(props.history.location.search);
     return (
         <div>
-            <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
-            <List {...props} title='Checkpoints'perPage={30}>
+            <Parent parentResource={parentResource} label="Add Checkpoint" childResource="checkpoint"/>
+            <List {...props} title='Checkpoints' perPage={30}>
                 <Datagrid>
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement">
                         <TextField source="reference"/>
@@ -48,7 +50,7 @@ export const CheckpointList = props => {
     );
 };
 
-let form = function (isCreate) {
+let form = function (isCreate, props) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
         <GunakReferenceInput label="Checklist" optionText="name" source="checklist"/>
@@ -69,8 +71,8 @@ export const CheckpointEdit = props => (
     </Edit>
 );
 
-export const CheckpointCreate = (props) => (
-    <Create {...props}>
-        {form(true)}
-    </Create>
-);
+export const CheckpointCreate = (props) => {
+    return (<Create {...props}>
+        {form(true, props)}
+    </Create>);
+};

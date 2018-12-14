@@ -7,7 +7,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const AreaOfConcernList = props => (
     <div>
-        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add Area Of Concern" childResource="areaOfConcern"/>
         <List {...props} title='Area of concerns'>
             <Datagrid rowClick="edit">
                 <TextField source="reference"/>

@@ -10,7 +10,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 export const MeasurableElementList = props => {
     return (
         <div>
-            <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+            <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add Measurable Element" childResource="measurableElement"/>
             <List {...props} title='Measurable elements'>
                 <Datagrid rowClick="edit">
                     <TextField source="reference"/>

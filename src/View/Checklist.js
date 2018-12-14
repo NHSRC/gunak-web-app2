@@ -22,7 +22,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const ChecklistList = props => (
     <div>
-        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add Checklist" childResource="checklist"/>
         <List {...props} title='Checklists'>
             <Datagrid>
                 <TextField source="name"/>

@@ -26,9 +26,13 @@ class GunakHistory {
     push(path, state) {
         let url = new Url(path);
         console.log(`TRYING PUSH: ${url.fullString()}, ${JSON.stringify(state)}, ${this.length}`);
-        if (url.isResourceListing() && this.list.length > 1 && new Url(_.last(this.list)).isResourcePage() && new Url(this.list[this.list.length - 2]).hasFilter()) {
-            let childrenForParentPath = this.list[this.list.length - 2];
-            return this._push(new Url(childrenForParentPath), state);
+        if (url.isResourceListing() && this.list.length > 1) {
+            let lastUrl = new Url(_.last(this.list));
+            let lastButOneUrlString = this.list[this.list.length - 2];
+            let lastButOneUrl = new Url(lastButOneUrlString);
+            if (lastUrl.isResourcePage() && lastButOneUrl.hasFilter() && url.resource === lastButOneUrl.resource) {
+                return this._push(new Url(lastButOneUrlString), state);
+            }
         }
         return this._push(url, state);
     }
@@ -36,7 +40,7 @@ class GunakHistory {
     _push(url, state) {
         console.log(`PUSHING: ${url.fullString()}`);
         this.list.push(url.fullString());
-        return this.history.push(url.fullString(), state);
+        return this.history.push(url.path, state);
     }
 
     replace(path, state) {

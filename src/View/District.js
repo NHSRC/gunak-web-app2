@@ -8,7 +8,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const DistrictList = props => (
     <div>
-        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add District" childResource="district"/>
         <List {...props} title='Districts'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="name" />

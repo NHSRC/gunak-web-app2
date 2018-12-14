@@ -8,7 +8,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const StandardList = props => (
     <div>
-        <Parent parentResource={ParentResource.parse(props.history.location.search)}/>
+        <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add Standard" childResource="standard"/>
         <List {...props} title='Standards'perPage={30}>
         <Datagrid rowClick="edit">
             <TextField source="reference" />
