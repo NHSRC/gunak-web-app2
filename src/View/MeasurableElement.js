@@ -1,14 +1,30 @@
 import React from 'react';
-import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField, Filter} from 'react-admin';
-import ParentResource from "../framework/ParentResource";
+import {
+    BooleanField,
+    BooleanInput,
+    Create,
+    Datagrid,
+    DisabledInput,
+    Edit,
+    EditButton,
+    Filter,
+    List,
+    ReferenceField,
+    ReferenceInput,
+    SelectInput,
+    SimpleForm,
+    TextField,
+    TextInput,
+    AutocompleteInput
+} from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn>
-            <SelectInput optionText="reference"/>
+        <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort="reference">
+            <AutocompleteInput optionText="fullReference"/>
         </ReferenceInput>
 
     </Filter>

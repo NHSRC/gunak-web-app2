@@ -5,7 +5,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn perPage={1000}>
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn perPage={1000} sort="name">
             <SelectInput optionText="fullReference"/>
         </ReferenceInput>
     </Filter>

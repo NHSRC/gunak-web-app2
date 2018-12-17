@@ -22,8 +22,8 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn>
-            <SelectInput optionText="fullReference"/>
+        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort="reference">
+            <TextInput optionText="fullReference"/>
         </ReferenceInput>
     </Filter>
 );
