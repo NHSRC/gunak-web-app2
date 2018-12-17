@@ -19,6 +19,7 @@ import {FacilityTypeList} from "./View/FacilityType";
 import createHistory from 'history/createHashHistory';
 import GunakHistory from "./framework/GunakHistory";
 import {FacilityAssessmentList} from "./View/FacilityAssessment";
+import {UserList} from "./View/User";
 
 const history = new GunakHistory(createHistory());
 
@@ -45,10 +46,10 @@ const App = () => (
 
         {/*Include device*/}
         <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}}/>
-        <Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>
-        <Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>
+        {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
+        {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
 
-        <Resource name="user" list={ListGuesser} options={{label: 'Users'}}/>
+        <Resource name="user" list={UserList} options={{label: 'Users'}}/>
     </Admin>
 );
 

@@ -17,13 +17,12 @@ import {
     TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
-import ParentResource from "../framework/ParentResource";
 import ContextActions from "../components/ContextActions";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="state" source="stateId" reference="state" alwaysOn>
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort="name">
             <SelectInput optionText="name"/>
         </ReferenceInput>
     </Filter>

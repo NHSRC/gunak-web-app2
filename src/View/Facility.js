@@ -14,15 +14,16 @@ import {
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    AutocompleteInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn>
-            <SelectInput optionText="name"/>
+        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort="name">
+            <AutocompleteInput optionText="name"/>
         </ReferenceInput>
         <ReferenceInput label="Facility type" source="facilityTypeId" reference="facilityType" alwaysOn>
             <SelectInput optionText="name"/>

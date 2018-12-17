@@ -1,9 +1,19 @@
 import React from 'react';
-import ChildrenField from "../components/ChildrenField";
-import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField} from 'react-admin';
+import {AutocompleteInput, Datagrid, Filter, List, ReferenceField, ReferenceInput, SelectInput, TextField} from 'react-admin';
+
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn sort="name">
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort="name">
+            <AutocompleteInput optionText="name"/>
+        </ReferenceInput>
+    </Filter>
+);
 
 export const FacilityAssessmentList = props => (
-    <List {...props} title='FacilityAssessments'>
+    <List {...props} title='FacilityAssessments' filters={<EntityFilter />}>
         <Datagrid rowClick="edit">
             <TextField source="facilityName" label="Facility Name"/>
             <TextField source="startDate"/>

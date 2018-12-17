@@ -33,7 +33,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
 
                 const query = {
                     page: page - 1,
-                    size: perPage
+                    size: perPage,
+                    sort: params["sort"]
                 };
 
                 let pagination = stringify(query);
