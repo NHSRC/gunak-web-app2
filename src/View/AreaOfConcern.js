@@ -5,8 +5,8 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn perPage={1000} sort="name">
-            <SelectInput optionText="name"/>
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn perPage={1000}>
+            <SelectInput optionText="fullReference"/>
         </ReferenceInput>
     </Filter>
 );
@@ -16,6 +16,9 @@ export const AreaOfConcernList = props => (
         <ContextActions url={props.history.location.search} label="Add Area Of Concern" childResource="areaOfConcern"/>
         <List {...props} title='Area of concerns' filters={<EntityFilter />}>
             <Datagrid rowClick="edit">
+                <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
+                    <TextField source="name"/>
+                </ReferenceField>
                 <TextField source="reference"/>
                 <TextField source="name"/>
                 <EditButton/>
