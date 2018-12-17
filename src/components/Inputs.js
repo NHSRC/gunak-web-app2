@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {required, ReferenceInput, SelectInput, AutocompleteInput} from 'react-admin';
 
 export const GunakReferenceInput = ({label, source, optionText, record, mandatory = true, autoComplete = false}) => {
-    return <ReferenceInput label={label} source={`${source}Id`} reference={`${source}`} validate={mandatory ? [required("Mandatory")] : []} perPage={20} resource={`${source}`}>
+    return <ReferenceInput label={label} source={`${source}Id`} reference={`${source}`} validate={mandatory ? [required("Mandatory")] : []} perPage={25} resource={`${source}`}>
         {autoComplete ? <AutocompleteInput source={source} optionText={optionText} allowEmpty={false}/> : <SelectInput optionText={optionText}/>}
     </ReferenceInput>;
 };

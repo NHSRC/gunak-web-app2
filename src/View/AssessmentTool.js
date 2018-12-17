@@ -8,7 +8,6 @@ export const AssessmentToolList = props => (
         <Datagrid rowClick="edit">
             <TextField source="name" />
             <TextField source="mode" />
-            <ChildrenField history={props.history} parent="assessmentTool" parentDisplayField="name" source="checklist" label="Checklists"/>
             <BooleanField source="inactive"/>
             <TextField source="id" />
         </Datagrid>

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import {stringify} from 'query-string';
 import {CREATE, DELETE, DELETE_MANY, fetchUtils, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE, UPDATE_MANY,} from 'react-admin';
-import ParentResource from "./ParentResource";
-import Filter from "./Filter";
+import ResourceFilter from "./ResourceFilter";
+import SpringResponse from "./SpringResponse";
 
 /**
  * Maps react-admin queries to a simple REST API
@@ -37,14 +37,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 };
 
                 let pagination = stringify(query);
-                let filter = params["filter"];
-                let typeOfListing = Filter.getTypeOfListing(filter);
-                if (typeOfListing === Filter.ENTITY) {
+                let filter = params.filter;
+                let typeOfListing = ResourceFilter.getTypeOfListing(filter);
+                if (typeOfListing === ResourceFilter.ENTITY) {
                     url = `${apiUrl}/${resource}?${pagination}`;
-                } else if (typeOfListing === Filter.ENTITY_BY_PARAM_LIKE) {
+                } else if (typeOfListing === ResourceFilter.ENTITY_BY_PARAM_LIKE) {
                     url = `${apiUrl}/${resource}/search/find?${stringify(filter)}&${pagination}`;
-                } else if (typeOfListing === Filter.ENTITY_BY_PARENT) {
-                    url = `${apiUrl}/${resource}/${ParentResource.getResourcePath_ByParent(filter)}?${pagination}&${ParentResource.getParentParamString(filter)}`;
+                } else if (typeOfListing === ResourceFilter.ENTITY_BY_PARENT) {
+                    url = `${apiUrl}/${resource}/${ResourceFilter.getResourcePath_ByParent(filter)}?${pagination}&${ResourceFilter.getParentParamString(filter)}`;
                 }
 
                 break;
@@ -105,12 +105,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         switch (type) {
             case GET_LIST:
             case GET_MANY_REFERENCE:
-                let resources = json['_embedded'][resource];
-                let page = json['page'];
-                return {
-                    data: resources,
-                    total: page["totalElements"]
-                };
+                return SpringResponse.toReactAdminResourceListResponse(json, resource);
             case GET_MANY:
                 return {
                     data: json['_embedded'][resource]

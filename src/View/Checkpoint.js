@@ -13,18 +13,31 @@ import {
     NumberInput,
     ReferenceField,
     SimpleForm,
-    TextField
+    TextField,
+    Filter,
+    ReferenceInput,
+    SelectInput
 } from 'react-admin';
 import ParentResource from "../framework/ParentResource";
-import Parent from "../components/Parent";
+import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn>
+            <SelectInput optionText="name" />
+        </ReferenceInput>
+    </Filter>
+);
+
 export const CheckpointList = props => {
-    let parentResource = ParentResource.parse(props.history.location.search);
     return (
         <div>
-            <Parent parentResource={parentResource} label="Add Checkpoint" childResource="checkpoint"/>
-            <List {...props} title='Checkpoints' perPage={30}>
+            <ContextActions url={props.history.location.search} label="Add Checkpoint" childResource="checkpoint"/>
+            <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter />}>
                 <Datagrid>
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement">
                         <TextField source="reference"/>
@@ -51,6 +64,7 @@ export const CheckpointList = props => {
 let form = function (isCreate, props) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
+        <GunakReferenceInput label="State" optionText="name" source="state"/>
         <GunakReferenceInput label="Checklist" optionText="name" source="checklist"/>
         <GunakReferenceInput label="Measurable element" optionText="reference" source="measurableElement" autoComplete={true}/>
         <LongTextInput source="name"/>

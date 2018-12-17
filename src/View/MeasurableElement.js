@@ -1,23 +1,30 @@
 import React from 'react';
-import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
-import ChildrenField from "../components/ChildrenField";
+import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField, Filter} from 'react-admin';
 import ParentResource from "../framework/ParentResource";
-import Parent from "../components/Parent";
+import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
+
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn>
+            <SelectInput optionText="reference"/>
+        </ReferenceInput>
+
+    </Filter>
+);
 
 export const MeasurableElementList = props => {
     return (
         <div>
-            <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add Measurable Element" childResource="measurableElement"/>
-            <List {...props} title='Measurable elements'>
+            <ContextActions url={props.history.location.search} label="Add Measurable Element" childResource="measurableElement"/>
+            <List {...props} title='Measurable elements' filters={<EntityFilter />}>
                 <Datagrid rowClick="edit">
                     <TextField source="reference"/>
                     <TextField source="name"/>
                     <ReferenceField label="Standard" source="standardId" reference="standard">
                         <TextField source="reference"/>
                     </ReferenceField>
-                    <ChildrenField source="checkpoint" label="Checkpoints" parent="measurableElement" parentDisplayField="name" history={props.history}/>
                     <EditButton/>
                     <BooleanField source="inactive"/>
                     <TextField source="id"/>

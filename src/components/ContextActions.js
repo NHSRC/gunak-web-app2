@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ParentResource from "../framework/ParentResource";
 import _ from "lodash";
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import {
     Link
 } from 'react-admin';
+import ResourceFilter from "../framework/ResourceFilter";
 
 const styles = {
     root: {
@@ -20,15 +20,19 @@ const styles = {
     }
 };
 
-const Parent = ({parentResource, childResource, label}) => {
-    if (_.isNil(parentResource)) return null;
+const ContextActions = ({url, childResource, label}) => {
+    if (_.isNil(url)) return null;
 
+    let resourceFilter = ResourceFilter.parse(url);
     let record = {};
-    record[`${parentResource.name}Id`] = parentResource.id;
+    _.keys(resourceFilter).forEach((key) => {
+        record[key] = resourceFilter[key];
+    });
+
     return <div style={styles.root}>
         <AppBar position="static">
             <Toolbar>
-                <Typography variant="subheading" color="inherit" style={styles.grow}>{ParentResource.toDisplay(parentResource)}</Typography>
+                <Typography variant="subheading" color="inherit" style={styles.grow}/>
                 <Button
                     component={Link}
                     color="default"
@@ -42,10 +46,10 @@ const Parent = ({parentResource, childResource, label}) => {
     </div>;
 };
 
-Parent.propTypes = {
-    parentResource: PropTypes.object,
+ContextActions.propTypes = {
+    url: PropTypes.object,
     childResource: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
 };
 
-export default Parent;
+export default ContextActions;

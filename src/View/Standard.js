@@ -1,22 +1,28 @@
 import React from 'react';
-import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
-import ChildrenField from "../components/ChildrenField";
+import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField, Filter} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ParentResource from "../framework/ParentResource";
-import Parent from "../components/Parent";
+import ContextActions from "../components/ContextActions";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
+
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn>
+            <SelectInput optionText="reference"/>
+        </ReferenceInput>
+    </Filter>
+);
 
 export const StandardList = props => (
     <div>
-        <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add Standard" childResource="standard"/>
-        <List {...props} title='Standards'perPage={30}>
+        <ContextActions url={props.history.location.search} label="Add Standard" childResource="standard"/>
+        <List {...props} title='Standards' perPage={25} filters={<EntityFilter />}>
         <Datagrid rowClick="edit">
             <TextField source="reference" />
             <TextField source="name" />
             <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern">
                 <TextField source="reference" />
             </ReferenceField>
-            <ChildrenField source="measurableElement" label="Measurable Elements" parent="standard" parentDisplayField="name" history={props.history}/>
             <EditButton />
             <BooleanField source="inactive"/>
             <TextField source="id" />

@@ -4,7 +4,7 @@ import ParentResource from "../framework/ParentResource";
 
 const ChildrenField = ({source, parent, parentDisplayField, history, record = {}}) => {
     let parentResource = new ParentResource(parent, record[parentDisplayField], record["id"]);
-    let url = `/${source}?filter=${JSON.stringify(parentResource)}`;
+    let url = `/${source}?filter=${parentResource.toFilter()}`;
     return <a href={`/#${url}`} onClick={() => history.push(url)}>View</a>;
 };
 

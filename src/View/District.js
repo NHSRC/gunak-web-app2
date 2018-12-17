@@ -1,21 +1,43 @@
 import React from 'react';
-import ChildrenField from "../components/ChildrenField";
-import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
+import {
+    BooleanField,
+    BooleanInput,
+    Create,
+    Datagrid,
+    DisabledInput,
+    Edit,
+    EditButton,
+    Filter,
+    List,
+    ReferenceField,
+    ReferenceInput,
+    SelectInput,
+    SimpleForm,
+    TextField,
+    TextInput
+} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ParentResource from "../framework/ParentResource";
-import Parent from "../components/Parent";
+import ContextActions from "../components/ContextActions";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
+
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        <ReferenceInput label="state" source="stateId" reference="state" alwaysOn>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+    </Filter>
+);
 
 export const DistrictList = props => (
     <div>
-        <Parent parentResource={ParentResource.parse(props.history.location.search)} label="Add District" childResource="district"/>
-        <List {...props} title='Districts'perPage={30}>
+        <ContextActions url={props.history.location.search} label="Add District" childResource="district"/>
+        <List {...props} title='Districts' perPage={25} filters={<EntityFilter />}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
             <ReferenceField label="State" source="stateId" reference="state">
                 <TextField source="name" />
             </ReferenceField>
-            <ChildrenField source="facility" label="Facilities" parent="district" parentDisplayField="name" history={props.history}/>
             <EditButton/>
             <BooleanField source="inactive"/>
             <TextField source="id" />

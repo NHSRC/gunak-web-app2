@@ -1,13 +1,11 @@
 import React from 'react';
-import ChildrenField from "../components/ChildrenField";
 import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 export const StateList = props => (
-    <List {...props} title='States'perPage={30}>
+    <List {...props} title='States' perPage={25}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
-            <ChildrenField source="district" label="Districts" parent="state" parentDisplayField="name" history={props.history}/>
             <EditButton/>
             <BooleanField source="inactive"/>
             <TextField source="id" />
