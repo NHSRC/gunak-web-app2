@@ -1,7 +1,23 @@
 import React from 'react';
-import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField, Filter} from 'react-admin';
+import {
+    BooleanField,
+    BooleanInput,
+    Create,
+    Datagrid,
+    DisabledInput,
+    Edit,
+    EditButton,
+    Filter,
+    List,
+    ReferenceField,
+    ReferenceInput,
+    required,
+    SelectInput,
+    SimpleForm,
+    TextField,
+    TextInput
+} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
-import ParentResource from "../framework/ParentResource";
 import ContextActions from "../components/ContextActions";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 

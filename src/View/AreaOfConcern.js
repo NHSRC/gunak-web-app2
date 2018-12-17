@@ -3,10 +3,18 @@ import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, Filter, Tex
 import ContextActions from "../components/ContextActions";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+    </Filter>
+);
+
 export const AreaOfConcernList = props => (
     <div>
         <ContextActions url={props.history.location.search} label="Add Area Of Concern" childResource="areaOfConcern"/>
-        <List {...props} title='Area of concerns'>
+        <List {...props} title='Area of concerns' filters={<EntityFilter />}>
             <Datagrid rowClick="edit">
                 <TextField source="reference"/>
                 <TextField source="name"/>
