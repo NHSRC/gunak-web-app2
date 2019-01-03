@@ -1,5 +1,6 @@
 import React from 'react';
-import {AutocompleteInput, Datagrid, Filter, List, ReferenceField, ReferenceInput, SelectInput, TextField} from 'react-admin';
+import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField, Filter, AutocompleteInput, FileInput, FileField} from 'react-admin';
+import {GunakReferenceInput} from "../components/Inputs";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -31,4 +32,21 @@ export const FacilityAssessmentList = props => (
             <TextField source="id"/>
         </Datagrid>
     </List>
+);
+
+export const FacilityAssessmentCreate = (props) => (
+    <Create {...props}>
+        <SimpleForm>
+            <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode"/>
+            <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"/>
+            <GunakReferenceInput label="Checklist" optionText="name" source="checklist"/>
+            <GunakReferenceInput label="State" optionText="name" source="state" autoComplete={false} mandatory={false}/>
+            <GunakReferenceInput label="Facility" optionText="name" source="facility" autoComplete={true} mandatory={false}/>
+            <TextInput source="facilityName" label="Facility name"/>
+            <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"/>
+            <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/xlsx">
+                <FileField source="uploadFile" title="title" />
+            </FileInput>
+        </SimpleForm>
+    </Create>
 );
