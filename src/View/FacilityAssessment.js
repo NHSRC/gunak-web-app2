@@ -21,7 +21,8 @@ import {
     Filter,
     AutocompleteInput,
     FileInput,
-    FileField
+    FileField,
+    DateInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import {FormDataConsumer} from 'react-admin';
@@ -84,6 +85,8 @@ let getForm = function (isCreate) {
         </FormDataConsumer>
         <TextInput source="facilityName" label="Facility (mandatory if not found above)" mandatory={false}/>
         <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"/>
+        <DateInput source="startDate" label="Assessment start date" mandatory={true}/>
+        <DateInput source="endDate" label="Assessment end date" mandatory={true}/>
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/xlsx">
             <FileField source="uploadFile" title="title"/>
         </FileInput>
