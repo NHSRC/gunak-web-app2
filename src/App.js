@@ -18,7 +18,7 @@ import {FacilityCreate, FacilityEdit, FacilityList} from "./View/Facility";
 import {FacilityTypeList} from "./View/FacilityType";
 import createHistory from 'history/createHashHistory';
 import GunakHistory from "./framework/GunakHistory";
-import {FacilityAssessmentCreate, FacilityAssessmentList} from "./View/FacilityAssessment";
+import {FacilityAssessmentCreate, FacilityAssessmentEdit, FacilityAssessmentList} from "./View/FacilityAssessment";
 import {UserList} from "./View/User";
 
 const history = new GunakHistory(createHistory());
@@ -45,7 +45,7 @@ const App = () => (
         <Resource name="facilityType" list={FacilityTypeList} options={{label: 'Facility types'}}/>
 
         {/*Include device*/}
-        <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate}/>
+        <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>
         {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
 
