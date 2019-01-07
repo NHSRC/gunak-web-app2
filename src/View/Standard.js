@@ -58,7 +58,6 @@ let getForm = function (props, isCreate) {
         <TextInput source="name"/>
         <GunakReferenceInput label="Area of concern" optionText="reference" source="areaOfConcern"/>
         <BooleanInput source="inactive"/>
-        <ChildrenNameFieldPair source="measurableElement" label="Measurable Elements" parent="standard" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };
 

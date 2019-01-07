@@ -35,7 +35,6 @@ let getForm = function (props, isCreate) {
         <TextInput source="reference"/>
         <TextInput source="name"/>
         <BooleanInput source="inactive"/>
-        <ChildrenNameFieldPair source="standard" label="Standards" parent="areaOfConcern" parentDisplayField="reference" history={props.history}/>
     </SimpleForm>;
 };
 export const AreaOfConcernEdit = props => (

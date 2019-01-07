@@ -38,7 +38,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 } else if (typeOfListing === ResourceFilter.ENTITY_BY_PARAM_LIKE) {
                     url = `${apiUrl}/${resource}/search/find?${stringify(filter)}&${pagination}`;
                 } else if (typeOfListing === ResourceFilter.ENTITY_BY_PARENT) {
-                    url = `${apiUrl}/${resource}/${ResourceFilter.getResourcePath_ByParent(filter)}?${pagination}&${ResourceFilter.getParentParamString(filter)}`;
+                    url = `${apiUrl}/${resource}/${ResourceFilter.getResourcePath_ByParent(filter)}?${ResourceFilter.getParentParamString(filter)}&${pagination}`;
                 }
 
                 break;

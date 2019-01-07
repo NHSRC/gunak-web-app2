@@ -56,7 +56,6 @@ let getForm = function (isCreate, props) {
         <TextInput source="name"/>
         <GunakReferenceInput label="State" optionText="name" source="state"/>
         <BooleanInput source="inactive"/>
-        <ChildrenNameFieldPair source="facility" label="Facilities" parent="district" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };
 export const DistrictEdit = props => (

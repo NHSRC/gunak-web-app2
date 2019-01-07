@@ -18,7 +18,6 @@ let getForm = function (props, isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name"/>
         <BooleanInput source="inactive"/>
-        <ChildrenNameFieldPair source="district" label="Districts" parent="state" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };
 export const StateCreate = (props) => (

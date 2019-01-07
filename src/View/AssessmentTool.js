@@ -1,6 +1,19 @@
 import React from 'react';
-import {BooleanField, BooleanInput, Datagrid, DisabledInput, Create, Edit, List, ReferenceField, SimpleForm, TextField, TextInput, required} from 'react-admin';
-import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
+import {
+    BooleanField,
+    BooleanInput,
+    Create,
+    Datagrid,
+    DisabledInput,
+    Edit,
+    EditButton,
+    List,
+    ReferenceField,
+    required,
+    SimpleForm,
+    TextField,
+    TextInput
+} from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 
 export const AssessmentToolList = props => (
@@ -10,6 +23,7 @@ export const AssessmentToolList = props => (
             <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode">
                 <TextField source="name"/>
             </ReferenceField>
+            <EditButton/>
             <BooleanField source="inactive"/>
             <TextField source="id" />
         </Datagrid>
@@ -22,7 +36,6 @@ let getForm = function (props, isCreate) {
         <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode"/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive"/>
-        {isCreate ? null : <ChildrenNameFieldPair history={props.history} parent="assessmentTool" parentDisplayField="name" source="checklist" label="Checklists"/>}
     </SimpleForm>;
 };
 export const AssessmentToolEdit = props => (

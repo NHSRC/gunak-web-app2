@@ -63,7 +63,6 @@ let getForm = function (props, isCreate) {
         <TextInput source="name"/>
         <GunakReferenceInput label="Standard" optionText="reference" source="standard"/>
         <BooleanInput source="inactive"/>
-        <ChildrenNameFieldPair source="checkpoint" label="Checkpoints" parent="measurableElement" parentDisplayField="name" history={props.history}/>
     </SimpleForm>;
 };
 export const MeasurableElementEdit = props => (
