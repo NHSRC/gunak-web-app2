@@ -2,7 +2,7 @@ import React from 'react';
 import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, List, SimpleForm, TextField, TextInput} from 'react-admin';
 
 export const DepartmentList = props => (
-    <List {...props} title='Departments'>
+    <List {...props} title='Departments' sort={{ field: 'name', order: 'ASC' }} perPage={25}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
             <BooleanField source="inactive"/>

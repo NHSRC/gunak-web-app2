@@ -32,7 +32,7 @@ const EntityFilter = (props) => (
 export const ChecklistList = props => (
     <div>
         <ContextActions url={props.history.location.search} label="Add Checklist" childResource="checklist"/>
-        <List {...props} title='Checklists' filters={<EntityFilter />} perPage={25}>
+        <List {...props} title='Checklists' filters={<EntityFilter />} perPage={25} sort={{ field: 'name', order: 'ASC' }}>
             <Datagrid>
                 <TextField source="name"/>
                 <ReferenceField label="Department" source="departmentId" reference="department">

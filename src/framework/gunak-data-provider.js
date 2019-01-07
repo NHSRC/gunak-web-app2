@@ -3,6 +3,7 @@ import {stringify} from 'query-string';
 import {CREATE, DELETE, DELETE_MANY, fetchUtils, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE, UPDATE_MANY,} from 'react-admin';
 import ResourceFilter from "./ResourceFilter";
 import SpringResponse from "./SpringResponse";
+import Pagination from "./Pagination";
 
 /**
  * Maps react-admin queries to a simple REST API
@@ -29,15 +30,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const options = {};
         switch (type) {
             case GET_LIST: {
-                const { page, perPage } = params.pagination;
-
-                const query = {
-                    page: page - 1,
-                    size: perPage,
-                    sort: params["sort"]
-                };
-
-                let pagination = stringify(query);
+                let pagination = Pagination.asSpringUrlPart(params.pagination, params.sort);
                 let filter = params.filter;
                 let typeOfListing = ResourceFilter.getTypeOfListing(filter);
                 if (typeOfListing === ResourceFilter.ENTITY) {
@@ -77,7 +70,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             case UPDATE:
                 url = `${apiUrl}/${resource}s`;
                 options.method = 'PUT';
-                options.body = JSON.stringify(params.data);
+                if (params.data.files) {
+                    let formData = new FormData();
+                    let file = params.data.files.rawFile;
+                    formData.append("assessmentFile", file);
+                    options.body = formData;
+                } else {
+                    options.body = JSON.stringify(params.data);
+                }
                 break;
             case CREATE:
                 url = `${apiUrl}/${resource}s`;

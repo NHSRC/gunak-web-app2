@@ -39,21 +39,21 @@ const EntityFilter = (props) => (
 );
 
 export const FacilityAssessmentList = props => (
-    <List {...props} title='FacilityAssessments' filters={<EntityFilter/>}>
+    <List {...props} title='FacilityAssessments' perPage={25} filters={<EntityFilter/>}>
         <Datagrid rowClick="edit">
-            <TextField source="facilityName" label="Facility Name"/>
-            <TextField source="startDate"/>
-            <TextField source="endDate"/>
-            <TextField source="series"/>
-            <ReferenceField label="Assessment Type" source="assessmentTypeId" reference="assessmentType">
-                <TextField source="name"/>
-            </ReferenceField>
             <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
                 <TextField source="name"/>
             </ReferenceField>
             <ReferenceField label="Facility" source="facilityId" reference="facility" allowEmpty={true}>
                 <TextField source="name"/>
             </ReferenceField>
+            {process.env.REACT_APP_TENANT === "NHSRC" ? <TextField source="facilityName" label="Non-coded Facility Name"/> : null}
+            <TextField source="series"/>
+            <ReferenceField label="Assessment Type" source="assessmentTypeId" reference="assessmentType">
+                <TextField source="name"/>
+            </ReferenceField>
+            <TextField source="startDate"/>
+            <TextField source="endDate"/>
             <EditButton/>
             <TextField source="id"/>
         </Datagrid>
@@ -83,11 +83,11 @@ let getForm = function (isCreate) {
             }
             }
         </FormDataConsumer>
-        <TextInput source="facilityName" label="Facility (mandatory if not found above)" mandatory={false}/>
+        <TextInput source="facilityName" label="Facility name (if not given above)" mandatory={false}/>
         <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"/>
         <DateInput source="startDate" label="Assessment start date" mandatory={true}/>
         <DateInput source="endDate" label="Assessment end date" mandatory={true}/>
-        <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/xlsx">
+        <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <FileField source="uploadFile" title="title"/>
         </FileInput>
     </SimpleForm>;
