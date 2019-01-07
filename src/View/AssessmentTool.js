@@ -35,7 +35,7 @@ let getForm = function (props, isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode"/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const AssessmentToolEdit = props => (

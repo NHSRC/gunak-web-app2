@@ -17,7 +17,7 @@ let getForm = function (props, isCreate) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name"/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const StateCreate = (props) => (

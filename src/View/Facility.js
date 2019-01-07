@@ -22,7 +22,7 @@ import ContextActions from "../components/ContextActions";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort="name">
+        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}>
             <AutocompleteInput optionText="name"/>
         </ReferenceInput>
         <ReferenceInput label="Facility type" source="facilityTypeId" reference="facilityType" alwaysOn>

@@ -61,7 +61,7 @@ export const CheckpointList = props => {
     );
 };
 
-let form = function (isCreate, props) {
+let form = function (isCreate) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
         <GunakReferenceInput label="State" optionText="name" source="state"/>
@@ -74,7 +74,7 @@ let form = function (isCreate, props) {
         <BooleanInput source="assessmentMethodStaffInterview"/>
         <BooleanInput source="assessmentMethodPatientInterview"/>
         <BooleanInput source="assessmentMethodRecordReview"/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const CheckpointEdit = props => (

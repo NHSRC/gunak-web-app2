@@ -29,10 +29,10 @@ import {FormDataConsumer} from 'react-admin';
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn sort="name">
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
-        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort="name">
+        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}>
             <AutocompleteInput optionText="name"/>
         </ReferenceInput>
     </Filter>

@@ -4,7 +4,7 @@ import dataProvider from './framework/gunak-data-provider';
 import authProvider from './framework/auth-provider';
 import {AssessmentTypeEdit, AssessmentTypeList} from './View/AssessmentType';
 import {DepartmentCreate, DepartmentEdit, DepartmentList} from './View/Department';
-import {AssessmentToolModeEdit, AssessmentToolModeList} from './View/AssessmentToolMode';
+import {AssessmentToolModeCreate, AssessmentToolModeEdit, AssessmentToolModeList} from './View/AssessmentToolMode';
 import {AssessmentToolCreate, AssessmentToolEdit, AssessmentToolList} from './View/AssessmentTool';
 import {ChecklistCreate, ChecklistEdit, ChecklistList} from './View/Checklist';
 import {AreaOfConcernCreate, AreaOfConcernEdit, AreaOfConcernList} from './View/AreaOfConcern';
@@ -28,7 +28,7 @@ const App = () => (
         <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{label: 'Assessment Types'}}/>
         <Resource name="department" list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} options={{label: 'Departments'}}/>
 
-        <Resource name="assessmentToolMode" list={AssessmentToolModeList} edit={AssessmentToolModeEdit} options={{label: 'Programs'}}/>
+        <Resource name="assessmentToolMode" list={AssessmentToolModeList} edit={AssessmentToolModeEdit} create={AssessmentToolModeCreate} options={{label: 'Programs'}}/>
         <Resource name="assessmentTool" list={AssessmentToolList} edit={AssessmentToolEdit} create={AssessmentToolCreate} options={{label: 'Assessment Tools'}}/>
         <Resource name="checklist" list={ChecklistList} edit={ChecklistEdit} create={ChecklistCreate} options={{label: 'Checklists'}}/>
         <Resource name="areaOfConcern" list={AreaOfConcernList} edit={AreaOfConcernEdit} create={AreaOfConcernCreate} options={{label: 'Area of concerns'}}/>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    AutocompleteInput,
     BooleanField,
     BooleanInput,
     Create,
@@ -11,19 +12,16 @@ import {
     List,
     ReferenceField,
     ReferenceInput,
-    SelectInput,
     SimpleForm,
     TextField,
-    TextInput,
-    AutocompleteInput
+    TextInput
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
-import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort="reference">
+        <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort={{field: 'reference', order: 'ASC'}}>
             <AutocompleteInput optionText="fullReference"/>
         </ReferenceInput>
 
@@ -62,7 +60,7 @@ let getForm = function (props, isCreate) {
         <TextInput source="reference"/>
         <TextInput source="name"/>
         <GunakReferenceInput label="Standard" optionText="reference" source="standard"/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const MeasurableElementEdit = props => (

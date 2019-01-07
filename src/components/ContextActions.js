@@ -47,7 +47,7 @@ const ContextActions = ({url, childResource, label}) => {
 };
 
 ContextActions.propTypes = {
-    url: PropTypes.object,
+    url: PropTypes.any,
     childResource: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
 };

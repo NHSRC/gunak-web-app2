@@ -22,7 +22,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort="name">
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
     </Filter>
@@ -55,7 +55,7 @@ let getForm = function (isCreate, props) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name"/>
         <GunakReferenceInput label="State" optionText="name" source="state"/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const DistrictEdit = props => (

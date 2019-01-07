@@ -47,7 +47,7 @@ let getForm = function (isCreate) {
         <TextInput source="symbol"/>
         <NumberInput source="sortOrder"/>
         <TextInput source="codedValues"/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
         <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
     </SimpleForm>;
 };

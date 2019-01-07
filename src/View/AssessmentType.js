@@ -18,7 +18,7 @@ export const AssessmentTypeEdit = props => (
             <DisabledInput source="id" />
             <TextInput source="name" />
             <TextInput source="shortName" />
-            <BooleanInput source="inactive"/>
+            <BooleanInput source="inactive" defaultValue={false}/>
         </SimpleForm>
     </Edit>
 );

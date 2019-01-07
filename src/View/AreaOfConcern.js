@@ -5,7 +5,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn perPage={1000} sort="name">
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist" alwaysOn perPage={1000} sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="fullReference"/>
         </ReferenceInput>
     </Filter>
@@ -34,7 +34,7 @@ let getForm = function (props, isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="reference"/>
         <TextInput source="name"/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const AreaOfConcernEdit = props => (

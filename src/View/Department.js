@@ -24,7 +24,7 @@ export const DepartmentCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="name" />
-            <BooleanInput source="inactive"/>
+            <BooleanInput source="inactive" defaultValue={false}/>
         </SimpleForm>
     </Create>
 );

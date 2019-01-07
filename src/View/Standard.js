@@ -22,7 +22,7 @@ import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort="reference">
+        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}>
             <TextInput optionText="fullReference"/>
         </ReferenceInput>
     </Filter>
@@ -57,7 +57,7 @@ let getForm = function (props, isCreate) {
         <TextInput source="reference"/>
         <TextInput source="name"/>
         <GunakReferenceInput label="Area of concern" optionText="reference" source="areaOfConcern"/>
-        <BooleanInput source="inactive"/>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 
