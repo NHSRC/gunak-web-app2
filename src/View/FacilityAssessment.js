@@ -1,31 +1,26 @@
 import React from 'react';
 import {
+    AutocompleteInput,
+    Create,
     Datagrid,
+    DateInput,
     DisabledInput,
     Edit,
     EditButton,
+    FileField,
+    FileInput,
+    Filter,
+    FormDataConsumer,
     List,
-    SimpleForm,
-    TextField,
-    TextInput,
     ReferenceField,
-    Create,
     ReferenceInput,
     SelectInput,
-    required,
-    BooleanField,
-    LongTextInput,
-    BooleanInput,
-    NumberInput,
-    NumberField,
-    Filter,
-    AutocompleteInput,
-    FileInput,
-    FileField,
-    DateInput
+    SimpleForm,
+    TextField,
+    TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
-import {FormDataConsumer} from 'react-admin';
+import AppConfiguration from "../framework/AppConfiguration";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -47,7 +42,7 @@ export const FacilityAssessmentList = props => (
             <ReferenceField label="Facility" source="facilityId" reference="facility" allowEmpty={true}>
                 <TextField source="name"/>
             </ReferenceField>
-            {process.env.REACT_APP_TENANT === "NHSRC" ? <TextField source="facilityName" label="Non-coded Facility Name"/> : null}
+            {AppConfiguration.isNHSRC() ? <TextField source="facilityName" label="Non-coded Facility Name"/> : null}
             <TextField source="series"/>
             <ReferenceField label="Assessment Type" source="assessmentTypeId" reference="assessmentType">
                 <TextField source="name"/>
