@@ -8,19 +8,19 @@ import {
     Edit,
     EditButton,
     Filter,
+    FormDataConsumer,
     List,
     ReferenceField,
     ReferenceInput,
+    required,
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput,
-    FormDataConsumer,
-    required
+    TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
-import AppConfiguration from "../framework/AppConfiguration";
+import ChecklistConfiguration from "../model/ChecklistConfiguration";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -31,12 +31,12 @@ const EntityFilter = (props) => (
         {props.filterValues.assessmentToolId &&
         <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
                         filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
-            <SelectInput optionText={AppConfiguration.isNHSRC() ? "name" : "fullName"}/>
+            <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}
 
         {props.filterValues.checklistId &&
         <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{assessmentToolId: props.filterValues.assessmentToolId}}>
+                        filter={{checklistId: props.filterValues.checklistId}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>}
     </Filter>
@@ -73,7 +73,7 @@ let getForm = function (props, isEdit) {
         <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"/>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Checklist" optionText="fullName" source="checklist" perPage={100}
+                <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}
                                      filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}}/>
             }
         </FormDataConsumer>

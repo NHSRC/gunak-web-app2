@@ -21,10 +21,7 @@ import {
 import AppConfiguration from "../framework/AppConfiguration";
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
-
-const getChecklistProperty = function() {
-    return AppConfiguration.isNHSRC() ? "name" : "fullName";
-};
+import ChecklistConfiguration from "../model/ChecklistConfiguration";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -40,7 +37,7 @@ const EntityFilter = (props) => (
             reference="checklist"
             filter={{assessmentToolId: props.filterValues.assessmentToolId}}
             alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
-            <SelectInput optionText={getChecklistProperty()}/>
+            <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}
     </Filter>
 );
@@ -71,7 +68,7 @@ let getForm = function (props, isEdit) {
         <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"/>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Checklist" optionText={getChecklistProperty()} source="checklist" perPage={100}
+                <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}
                                      filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}}/>
             }
         </FormDataConsumer>
