@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:6001",
+  "homepage": "/app",
   "dependencies": {
     "prop-types": "^15.6.2",
     "ra-data-json-server": "^2.4.2",
@@ -21,7 +22,8 @@
     "start-jss": "REACT_APP_TENANT=JSS react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-local": "rm -rf ../facilities-assessment-server/app/* && cp -r build/* ../facilities-assessment-server/app/"
   },
   "eslintConfig": {
     "extends": "react-app"
