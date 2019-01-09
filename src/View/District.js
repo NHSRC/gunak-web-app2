@@ -20,9 +20,14 @@ import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
+let currentFilter = {};
+
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+                        onChange={(obj, id) => {
+                            currentFilter.stateId = id;
+                        }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
     </Filter>
@@ -30,18 +35,18 @@ const EntityFilter = (props) => (
 
 export const DistrictList = props => (
     <div>
-        <ContextActions url={props.history.location.search} label="Create (with filter values)" childResource="district"/>
-        <List {...props} title='Districts' perPage={25} filters={<EntityFilter />}>
-        <Datagrid rowClick="edit">
-            <TextField source="name" />
-            <ReferenceField label="State" source="stateId" reference="state">
-                <TextField source="name" />
-            </ReferenceField>
-            <EditButton/>
-            <BooleanField source="inactive"/>
-            <TextField source="id" />
-        </Datagrid>
-    </List></div>
+        <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="district"/>
+        <List {...props} title='Districts' perPage={100} filters={<EntityFilter/>} sort={{field: 'name', order: 'ASC'}}>
+            <Datagrid rowClick="edit">
+                <TextField source="name"/>
+                <ReferenceField label="State" source="stateId" reference="state">
+                    <TextField source="name"/>
+                </ReferenceField>
+                <EditButton/>
+                <BooleanField source="inactive"/>
+                <TextField source="id"/>
+            </Datagrid>
+        </List></div>
 );
 
 export const DistrictCreate = (props) => (
@@ -58,6 +63,7 @@ let getForm = function (isCreate, props) {
         <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
+
 export const DistrictEdit = props => (
     <Edit {...props}>
         {getForm(false, props)}

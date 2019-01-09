@@ -1,6 +1,5 @@
 import React from 'react';
-import ChildrenField from "../components/ChildrenField";
-import {Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, ReferenceField, Create, ReferenceInput, SelectInput, EmailField, required, BooleanField, LongTextInput, BooleanInput, NumberInput, NumberField, Filter} from 'react-admin';
+import {Datagrid, EditButton, EmailField, List, TextField} from 'react-admin';
 
 export const UserList = props => (
     <List {...props} title='Users'>
