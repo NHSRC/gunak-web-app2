@@ -51,7 +51,7 @@ const EntityFilter = (props) => (
 
 export const StandardList = props => (
     <div>
-        <ContextActions url={props.history.location.search} label="Add Standard" childResource="standard"/>
+        <ContextActions url={props.history.location.search} label="Create (with filter values)" childResource="standard"/>
         <List {...props} title='Standards' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 <TextField source="reference" validate={[required("Mandatory")]}/>

@@ -47,7 +47,7 @@ const EntityFilter = (props) => (
 
 export const AreaOfConcernList = props => (
     <div>
-        <ContextActions url={props.history.location.search} label="Add Area Of Concern" childResource="areaOfConcern"/>
+        <ContextActions url={props.history.location.search} label="Create (with filter values)" childResource="areaOfConcern"/>
         <List {...props} title='Area of concerns' filters={<EntityFilter/>} perPage={100} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">

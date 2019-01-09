@@ -63,7 +63,7 @@ const EntityFilter = (props) => (
 export const MeasurableElementList = props => {
     return (
         <div>
-            <ContextActions url={props.history.location.search} label="Add Measurable Element" childResource="measurableElement"/>
+            <ContextActions url={props.history.location.search} label="Create (with filter values)" childResource="measurableElement"/>
             <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
                 <Datagrid rowClick="edit">
                     <TextField source="reference"/>

@@ -30,7 +30,7 @@ const EntityFilter = (props) => (
 
 export const DistrictList = props => (
     <div>
-        <ContextActions url={props.history.location.search} label="Add District" childResource="district"/>
+        <ContextActions url={props.history.location.search} label="Create (with filter values)" childResource="district"/>
         <List {...props} title='Districts' perPage={25} filters={<EntityFilter />}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
