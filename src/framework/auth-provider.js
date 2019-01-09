@@ -12,12 +12,25 @@ export default (type, params) => {
         const request = new Request('/api/login', {
             method: 'POST',
             body: formBody,
-            headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }),
+            headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' })
         });
+
+        const verifyLoginRequest = new Request('/api/loginSuccess', {
+            method: 'GET'
+        });
+
         return fetch(request)
             .then(response => {
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
+                }
+            })
+            .then(() => {
+                return fetch(verifyLoginRequest);
+            })
+            .then((verifyLoginResponse) => {
+                if (verifyLoginResponse.status < 200 || verifyLoginResponse.status >= 300) {
+                    throw new Error(verifyLoginResponse.statusText);
                 }
             })
             .then(() => {
