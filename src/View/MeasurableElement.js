@@ -22,10 +22,13 @@ import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 
+let currentFilter = {};
+
 const EntityFilter = (props) => (
     <Filter {...props}>
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={{field: 'name', order: 'ASC'}}
-                        onChange={() => {
+                        onChange={(obj, id) => {
+                            currentFilter.assessmentToolId = id;
                             delete(props.filterValues.checklistId);
                             delete(props.filterValues.areaOfConcernId);
                             delete(props.filterValues.standardId);
@@ -36,7 +39,8 @@ const EntityFilter = (props) => (
         {props.filterValues.assessmentToolId &&
         <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
                         filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
-                        onChange={() => {
+                        onChange={(obj, id) => {
+                            currentFilter.checklistId = id;
                             delete(props.filterValues.areaOfConcernId);
                             delete(props.filterValues.standardId);
                         }}>
@@ -46,7 +50,8 @@ const EntityFilter = (props) => (
         {props.filterValues.checklistId &&
         <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
                         filter={{checklistId: props.filterValues.checklistId}}
-                        onChange={() => {
+                        onChange={(obj, id) => {
+                            currentFilter.areaOfConcernId = id;
                             delete(props.filterValues.standardId);
                         }}>
             <SelectInput optionText="name"/>
@@ -54,7 +59,10 @@ const EntityFilter = (props) => (
 
         {props.filterValues.areaOfConcernId &&
         <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId}}>
+                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId}}
+                        onChange={(obj, id) => {
+                            currentFilter.standardId = id;
+                        }}>
             <SelectInput optionText="reference"/>
         </ReferenceInput>}
     </Filter>
@@ -63,7 +71,7 @@ const EntityFilter = (props) => (
 export const MeasurableElementList = props => {
     return (
         <div>
-            <ContextActions url={props.history.location.search} label="Create (with filter values)" childResource="measurableElement"/>
+            <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="measurableElement"/>
             <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
                 <Datagrid rowClick="edit">
                     <TextField source="reference"/>

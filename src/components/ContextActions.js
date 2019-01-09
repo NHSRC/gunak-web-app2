@@ -5,10 +5,7 @@ import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import {
-    Link
-} from 'react-admin';
-import ResourceFilter from "../framework/ResourceFilter";
+import {Link} from 'react-admin';
 
 const styles = {
     root: {
@@ -20,13 +17,10 @@ const styles = {
     }
 };
 
-const ContextActions = ({url, childResource, label}) => {
-    if (_.isNil(url)) return null;
-
-    let resourceFilter = ResourceFilter.parse(url);
+const ContextActions = ({userFilter, childResource, label}) => {
     let record = {};
-    _.keys(resourceFilter).forEach((key) => {
-        record[key] = resourceFilter[key];
+    _.keys(userFilter).forEach((key) => {
+        record[key] = userFilter[key];
     });
 
     return <div style={styles.root}>
@@ -47,7 +41,7 @@ const ContextActions = ({url, childResource, label}) => {
 };
 
 ContextActions.propTypes = {
-    url: PropTypes.any,
+    userFilter: PropTypes.object.isRequired,
     childResource: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
 };

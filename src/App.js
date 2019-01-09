@@ -1,5 +1,5 @@
 import React from 'react';
-import {Admin, ListGuesser, Resource} from 'react-admin';
+import {Admin, Resource} from 'react-admin';
 import dataProvider from './framework/gunak-data-provider';
 import authProvider from './framework/auth-provider';
 import {AssessmentTypeEdit, AssessmentTypeList} from './View/AssessmentType';
@@ -16,15 +16,11 @@ import {StateCreate, StateEdit, StateList} from "./View/State";
 import {DistrictCreate, DistrictEdit, DistrictList} from "./View/District";
 import {FacilityCreate, FacilityEdit, FacilityList} from "./View/Facility";
 import {FacilityTypeList} from "./View/FacilityType";
-import createHistory from 'history/createHashHistory';
-import GunakHistory from "./framework/GunakHistory";
 import {FacilityAssessmentCreate, FacilityAssessmentEdit, FacilityAssessmentList} from "./View/FacilityAssessment";
 import {UserList} from "./View/User";
 
-const history = new GunakHistory(createHistory());
-
 const App = () => (
-    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider} history={history} >
+    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
         <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{label: 'Assessment Types'}}/>
         <Resource name="department" list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} options={{label: 'Departments'}}/>
 
@@ -48,7 +44,6 @@ const App = () => (
         <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>
         {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
-
         <Resource name="user" list={UserList} options={{label: 'Users'}}/>
     </Admin>
 );

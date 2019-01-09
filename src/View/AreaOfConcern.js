@@ -23,10 +23,13 @@ import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 
+let currentFilter = {};
+
 const EntityFilter = (props) => (
     <Filter {...props}>
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
-                        onChange={() => {
+                        onChange={(obj, id) => {
+                            currentFilter.assessmentToolId = id;
                             delete(props.filterValues.checklistId);
                         }}>
             <SelectInput optionText="name"/>
@@ -39,7 +42,10 @@ const EntityFilter = (props) => (
             source="checklistId"
             reference="checklist"
             filter={{assessmentToolId: props.filterValues.assessmentToolId}}
-            alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
+            alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+            onChange={(obj, id) => {
+                currentFilter.checklistId = id;
+            }}>
             <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}
     </Filter>
@@ -47,7 +53,7 @@ const EntityFilter = (props) => (
 
 export const AreaOfConcernList = props => (
     <div>
-        <ContextActions url={props.history.location.search} label="Create (with filter values)" childResource="areaOfConcern"/>
+        <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="areaOfConcern"/>
         <List {...props} title='Area of concerns' filters={<EntityFilter/>} perPage={100} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
