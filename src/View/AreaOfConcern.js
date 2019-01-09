@@ -25,7 +25,10 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+                        onChange={() => {
+                            delete(props.filterValues.checklistId);
+                        }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
 

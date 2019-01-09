@@ -24,19 +24,31 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={{field: 'name', order: 'ASC'}}
+                        onChange={() => {
+                            delete(props.filterValues.checklistId);
+                            delete(props.filterValues.areaOfConcernId);
+                            delete(props.filterValues.standardId);
+                        }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
 
         {props.filterValues.assessmentToolId &&
         <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
-                        filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
+                        filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+                        onChange={() => {
+                            delete(props.filterValues.areaOfConcernId);
+                            delete(props.filterValues.standardId);
+                        }}>
             <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}
 
         {props.filterValues.checklistId &&
         <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{checklistId: props.filterValues.checklistId}}>
+                        filter={{checklistId: props.filterValues.checklistId}}
+                        onChange={() => {
+                            delete(props.filterValues.standardId);
+                        }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
@@ -52,7 +64,7 @@ export const MeasurableElementList = props => {
     return (
         <div>
             <ContextActions url={props.history.location.search} label="Add Measurable Element" childResource="measurableElement"/>
-            <List {...props} title='Measurable elements' filters={<EntityFilter/>}>
+            <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
                 <Datagrid rowClick="edit">
                     <TextField source="reference"/>
                     <TextField source="name"/>

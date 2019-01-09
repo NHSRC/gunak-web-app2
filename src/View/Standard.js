@@ -24,13 +24,20 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={{field: 'name', order: 'ASC'}}
+                        onChange={() => {
+                            delete(props.filterValues.checklistId);
+                            delete(props.filterValues.areaOfConcernId);
+                        }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
 
         {props.filterValues.assessmentToolId &&
         <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
-                        filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
+                        filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={50} sort={{field: 'name', order: 'ASC'}}
+                        onChange={() => {
+                            delete(props.filterValues.areaOfConcernId);
+                        }}>
             <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}
 
@@ -45,7 +52,7 @@ const EntityFilter = (props) => (
 export const StandardList = props => (
     <div>
         <ContextActions url={props.history.location.search} label="Add Standard" childResource="standard"/>
-        <List {...props} title='Standards' perPage={25} filters={<EntityFilter/>}>
+        <List {...props} title='Standards' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 <TextField source="reference" validate={[required("Mandatory")]}/>
                 <TextField source="name"/>

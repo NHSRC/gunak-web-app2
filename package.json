@@ -24,7 +24,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy-local": "rm -rf ../facilities-assessment-server/app/* && cp -r build/* ../facilities-assessment-server/app/",
-    "deploy-igunatmac-qa": "ssh sam@139.59.19.108 \"sudo su app -c 'rm -rf /home/app/qa-server/facilities-assessment-host/app-servers/app/*'\" && scp -r build/* sam@139.59.19.108:/home/app/qa-server/facilities-assessment-host/app-servers/app/"
+    "deploy-igunatmac-qa": "ssh sam@139.59.19.108 \"rm -rf /home/app/qa-server/facilities-assessment-host/app-servers/app/*\" && scp -r build/* sam@139.59.19.108:/home/app/qa-server/facilities-assessment-host/app-servers/app/"
   },
   "eslintConfig": {
     "extends": "react-app"
