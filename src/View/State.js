@@ -1,6 +1,5 @@
 import React from 'react';
-import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
-import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
+import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, required} from 'react-admin';
 
 export const StateList = props => (
     <List {...props} title='States' perPage={25}>
@@ -13,21 +12,21 @@ export const StateList = props => (
     </List>
 );
 
-let getForm = function (props, isCreate) {
+let getForm = function (props, isEdit) {
     return <SimpleForm>
-        {isCreate ? null : <DisabledInput source="id"/>}
-        <TextInput source="name"/>
+        {isEdit && <DisabledInput source="id"/>}
+        <TextInput source="name" validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const StateCreate = (props) => (
     <Create {...props}>
-        {getForm(true)}
+        {getForm(false)}
     </Create>
 );
 
 export const StateEdit = props => (
     <Edit {...props}>
-        {getForm(false)}
+        {getForm(true)}
     </Edit>
 );

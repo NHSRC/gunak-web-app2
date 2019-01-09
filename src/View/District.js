@@ -11,6 +11,7 @@ import {
     List,
     ReferenceField,
     ReferenceInput,
+    required,
     SelectInput,
     SimpleForm,
     TextField,
@@ -18,7 +19,6 @@ import {
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
-import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 
 let currentFilter = {};
 
@@ -58,7 +58,7 @@ export const DistrictCreate = (props) => (
 let getForm = function (isCreate, props) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
-        <TextInput source="name"/>
+        <TextInput source="name" validate={[required("Mandatory")]}/>
         <GunakReferenceInput label="State" optionText="name" source="state"/>
         <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;

@@ -18,8 +18,6 @@ import {
     TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
-import ContextActions from "../components/ContextActions";
-import ChildrenNameFieldPair from "../components/ChildrenNameFieldPair";
 import AppConfiguration from "../framework/AppConfiguration";
 
 const EntityFilter = (props) => (
