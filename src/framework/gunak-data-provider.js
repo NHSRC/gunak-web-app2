@@ -51,8 +51,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY_REFERENCE: {
-                const { page, perPage } = params.pagination;
-                const { field, order } = params.sort;
+                const {page, perPage} = params.pagination;
+                const {field, order} = params.sort;
                 const query = {
                     sort: JSON.stringify([field, order]),
                     range: JSON.stringify([
@@ -70,19 +70,12 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             case UPDATE:
                 url = `${apiUrl}/${resource}s`;
                 options.method = 'PUT';
-                if (params.data.files) {
-                    let formData = new FormData();
-                    let file = params.data.files.rawFile;
-                    formData.append("assessmentFile", file);
-                    options.body = formData;
-                } else {
-                    options.body = JSON.stringify(params.data);
-                }
+                options.body = params.data.files ? createFormData(params.data) : JSON.stringify(params.data);
                 break;
             case CREATE:
                 url = `${apiUrl}/${resource}s`;
                 options.method = 'POST';
-                options.body = JSON.stringify(params.data);
+                options.body = params.data.files ? createFormData(params.data) : JSON.stringify(params.data);
                 break;
             case DELETE:
                 url = `${apiUrl}/${resource}/${params.id}`;
@@ -91,7 +84,16 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             default:
                 throw new Error(`Unsupported fetch action type ${type}`);
         }
-        return { url, options };
+        return {url, options};
+    };
+
+    const createFormData = function (data) {
+        let formData = new FormData();
+        let file = data.files.rawFile;
+        formData.append("uploadedFile", file);
+        Object.keys(data).forEach(
+            (k) => k === 'files' ? null : formData.append(k, data[k]));
+        return formData;
     };
 
     /**
@@ -102,7 +104,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      * @returns {Object} Data response
      */
     const convertHTTPResponse = (response, type, resource, params) => {
-        const { json } = response;
+        const {json} = response;
         switch (type) {
             case GET_LIST:
             case GET_MANY_REFERENCE:
@@ -112,9 +114,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                     data: json['_embedded'][resource]
                 };
             case CREATE:
-                return { data: { ...params.data, id: json.id } };
+                return {data: {...params.data, id: json.id}};
             default:
-                return { data: json };
+                return {data: json};
         }
     };
 
@@ -151,7 +153,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             }));
         }
 
-        const { url, options } = convertDataRequestToHTTP(
+        const {url, options} = convertDataRequestToHTTP(
             type,
             resource,
             params
