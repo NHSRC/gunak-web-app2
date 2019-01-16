@@ -54,7 +54,7 @@ export const FacilityList = props => (
         <List {...props} title='Facilities' perPage={25} filters={<EntityFilter/>} sort={{field: 'name', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 <TextField source="name"/>
-                <ReferenceField label="Facility Type" source="facilityTypeId" reference="facilityType">
+                <ReferenceField label="Facility Type" source="facilityTypeId" reference="facilityType" sortBy="facilityType.name">
                     <TextField source="name"/>
                 </ReferenceField>
                 <EditButton/>

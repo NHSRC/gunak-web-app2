@@ -76,12 +76,12 @@ export const MeasurableElementList = props => {
                 <Datagrid rowClick="edit">
                     <TextField source="reference"/>
                     <TextField source="name"/>
-                    <ReferenceField label="Standard" source="standardId" reference="standard">
+                    <ReferenceField label="Standard" source="standardId" reference="standard" sortBy="standard.reference">
                         <TextField source="reference"/>
                     </ReferenceField>
                     <EditButton/>
                     <BooleanField source="inactive"/>
-                    <TextField source="id"/>
+                    <TextField source="id" sortable={false}/>
                 </Datagrid>
             </List>
         </div>

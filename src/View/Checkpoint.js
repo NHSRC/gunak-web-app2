@@ -90,7 +90,7 @@ export const CheckpointList = props => {
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
             <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>}>
                 <Datagrid>
-                    <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement">
+                    <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement" sortBy="measurableElement.reference">
                         <TextField source="reference"/>
                     </ReferenceField>
                     <TextField source="name"/>
@@ -103,7 +103,7 @@ export const CheckpointList = props => {
                     <BooleanField source="inactive"/>
                     <EditButton/>
                     <TextField source="id"/>
-                    <ReferenceField label="Checklist" source="checklistId" reference="checklist">
+                    <ReferenceField label="Checklist" source="checklistId" reference="checklist" sortBy="checklist.name">
                         <TextField source="name"/>
                     </ReferenceField>
                 </Datagrid>

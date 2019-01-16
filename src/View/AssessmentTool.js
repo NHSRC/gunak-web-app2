@@ -20,7 +20,7 @@ export const AssessmentToolList = props => (
     <List {...props} title='Assessment Tools' sort={{ field: 'assessmentToolMode,name', order: 'ASC' }} perPage={25}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
-            <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode">
+            <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name">
                 <TextField source="name"/>
             </ReferenceField>
             <EditButton/>

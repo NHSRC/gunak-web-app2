@@ -36,15 +36,15 @@ const EntityFilter = (props) => (
 export const FacilityAssessmentList = props => (
     <List {...props} title='FacilityAssessments' perPage={25} filters={<EntityFilter/>}>
         <Datagrid rowClick="edit">
-            <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
+            <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                 <TextField source="name"/>
             </ReferenceField>
-            <ReferenceField label="Facility" source="facilityId" reference="facility" allowEmpty={true}>
+            <ReferenceField label="Facility" source="facilityId" reference="facility" allowEmpty={true} sortBy="facility.name">
                 <TextField source="name"/>
             </ReferenceField>
             {AppConfiguration.isNHSRC() ? <TextField source="facilityName" label="Non-coded Facility Name"/> : null}
             <TextField source="series"/>
-            <ReferenceField label="Assessment Type" source="assessmentTypeId" reference="assessmentType">
+            <ReferenceField label="Assessment Type" source="assessmentTypeId" reference="assessmentType" sortBy="assessmentType.name">
                 <TextField source="name"/>
             </ReferenceField>
             <TextField source="startDate"/>

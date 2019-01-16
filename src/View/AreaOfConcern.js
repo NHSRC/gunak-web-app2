@@ -27,7 +27,18 @@ let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+        {AppConfiguration.isJSS() &&
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+                        onChange={(obj, id) => {
+                            currentFilter.stateId = id;
+                        }}>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>}
+
+        <ReferenceInput label="Assessment tool"
+                        source="assessmentToolId"
+                        reference="assessmentTool"
+                        alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                             delete(props.filterValues.checklistId);
@@ -38,7 +49,7 @@ const EntityFilter = (props) => (
         {props.filterValues.assessmentToolId &&
         <ReferenceInput
             label="Checklist"
-            key={props.filterValues.assessmentToolId}
+            key={props.filterValues.stateId}
             source="checklistId"
             reference="checklist"
             filter={{assessmentToolId: props.filterValues.assessmentToolId}}
@@ -56,7 +67,7 @@ export const AreaOfConcernList = props => (
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="areaOfConcern"/>
         <List {...props} title='Area of concerns' filters={<EntityFilter/>} perPage={100} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
+                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                     <TextField source="name"/>
                 </ReferenceField>
                 <TextField source="reference"/>

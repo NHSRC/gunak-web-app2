@@ -36,10 +36,10 @@ export const ChecklistList = props => (
         <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'name', order: 'ASC'}}>
             <Datagrid>
                 <TextField source={AppConfiguration.isNHSRC() ? "name" : "fullName"}/>
-                <ReferenceField label="Department" source="departmentId" reference="department">
+                <ReferenceField label="Department" source="departmentId" reference="department" sortBy="department.name">
                     <TextField source="name"/>
                 </ReferenceField>
-                <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
+                <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                     <TextField source="name"/>
                 </ReferenceField>
                 <EditButton/>

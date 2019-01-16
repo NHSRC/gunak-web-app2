@@ -3,7 +3,7 @@ class SpringResponse {
         if (json["content"]) {
             return {
                 data: json['content'],
-                total: json["totalPages"]
+                total: json["totalElements"]
             };
         } else if (json['_embedded']) {
             let resources = json['_embedded'][resource];

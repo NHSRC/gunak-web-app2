@@ -63,7 +63,7 @@ export const StandardList = props => (
             <Datagrid rowClick="edit">
                 <TextField source="reference" validate={[required("Mandatory")]}/>
                 <TextField source="name"/>
-                <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern">
+                <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" sortBy="areaOfConcern.reference">
                     <TextField source="reference"/>
                 </ReferenceField>
                 <EditButton/>

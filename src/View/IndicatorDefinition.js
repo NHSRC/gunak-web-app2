@@ -27,7 +27,7 @@ export const IndicatorDefinitionList = props => (
             <TextField source="symbol"/>
             <NumberField source="sortOrder"/>
             <TextField source="codedValues"/>
-            <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool">
+            <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                 <TextField source="name"/>
             </ReferenceField>
             <EditButton/>

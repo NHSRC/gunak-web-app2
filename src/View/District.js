@@ -39,7 +39,7 @@ export const DistrictList = props => (
         <List {...props} title='Districts' perPage={100} filters={<EntityFilter/>} sort={{field: 'name', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 <TextField source="name"/>
-                <ReferenceField label="State" source="stateId" reference="state">
+                <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name">
                     <TextField source="name"/>
                 </ReferenceField>
                 <EditButton/>
