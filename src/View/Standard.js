@@ -21,12 +21,21 @@ import {
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
+import AppConfiguration from "../framework/AppConfiguration";
 
 let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={{field: 'name', order: 'ASC'}}
+        {AppConfiguration.isJSS() &&
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
+                        onChange={(obj, id) => {
+                            currentFilter.stateId = id;
+                        }}>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>}
+
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                             delete(props.filterValues.checklistId);
@@ -37,7 +46,10 @@ const EntityFilter = (props) => (
 
         {props.filterValues.assessmentToolId &&
         <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
-                        filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={50} sort={{field: 'name', order: 'ASC'}}
+                        filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
+                            assessmentToolId: props.filterValues.assessmentToolId,
+                            stateId: props.filterValues.stateId
+                        } : {assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.checklistId = id;
                             delete(props.filterValues.areaOfConcernId);
@@ -59,9 +71,9 @@ const EntityFilter = (props) => (
 export const StandardList = props => (
     <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="standard"/>
-        <List {...props} title='Standards' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
+        <List {...props} title='Standards' filters={<EntityFilter/>} perPage={25} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                <TextField source="reference" validate={[required("Mandatory")]}/>
+                <TextField source="reference"/>
                 <TextField source="name"/>
                 <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" sortBy="areaOfConcern.reference">
                     <TextField source="reference"/>

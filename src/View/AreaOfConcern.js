@@ -52,7 +52,10 @@ const EntityFilter = (props) => (
             key={props.filterValues.stateId}
             source="checklistId"
             reference="checklist"
-            filter={{assessmentToolId: props.filterValues.assessmentToolId}}
+            filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
+                assessmentToolId: props.filterValues.assessmentToolId,
+                stateId: props.filterValues.stateId
+            } : {assessmentToolId: props.filterValues.assessmentToolId}}
             alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
             onChange={(obj, id) => {
                 currentFilter.checklistId = id;
