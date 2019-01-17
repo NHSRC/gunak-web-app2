@@ -24,11 +24,20 @@ import ParentResource from "../framework/ParentResource";
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
+import AppConfiguration from "../framework/AppConfiguration";
 
 let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
+        {AppConfiguration.isJSS() &&
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
+                        onChange={(obj, id) => {
+                            currentFilter.stateId = id;
+                        }}>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>}
+
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
@@ -42,7 +51,11 @@ const EntityFilter = (props) => (
 
         {props.filterValues.assessmentToolId &&
         <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
-                        filter={{assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+                        filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
+                            assessmentToolId: props.filterValues.assessmentToolId,
+                            stateId: props.filterValues.stateId
+                        } : {assessmentToolId: props.filterValues.assessmentToolId}}
+                        alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.checklistId = id;
                             delete(props.filterValues.areaOfConcernId);

@@ -18,6 +18,7 @@ import {FacilityCreate, FacilityEdit, FacilityList} from "./View/Facility";
 import {FacilityTypeList} from "./View/FacilityType";
 import {FacilityAssessmentCreate, FacilityAssessmentEdit, FacilityAssessmentList} from "./View/FacilityAssessment";
 import {UserList} from "./View/User";
+import AppConfiguration from "./framework/AppConfiguration";
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
@@ -33,7 +34,7 @@ const App = () => (
                   options={{label: 'Measurable elements'}}/>
         <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} create={CheckpointCreate} options={{label: 'Checkpoints'}}/>
 
-        <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{label: 'Indicator definitions'}}/>
+        {AppConfiguration.isNHSRC() ? <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{label: 'Indicator definitions'}}/> : <Resource/>}
 
         <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{label: 'States'}}/>
         <Resource name="district" list={DistrictList} create={DistrictCreate} edit={DistrictEdit} options={{label: 'Districts'}}/>
