@@ -25,8 +25,8 @@ const EntityFilter = (props) => (
         {AppConfiguration.isJSS() ? <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="name"/>
         </ReferenceInput> : null}
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}>
-            <SelectInput optionText="name"/>
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}>
+            <SelectInput optionText="fullName"/>
         </ReferenceInput>
     </Filter>
 );

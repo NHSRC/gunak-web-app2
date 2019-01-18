@@ -35,13 +35,14 @@ const EntityFilter = (props) => (
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn sort={{field: 'name', order: 'ASC'}}
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn
+                        sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                             delete(props.filterValues.checklistId);
                             delete(props.filterValues.areaOfConcernId);
                         }}>
-            <SelectInput optionText="name"/>
+            <SelectInput optionText="fullName"/>
         </ReferenceInput>
 
         {props.filterValues.assessmentToolId &&
@@ -71,10 +72,11 @@ const EntityFilter = (props) => (
 export const StandardList = props => (
     <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="standard"/>
-        <List {...props} title='Standards' filters={<EntityFilter/>} perPage={25} sort={{field: 'reference', order: 'ASC'}}>
+        <List {...props} title='Standards' filters={<EntityFilter/>} perPage={25}
+              sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 {!currentFilter.assessmentToolId &&
-                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
+                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name" sortable={false}>
                     <TextField source="name"/>
                 </ReferenceField>}
                 <TextField source="reference"/>

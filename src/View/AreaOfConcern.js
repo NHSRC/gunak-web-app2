@@ -38,12 +38,12 @@ const EntityFilter = (props) => (
         <ReferenceInput label="Assessment tool"
                         source="assessmentToolId"
                         reference="assessmentTool"
-                        alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+                        alwaysOn perPage={100} sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                             delete(props.filterValues.checklistId);
                         }}>
-            <SelectInput optionText="name"/>
+            <SelectInput optionText="fullName"/>
         </ReferenceInput>
 
         {props.filterValues.assessmentToolId &&

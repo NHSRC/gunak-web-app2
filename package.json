@@ -18,13 +18,16 @@
     "chai": "^4.2.0"
   },
   "scripts": {
-    "start-nhsrc": "react-scripts start",
+    "start-nhsrc": "REACT_APP_TENANT=NHSRC react-scripts start",
     "start-jss": "REACT_APP_TENANT=JSS react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy-local": "rm -rf ../facilities-assessment-server/app/* && cp -r build/* ../facilities-assessment-server/app/",
-    "deploy-igunatmac-qa": "ssh sam@139.59.19.108 \"rm -rf /home/app/qa-server/facilities-assessment-host/app-servers/app/*\" && scp -r build/* sam@139.59.19.108:/home/app/qa-server/facilities-assessment-host/app-servers/app/"
+    "deploy-igunatmac-qa": "ssh sam@139.59.19.108 \"rm -rf /home/app/qa-server/facilities-assessment-host/app-servers/app/*\" && scp -r build/* sam@139.59.19.108:/home/app/qa-server/facilities-assessment-host/app-servers/app/",
+    "build-deploy-igunatmac-qa": "npm run build && yarn deploy-igunatmac-qa",
+    "deploy-nhsrc-qa": "ssh sam@gunak-other \"rm -rf /home/app/qa-server/facilities-assessment-host/app-servers/app/*\" && scp -r build/* sam@gunak-other:/home/app/qa-server/facilities-assessment-host/app-servers/app/",
+    "build-deploy-nhsrc-qa": "npm run build && yarn deploy-nhsrc-qa"
   },
   "eslintConfig": {
     "extends": "react-app"
