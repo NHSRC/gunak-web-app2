@@ -17,7 +17,7 @@ import {DistrictCreate, DistrictEdit, DistrictList} from "./View/District";
 import {FacilityCreate, FacilityEdit, FacilityList} from "./View/Facility";
 import {FacilityTypeList} from "./View/FacilityType";
 import {FacilityAssessmentCreate, FacilityAssessmentEdit, FacilityAssessmentList} from "./View/FacilityAssessment";
-import {UserList} from "./View/User";
+import {UserCreate, UserEdit, UserList} from "./View/User";
 import AppConfiguration from "./framework/AppConfiguration";
 
 const App = () => (
@@ -45,7 +45,7 @@ const App = () => (
         <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>
         {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
-        <Resource name="user" list={UserList} options={{label: 'Users'}}/>
+        <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} options={{label: 'Users'}}/>
     </Admin>
 );
 

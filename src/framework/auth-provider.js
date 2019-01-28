@@ -1,10 +1,10 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK } from 'react-admin';
+import {AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_ERROR} from 'react-admin';
 import _ from 'lodash';
 
 export default (type, params) => {
     if (type === AUTH_LOGIN) {
-        const { username, password } = params;
-        let postObject = { email: username, password: password };
+        const {username, password} = params;
+        let postObject = {email: username, password: password};
 
         let encodedObj = _.keys(postObject).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(postObject[key])}`);
         let formBody = encodedObj.join("&");
@@ -12,7 +12,7 @@ export default (type, params) => {
         const request = new Request('/api/login', {
             method: 'POST',
             body: formBody,
-            headers: new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' })
+            headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'})
         });
 
         const verifyLoginRequest = new Request('/api/loginSuccess', {
@@ -37,12 +37,20 @@ export default (type, params) => {
                 localStorage.setItem('token', "LOGGED IN");
             });
     }
-    if (type === AUTH_LOGOUT) {
+    else if (type === AUTH_LOGOUT) {
         localStorage.removeItem('token');
         return Promise.resolve();
     }
-    if (type === AUTH_CHECK) {
+    else if (type === AUTH_CHECK) {
         return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
+    }
+    else if (type === AUTH_ERROR) {
+        const status  = params.status;
+        if (status === 401 || status === 403 || status === 404) {
+            localStorage.removeItem('token');
+            return Promise.reject();
+        }
+        return Promise.resolve();
     }
     return Promise.resolve();
 }
