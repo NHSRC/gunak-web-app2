@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 class AppConfiguration {
     static isJSS() {
         return process.env.REACT_APP_TENANT === "JSS";
