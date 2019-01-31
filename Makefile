@@ -10,11 +10,12 @@ endef
 clean:
 	rm -rf node_modules && rm package-lock.json && rm -rf build
 
+#	HTTPS=true
 start-nhsrc:
-	HTTPS=true PORT=3001 REACT_APP_TENANT=NHSRC react-scripts start
+	PORT=3001 REACT_APP_TENANT=NHSRC react-scripts start
 
 start-jss:
-	HTTPS=true PORT=3002 REACT_APP_TENANT=JSS react-scripts start
+	PORT=3002 REACT_APP_TENANT=JSS yarn start
 
 deploy-local:
 	rm -rf ../facilities-assessment-server/app/* && cp -r build/* ../facilities-assessment-server/app/

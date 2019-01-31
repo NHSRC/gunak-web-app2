@@ -150,7 +150,7 @@ let form = function (isCreate) {
         </FormDataConsumer>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Standard" optionText="reference" source="standard"
+                <GunakReferenceInput label="Standard" optionText="name" source="standard"
                                      filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}}/>
             }
         </FormDataConsumer>

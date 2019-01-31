@@ -2,7 +2,7 @@ import React from 'react';
 import {Admin, Resource} from 'react-admin';
 import dataProvider from './framework/gunak-data-provider';
 import authProvider from './framework/auth-provider';
-import {AssessmentTypeEdit, AssessmentTypeList} from './View/AssessmentType';
+import {AssessmentTypeCreate, AssessmentTypeEdit, AssessmentTypeList} from './View/AssessmentType';
 import {DepartmentCreate, DepartmentEdit, DepartmentList} from './View/Department';
 import {AssessmentToolModeCreate, AssessmentToolModeEdit, AssessmentToolModeList} from './View/AssessmentToolMode';
 import {AssessmentToolCreate, AssessmentToolEdit, AssessmentToolList} from './View/AssessmentTool';
@@ -22,7 +22,7 @@ import AppConfiguration from "./framework/AppConfiguration";
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
-        <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{label: 'Assessment Types'}}/>
+        <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{label: 'Assessment Types'}} create={AssessmentTypeCreate}/>
         <Resource name="department" list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} options={{label: 'Departments'}}/>
 
         <Resource name="assessmentToolMode" list={AssessmentToolModeList} edit={AssessmentToolModeEdit} create={AssessmentToolModeCreate} options={{label: 'Programs'}}/>
