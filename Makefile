@@ -12,7 +12,7 @@ clean:
 
 #	HTTPS=true
 start-nhsrc:
-	PORT=3001 REACT_APP_TENANT=NHSRC react-scripts start
+	PORT=3001 REACT_APP_TENANT=NHSRC yarn start
 
 start-jss:
 	PORT=3002 REACT_APP_TENANT=JSS yarn start

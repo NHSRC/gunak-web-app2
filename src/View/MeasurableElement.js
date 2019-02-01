@@ -112,17 +112,19 @@ let getForm = function (props, isEdit) {
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"/>
+        <br/>
+        <p><b>Assessment tool, Checklist and Area of concern are for filtering only</b></p>
+        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" mandatory={false}/>
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}
-                                     filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}}/>
+                                     filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}} mandatory={false}/>
             }
         </FormDataConsumer>
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Area of concern" optionText="name" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}}/>
+                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false}/>
             }
         </FormDataConsumer>
         <FormDataConsumer>

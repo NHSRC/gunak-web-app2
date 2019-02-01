@@ -15,7 +15,7 @@ import {CheckpointCreate, CheckpointEdit, CheckpointList} from "./View/Checkpoin
 import {StateCreate, StateEdit, StateList} from "./View/State";
 import {DistrictCreate, DistrictEdit, DistrictList} from "./View/District";
 import {FacilityCreate, FacilityEdit, FacilityList} from "./View/Facility";
-import {FacilityTypeList} from "./View/FacilityType";
+import {FacilityTypeCreate, FacilityTypeEdit, FacilityTypeList} from "./View/FacilityType";
 import {FacilityAssessmentCreate, FacilityAssessmentEdit, FacilityAssessmentList} from "./View/FacilityAssessment";
 import {UserCreate, UserEdit, UserList} from "./View/User";
 import AppConfiguration from "./framework/AppConfiguration";
@@ -38,8 +38,8 @@ const App = () => (
 
         <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{label: 'States'}}/>
         <Resource name="district" list={DistrictList} create={DistrictCreate} edit={DistrictEdit} options={{label: 'Districts'}}/>
-        <Resource name="facility" list={FacilityList} create={FacilityCreate} edit={FacilityEdit} options={{label: 'Facilities'}}/>
-        <Resource name="facilityType" list={FacilityTypeList} options={{label: 'Facility types'}}/>
+        <Resource name="`y" list={FacilityList} create={FacilityCreate} edit={FacilityEdit} options={{label: 'Facilities'}}/>
+        <Resource name="facilityType" list={FacilityTypeList} options={{label: 'Facility types'}} create={FacilityTypeCreate} edit={FacilityTypeEdit}/>
 
         {/*Include device*/}
         <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>

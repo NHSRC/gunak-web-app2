@@ -135,7 +135,10 @@ let form = function (isCreate) {
         <BooleanInput source="assessmentMethodStaffInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodPatientInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodRecordReview" validate={[required("Mandatory")]} defaultValue={false}/>
-        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" defaultValue={false}/>
+
+        <br/>
+        <p><b>Assessment tool, Checklist and Area of concern, standard are for filtering only</b></p>
+        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" defaultValue={false} mandatory={false}/>
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}
@@ -145,13 +148,13 @@ let form = function (isCreate) {
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Area of concern" optionText="name" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}}/>
+                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false}/>
             }
         </FormDataConsumer>
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Standard" optionText="name" source="standard"
-                                     filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}}/>
+                                     filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}} mandatory={false}/>
             }
         </FormDataConsumer>
         <FormDataConsumer>
