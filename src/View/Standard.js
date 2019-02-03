@@ -64,7 +64,7 @@ const EntityFilter = (props) => (
                         onChange={(obj, id) => {
                             currentFilter.areaOfConcernId = id;
                         }}>
-            <SelectInput optionText="name"/>
+            <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
     </Filter>
 );
@@ -113,8 +113,8 @@ let getForm = function (props, isEdit) {
         </FormDataConsumer>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Area of concern" optionText="name" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}}/>
+                <GunakReferenceInput label="Area of concern" optionText="referenceAndName" source="areaOfConcern" perPage={100}
+                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={false}/>

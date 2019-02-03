@@ -25,12 +25,12 @@ let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        {AppConfiguration.isJSS() ? <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
                                                     onChange={(obj, id) => {
                                                         currentFilter.stateId = id;
                                                     }}>
             <SelectInput optionText="name"/>
-        </ReferenceInput> : null}
+        </ReferenceInput>
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100}
                         sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}>
             <SelectInput optionText="fullName"/>
@@ -40,6 +40,7 @@ const EntityFilter = (props) => (
 
 export const ChecklistList = props => (
     <div>
+        <h4>To view checklist belonging to all states please leave the filter blank.</h4>
         <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'name', order: 'ASC'}}>
             <Datagrid>
                 <TextField source={(AppConfiguration.isNHSRC() || (AppConfiguration.isJSS() && !_.isNil(currentFilter.stateId) && !_.isEmpty(currentFilter.stateId))) ? "name" : "fullName"}/>

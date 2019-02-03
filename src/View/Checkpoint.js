@@ -38,7 +38,8 @@ const EntityFilter = (props) => (
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50}
+                        sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                             delete(props.filterValues.checklistId);
@@ -73,7 +74,7 @@ const EntityFilter = (props) => (
                             delete(props.filterValues.standardId);
                             delete(props.filterValues.measurableElementId);
                         }}>
-            <SelectInput optionText="name"/>
+            <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
 
         {props.filterValues.areaOfConcernId &&
@@ -83,7 +84,7 @@ const EntityFilter = (props) => (
                             currentFilter.standardId = id;
                             delete(props.filterValues.measurableElementId);
                         }}>
-            <SelectInput optionText="reference"/>
+            <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
 
         {props.filterValues.standardId &&
@@ -92,7 +93,7 @@ const EntityFilter = (props) => (
                         onChange={(obj, id) => {
                             currentFilter.measurableElementId = id;
                         }}>
-            <SelectInput optionText="reference"/>
+            <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
     </Filter>
 );
@@ -137,7 +138,7 @@ let form = function (isCreate) {
         <BooleanInput source="assessmentMethodRecordReview" validate={[required("Mandatory")]} defaultValue={false}/>
 
         <br/>
-        <p><b>Assessment tool, Checklist and Area of concern, standard are for filtering only</b></p>
+        <p><b>Assessment tool, Area of concern, standard are for filtering only</b></p>
         <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" defaultValue={false} mandatory={false}/>
         <FormDataConsumer>
             {({formData}) =>
@@ -147,20 +148,22 @@ let form = function (isCreate) {
         </FormDataConsumer>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Area of concern" optionText="name" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false}/>
+                <GunakReferenceInput label="Area of concern" optionText="referenceAndName" source="areaOfConcern" perPage={100}
+                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false}
+                                     sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Standard" optionText="name" source="standard"
-                                     filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}} mandatory={false}/>
+                <GunakReferenceInput label="Standard" optionText="referenceAndName" source="standard"
+                                     filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}} mandatory={false}
+                                     sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Measurable element" optionText="reference" source="measurableElement"
-                                     filter={formData.standardId ? {standardId: formData.standardId} : {}}/>
+                <GunakReferenceInput label="Measurable element" optionText="referenceAndName" source="measurableElement"
+                                     filter={formData.standardId ? {standardId: formData.standardId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={false}/>
