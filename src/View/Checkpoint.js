@@ -167,9 +167,13 @@ let form = function (isCreate) {
                                      filter={formData.standardId ? {standardId: formData.standardId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
-        <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
-        {isCreate ? null :<DisabledInput source="id"/>}
+        {isCreate ? <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/> : null}
+        <InlineHelp message="Choose state if this checkpoint is specific to a state" helpNumber={2}/>
+        <GunakReferenceInput label="State" optionText="name" source="state" sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
+        {isCreate ? null : <InlineHelp message="Refer below for setting sort order" helpNumber={2}/>}
+        {isCreate ? null : <DisabledInput label="CURRENT CHECKPOINT ID" source="id"/>}
+        {isCreate ? null : <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>}
         {isCreate ? null :
             <ReferenceManyField label="Other checkpoints in the same measurable element in this checklist" reference="checkpoint"
                                 target="checkpointMeasurableElementIdAndChecklistId"
