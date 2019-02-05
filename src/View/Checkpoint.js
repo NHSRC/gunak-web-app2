@@ -18,13 +18,16 @@ import {
     required,
     SelectInput,
     SimpleForm,
-    TextField
+    TextField,
+    ReferenceManyField
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 let currentFilter = {};
 
@@ -42,10 +45,10 @@ const EntityFilter = (props) => (
                         sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
-                            delete(props.filterValues.checklistId);
-                            delete(props.filterValues.areaOfConcernId);
-                            delete(props.filterValues.standardId);
-                            delete(props.filterValues.measurableElementId);
+                            delete (props.filterValues.checklistId);
+                            delete (props.filterValues.areaOfConcernId);
+                            delete (props.filterValues.standardId);
+                            delete (props.filterValues.measurableElementId);
                         }}>
             <SelectInput optionText="fullName"/>
         </ReferenceInput>
@@ -59,9 +62,9 @@ const EntityFilter = (props) => (
                         alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.checklistId = id;
-                            delete(props.filterValues.areaOfConcernId);
-                            delete(props.filterValues.standardId);
-                            delete(props.filterValues.measurableElementId);
+                            delete (props.filterValues.areaOfConcernId);
+                            delete (props.filterValues.standardId);
+                            delete (props.filterValues.measurableElementId);
                         }}>
             <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}
@@ -71,8 +74,8 @@ const EntityFilter = (props) => (
                         filter={{checklistId: props.filterValues.checklistId}}
                         onChange={(obj, id) => {
                             currentFilter.areaOfConcernId = id;
-                            delete(props.filterValues.standardId);
-                            delete(props.filterValues.measurableElementId);
+                            delete (props.filterValues.standardId);
+                            delete (props.filterValues.measurableElementId);
                         }}>
             <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
@@ -82,7 +85,7 @@ const EntityFilter = (props) => (
                         filter={{areaOfConcernId: props.filterValues.areaOfConcernId}}
                         onChange={(obj, id) => {
                             currentFilter.standardId = id;
-                            delete(props.filterValues.measurableElementId);
+                            delete (props.filterValues.measurableElementId);
                         }}>
             <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
@@ -131,7 +134,6 @@ let form = function (isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <LongTextInput source="name" validate={[required("Mandatory")]}/>
         <LongTextInput source="meansOfVerification" validate={[required("Mandatory")]}/>
-        <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>
         <BooleanInput source="assessmentMethodObservation" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodStaffInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodPatientInterview" validate={[required("Mandatory")]} defaultValue={false}/>
@@ -165,9 +167,23 @@ let form = function (isCreate) {
                                      filter={formData.standardId ? {standardId: formData.standardId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
+        <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
+        {isCreate ? null :<DisabledInput source="id"/>}
+        {isCreate ? null :
+            <ReferenceManyField label="Other checkpoints in the same measurable element in this checklist" reference="checkpoint"
+                                target="checkpointMeasurableElementIdAndChecklistId"
+                                sort={{field: 'sortOrder', order: 'ASC'}}>
+                <Datagrid>
+                    <NumberField source="id"/>
+                    <TextField source="name"/>
+                    <NumberField source="sortOrder"/>
+                </Datagrid>
+            </ReferenceManyField>
+        }
     </SimpleForm>;
 };
+
 export const CheckpointEdit = props => (
     <Edit {...props}>
         {form(false)}

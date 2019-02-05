@@ -18,7 +18,8 @@ import {
     SimpleForm,
     SingleFieldList,
     TextField,
-    TextInput
+    TextInput,
+    SimpleList
 } from 'react-admin';
 import AppConfiguration from "../framework/AppConfiguration";
 import ContextActions from "../components/ContextActions";

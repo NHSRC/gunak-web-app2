@@ -19,7 +19,7 @@ import {FacilityTypeCreate, FacilityTypeEdit, FacilityTypeList} from "./View/Fac
 import {FacilityAssessmentCreate, FacilityAssessmentEdit, FacilityAssessmentList} from "./View/FacilityAssessment";
 import {UserCreate, UserEdit, UserList} from "./View/User";
 import AppConfiguration from "./framework/AppConfiguration";
-import {FAQ} from "./View/FAQ";
+import FAQ from "./View/FAQ";
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
