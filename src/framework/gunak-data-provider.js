@@ -51,20 +51,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY_REFERENCE: {
-                const {page, perPage} = params.pagination;
-                const {field, order} = params.sort;
-                const query = {
-                    sort: JSON.stringify([field, order]),
-                    range: JSON.stringify([
-                        (page - 1) * perPage,
-                        page * perPage - 1,
-                    ]),
-                    filter: JSON.stringify({
-                        ...params.filter,
-                        [params.target]: params.id,
-                    }),
-                };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                console.log(JSON.stringify(params));
+                let pagination = Pagination.asSpringUrlPart(params.pagination, params.sort);
+                let filter = params.filter;
+                url = `${apiUrl}/${resource}/search/findBy${_.upperFirst(params.target)}?${params.target}=${params.id}&${pagination}`;
                 break;
             }
             case UPDATE:
