@@ -7,24 +7,24 @@ import {
     DisabledInput,
     Edit,
     EditButton,
+    Filter,
+    FormDataConsumer,
     List,
     LongTextInput,
     NumberField,
     NumberInput,
     ReferenceField,
-    SimpleForm,
-    TextField,
-    Filter,
     ReferenceInput,
-    SelectInput,
     required,
-    FormDataConsumer
+    SelectInput,
+    SimpleForm,
+    TextField
 } from 'react-admin';
-import ParentResource from "../framework/ParentResource";
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
+import InlineHelp from "../components/InlineHelp";
 
 let currentFilter = {};
 
@@ -137,8 +137,7 @@ let form = function (isCreate) {
         <BooleanInput source="assessmentMethodPatientInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodRecordReview" validate={[required("Mandatory")]} defaultValue={false}/>
 
-        <br/>
-        <p><b>Assessment tool, Area of concern, standard are for filtering only</b></p>
+        <InlineHelp message="Assessment tool, Area of concern, standard are for filtering only" helpNumber={2}/>
         <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" defaultValue={false} mandatory={false}/>
         <FormDataConsumer>
             {({formData}) =>

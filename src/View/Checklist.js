@@ -20,6 +20,7 @@ import {
 import {GunakReferenceInput} from "../components/Inputs";
 import AppConfiguration from "../framework/AppConfiguration";
 import _ from 'lodash';
+import InlineHelp from "../components/InlineHelp";
 
 let currentFilter = {};
 
@@ -62,8 +63,7 @@ let getForm = function (props, isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <GunakReferenceInput label="State" optionText="name" source="state" mandatory={false}/>
-        <br/>
-        <p>Leave state as empty if you want checklist to be available for all states</p>
+        <InlineHelp message="Leave state as empty if you want checklist to be available for all states" helpNumber={5}/>
         <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
         <br/>
         <GunakReferenceInput label="Department" optionText="name" source="department"/>

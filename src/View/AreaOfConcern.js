@@ -22,6 +22,7 @@ import AppConfiguration from "../framework/AppConfiguration";
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
+import InlineHelp from "../components/InlineHelp";
 
 let currentFilter = {};
 
@@ -88,8 +89,8 @@ let getForm = function (props, isEdit) {
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <br/>
-        <p><b>Assessment tool is only for filtering checklists</b></p>
+
+        <InlineHelp message="Assessment tool is only for filtering checklists" helpNumber={2}/>
         <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" mandatory={false}/>
         <FormDataConsumer>
             {({formData}) =>
