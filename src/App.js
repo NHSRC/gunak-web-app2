@@ -40,7 +40,7 @@ const App = () => (
 
         <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{label: 'States'}}/>
         <Resource name="district" list={DistrictList} create={DistrictCreate} edit={DistrictEdit} options={{label: 'Districts'}}/>
-        <Resource name="`y" list={FacilityList} create={FacilityCreate} edit={FacilityEdit} options={{label: 'Facilities'}}/>
+        <Resource name="facility" list={FacilityList} create={FacilityCreate} edit={FacilityEdit} options={{label: 'Facilities'}}/>
         <Resource name="facilityType" list={FacilityTypeList} options={{label: 'Facility types'}} create={FacilityTypeCreate} edit={FacilityTypeEdit}/>
 
         {/*Include device*/}

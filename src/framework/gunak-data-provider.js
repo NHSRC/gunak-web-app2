@@ -51,7 +51,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             }
             case GET_MANY_REFERENCE: {
-                console.log(JSON.stringify(params));
                 let pagination = Pagination.asSpringUrlPart(params.pagination, params.sort);
                 let filter = params.filter;
                 url = `${apiUrl}/${resource}/search/findBy${_.upperFirst(params.target)}?${params.target}=${params.id}&${pagination}`;

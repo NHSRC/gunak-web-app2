@@ -55,10 +55,9 @@ export const FacilityAssessmentList = props => (
     </List>
 );
 
-let getForm = function (isCreate) {
-    console.log("getForm");
+let getForm = function (isEdit) {
     return <SimpleForm>
-        {isCreate ? null : <DisabledInput source="id"/>}
+        {isEdit && <DisabledInput source="id"/>}
         <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"/>
         <GunakReferenceInput label="State" optionText="name" source="state"/>
         <FormDataConsumer>
@@ -73,8 +72,7 @@ let getForm = function (isCreate) {
                 let filter = {};
                 if (formData.districtId) filter["districtId"] = formData.districtId;
                 if (formData.facilityTypeId) filter["facilityTypeId"] = formData.facilityTypeId;
-                return <GunakReferenceInput label="Facility" optionText="name" source="facility" perPage={200}
-                                     filter={filter} mandatory={false}/>;
+                return <GunakReferenceInput label="Facility" optionText="name" source="facility" perPage={200} filter={filter} mandatory={false}/>;
             }
             }
         </FormDataConsumer>
@@ -90,12 +88,12 @@ let getForm = function (isCreate) {
 
 export const FacilityAssessmentCreate = (props) => (
     <Create {...props}>
-        {getForm(true)}
+        {getForm(false)}
     </Create>
 );
 
 export const FacilityAssessmentEdit = props => (
     <Edit {...props}>
-        {getForm(false)}
+        {getForm(true)}
     </Edit>
 );

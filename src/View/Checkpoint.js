@@ -82,7 +82,7 @@ const EntityFilter = (props) => (
 
         {props.filterValues.areaOfConcernId &&
         <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId}}
+                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId, checklistId: props.filterValues.checklistId}}
                         onChange={(obj, id) => {
                             currentFilter.standardId = id;
                             delete (props.filterValues.measurableElementId);
@@ -92,7 +92,7 @@ const EntityFilter = (props) => (
 
         {props.filterValues.standardId &&
         <ReferenceInput label="Measurable element" source="measurableElementId" reference="measurableElement" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{standardId: props.filterValues.standardId}}
+                        filter={{standardId: props.filterValues.standardId, checklistId: props.filterValues.checklistId}}
                         onChange={(obj, id) => {
                             currentFilter.measurableElementId = id;
                         }}>
@@ -169,9 +169,9 @@ let form = function (isCreate) {
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={false}/>
         {isCreate ? <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/> : null}
-        <InlineHelp message="Choose state if this checkpoint is specific to a state" helpNumber={2}/>
+        <InlineHelp message="Choose state if this checkpoint is specific to a state" helpNumber={7}/>
         <GunakReferenceInput label="State" optionText="name" source="state" sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
-        {isCreate ? null : <InlineHelp message="Refer below for setting sort order" helpNumber={2}/>}
+        {isCreate ? null : <InlineHelp message="Refer below for setting sort order" helpNumber={6}/>}
         {isCreate ? null : <DisabledInput label="CURRENT CHECKPOINT ID" source="id"/>}
         {isCreate ? null : <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>}
         {isCreate ? null :
