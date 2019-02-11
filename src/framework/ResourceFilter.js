@@ -9,14 +9,6 @@ class ResourceFilter {
     static regexForStringEndingWithId = new RegExp("Id$");
     static regexForStringEndingWithAmpersand = new RegExp("&$");
 
-    static parse(queryString) {
-        if (_.isEmpty(queryString)) return null;
-
-        let parsed = parseUrl(queryString);
-        let filterString = parsed["query"]["filter"];
-        return JSON.parse(filterString);
-    }
-
     static getTypeOfListing(filter) {
         if (_.isNil(filter) || _.isEmpty(filter)) {
             return ResourceFilter.ENTITY;

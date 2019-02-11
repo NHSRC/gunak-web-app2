@@ -21,6 +21,8 @@ import {UserCreate, UserEdit, UserList} from "./View/User";
 import AppConfiguration from "./framework/AppConfiguration";
 import FAQ from "./View/FAQ";
 
+const nonExistentResource = <Resource name="placeholder"/>
+
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
         <Resource name="help" list={FAQ} options={{label: 'FAQ'}}/>
@@ -36,7 +38,7 @@ const App = () => (
                   options={{label: 'Measurable elements'}}/>
         <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} create={CheckpointCreate} options={{label: 'Checkpoints'}}/>
 
-        {AppConfiguration.isNHSRC() ? <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{label: 'Indicator definitions'}}/> : <Resource/>}
+        {AppConfiguration.isNHSRC() ? <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{label: 'Indicator definitions'}}/> : nonExistentResource}
 
         <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{label: 'States'}}/>
         <Resource name="district" list={DistrictList} create={DistrictCreate} edit={DistrictEdit} options={{label: 'Districts'}}/>
@@ -45,7 +47,7 @@ const App = () => (
 
         {/*Include device*/}
         <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>
-        {AppConfiguration.isNHSRC() ? <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}/>  : <Resource/>}
+        {AppConfiguration.isNHSRC() ? <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}/>  : nonExistentResource}
         {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
         <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} options={{label: 'Users'}}/>

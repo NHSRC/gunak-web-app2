@@ -31,3 +31,6 @@ deploy-igunatmac-qa:
 deploy-nhsrc-qa:
 	$(call _build,NHSRC)
 	$(call _deploy_qa,gunak-other)
+
+test:
+	npm test -q

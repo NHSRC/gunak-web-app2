@@ -12,17 +12,4 @@ describe('ResourceFilter', () => {
         assert.equal(ResourceFilter.getParentParamString({stateId: 2}), "stateId=2");
         assert.equal(ResourceFilter.getParentParamString({stateId: 2, checklistId: 3}), "stateId=2&checklistId=3");
     });
-
-    it('should parse from query string', () => {
-        let s = `?filter=${JSON.stringify({standardId: 1})}`;
-        let resourceFilter = ResourceFilter.parse(s);
-        assert.equal(resourceFilter.name, "standard");
-        assert.equal(resourceFilter.id, 1);
-        assert.equal(resourceFilter.display, "name");
-    });
-
-    it('should return to filter', function () {
-        let resourceFilter = new ResourceFilter("standard", "name", 1);
-        assert.equal(resourceFilter.toFilter(), '{"standard":1}');
-    });
 });
