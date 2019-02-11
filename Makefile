@@ -33,4 +33,4 @@ deploy-nhsrc-qa:
 	$(call _deploy_qa,gunak-other)
 
 test:
-	npm test -q
+	CI=true npm test
