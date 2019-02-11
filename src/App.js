@@ -45,6 +45,7 @@ const App = () => (
 
         {/*Include device*/}
         <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>
+        {AppConfiguration.isNHSRC() ? <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}/>  : <Resource/>}
         {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
         <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} options={{label: 'Users'}}/>

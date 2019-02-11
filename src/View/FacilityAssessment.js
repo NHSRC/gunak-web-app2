@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    ReferenceManyField,
     AutocompleteInput,
     Create,
     Datagrid,
@@ -83,6 +84,17 @@ let getForm = function (isEdit) {
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <FileField source="uploadFile" title="title"/>
         </FileInput>
+        {AppConfiguration.isNHSRC() &&
+        <ReferenceManyField label="Checkpoints not found" reference="facilityAssessmentMissingCheckpoint"
+                            target="facilityAssessmentId"
+                            sort={{field: 'missingCheckpoint.checklist.name', order: 'ASC'}}>
+            <Datagrid>
+                <ReferenceField label="Checklist" source="checklistId" reference="checklist">
+                    <TextField source="name"/>
+                </ReferenceField>
+                <TextField source="missingCheckpointName"/>
+            </Datagrid>
+        </ReferenceManyField>}
     </SimpleForm>;
 };
 
