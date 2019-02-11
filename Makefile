@@ -3,6 +3,11 @@ define _deploy_qa
 	scp -r build/* $1:/home/app/qa-server/facilities-assessment-host/app-servers/app/
 endef
 
+define _deploy_prod
+	ssh $1 "rm -rf /home/app/facilities-assessment-host/app-servers/app/*"
+	scp -r build/* $1:/home/app/facilities-assessment-host/app-servers/app/
+endef
+
 define _build
 	REACT_APP_TENANT=$1 npm run build
 endef
@@ -24,13 +29,17 @@ start-jss:
 deploy-local:
 	rm -rf ../facilities-assessment-server/app/* && cp -r build/* ../facilities-assessment-server/app/
 
-deploy-igunatmac-qa:
+deploy-jss-qa:
 	$(call _build,JSS)
 	$(call _deploy_qa,igunatmac)
 
 deploy-nhsrc-qa:
 	$(call _build,NHSRC)
 	$(call _deploy_qa,gunak-other)
+
+deploy-jss-prod:
+	$(call _build,JSS)
+	$(call _deploy_prod,igunatmac)
 
 test:
 	CI=true npm test
