@@ -17,7 +17,7 @@ const styles = theme => ({
 function InlineHelp(props) {
     const {classes} = props;
     return (<Paper className={classes.root} elevation={1}>
-        <Typography variant="h5" component="h4">{`${props.message}. Please see more details in `}<a href="#/help">{`Help #${props.helpNumber}`}</a></Typography>
+        <Typography variant="h5" component="h4">{`${props.message}. Please see more details in `}<a href="#/faq">{`FAQ #${props.helpNumber}`}</a></Typography>
     </Paper>);
 }
 

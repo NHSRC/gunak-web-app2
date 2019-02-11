@@ -21,11 +21,11 @@ import {UserCreate, UserEdit, UserList} from "./View/User";
 import AppConfiguration from "./framework/AppConfiguration";
 import FAQ from "./View/FAQ";
 
-const nonExistentResource = <Resource name="placeholder"/>
+const nonExistentResource = <Resource name="placeholder"/>;
 
 const App = () => (
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
-        <Resource name="help" list={FAQ} options={{label: 'FAQ'}}/>
+        <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}}/>
         <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{label: 'Assessment Types'}} create={AssessmentTypeCreate}/>
         <Resource name="department" list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} options={{label: 'Departments'}}/>
 
