@@ -100,9 +100,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             case GET_MANY_REFERENCE:
                 return SpringResponse.toReactAdminResourceListResponse(json, resource);
             case GET_MANY:
-                return {
-                    data: json['_embedded'][resource]
-                };
+                return SpringResponse.toReactAdminResourceListResponse(json, resource);
             case CREATE:
                 return {data: {...params.data, id: json.id}};
             default:

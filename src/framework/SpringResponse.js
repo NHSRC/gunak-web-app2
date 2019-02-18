@@ -8,9 +8,15 @@ class SpringResponse {
         } else if (json['_embedded']) {
             let resources = json['_embedded'][resource];
             let page = json['page'];
+            let totalElements = page ? page["totalElements"] : resources.length;
             return {
                 data: resources,
-                total: page["totalElements"]
+                total: totalElements
+            };
+        } else {
+            return {
+                data: json,
+                total: json.length
             };
         }
     }
