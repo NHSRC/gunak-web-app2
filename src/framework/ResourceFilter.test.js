@@ -12,4 +12,8 @@ describe('ResourceFilter', () => {
         assert.equal(ResourceFilter.getParentParamString({stateId: 2}), "stateId=2");
         assert.equal(ResourceFilter.getParentParamString({stateId: 2, checklistId: 3}), "stateId=2&checklistId=3");
     });
+
+    it('filterAsQueryParam', function () {
+        assert.equal(ResourceFilter.filterAsQueryParam("resource", 1), 'filter=%7B%22resource%22%3A1%7D');
+    });
 });

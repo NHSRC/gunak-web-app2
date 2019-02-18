@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {parseUrl} from 'query-string';
+import {parseUrl, stringify} from 'query-string';
 
 class ResourceFilter {
     static ENTITY = "ENTITY";
@@ -33,6 +33,14 @@ class ResourceFilter {
             paramString += `${key}=${filter[key]}&`;
         });
         return paramString.replace(this.regexForStringEndingWithAmpersand, '');
+    }
+
+    static filterAsQueryParam(filterField, filterValue) {
+        let filterWrapper = {};
+        let filter = {};
+        filter[filterField] = filterValue;
+        filterWrapper["filter"] = JSON.stringify(filter);
+        return stringify(filterWrapper);
     }
 }
 

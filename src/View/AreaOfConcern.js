@@ -18,11 +18,9 @@ import {
     SimpleForm,
     SingleFieldList,
     TextField,
-    TextInput,
-    SimpleList
+    TextInput
 } from 'react-admin';
 import AppConfiguration from "../framework/AppConfiguration";
-import ContextActions from "../components/ContextActions";
 
 let currentFilter = {};
 

@@ -1,5 +1,9 @@
 import React from 'react';
 import {
+    UrlField,
+    required,
+    SingleFieldList,
+    ReferenceArrayField,
     ReferenceManyField,
     AutocompleteInput,
     Create,
@@ -22,6 +26,8 @@ import {
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import AppConfiguration from "../framework/AppConfiguration";
+import InlineHelp from "../components/InlineHelp";
+import NavigationField from "../components/NavigationField";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -56,6 +62,10 @@ export const FacilityAssessmentList = props => (
     </List>
 );
 
+let displayMissingReport = function (isEdit) {
+    return AppConfiguration.isNHSRC() && isEdit;
+};
+
 let getForm = function (isEdit) {
     return <SimpleForm>
         {isEdit && <DisabledInput source="id"/>}
@@ -77,15 +87,23 @@ let getForm = function (isEdit) {
             }
             }
         </FormDataConsumer>
-        <TextInput source="facilityName" label="Facility name (if not given above)" mandatory={false}/>
+        <TextInput source="facilityName" label="Facility name (if not given above)"/>
         <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"/>
-        <DateInput source="startDate" label="Assessment start date" mandatory={true}/>
-        <DateInput source="endDate" label="Assessment end date" mandatory={true}/>
+        <DateInput source="startDate" label="Assessment start date" validate={[required("Mandatory")]}/>
+        <DateInput source="endDate" label="Assessment end date" validate={[required("Mandatory")]}/>
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <FileField source="uploadFile" title="title"/>
         </FileInput>
-        {AppConfiguration.isNHSRC() &&
-        <ReferenceManyField label="Checkpoints not found" reference="facilityAssessmentMissingCheckpoint"
+        {displayMissingReport(isEdit) && <InlineHelp helpNumber={8} message="Rows/Sheets that could not be imported because not present in the database"/>}
+        {displayMissingReport(isEdit) &&
+        <ReferenceArrayField addLabel={false} label="Missing checklists" reference="missingChecklist" target="facilityAssessmentId">
+            <SingleFieldList>
+                <TextField source="name"/>
+            </SingleFieldList>
+        </ReferenceArrayField>
+        }
+        {displayMissingReport(isEdit) &&
+        <ReferenceManyField addLabel={false} label="Checkpoints not found" reference="facilityAssessmentMissingCheckpoint"
                             target="facilityAssessmentId"
                             sort={{field: 'missingCheckpoint.checklist.name', order: 'ASC'}}>
             <Datagrid>
@@ -93,8 +111,12 @@ let getForm = function (isEdit) {
                     <TextField source="name"/>
                 </ReferenceField>
                 <TextField source="missingCheckpointName"/>
+                <TextField source="measurableElementReference"/>
             </Datagrid>
         </ReferenceManyField>}
+        {displayMissingReport(isEdit) &&
+        <NavigationField display="All missing checkpoints for this assessment" targetResource="facilityAssessmentMissingCheckpoint"
+                         filterField="facilityAssessmentId" source="id"/>}
     </SimpleForm>;
 };
 

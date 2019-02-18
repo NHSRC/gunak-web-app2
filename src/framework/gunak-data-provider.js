@@ -52,17 +52,18 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             }
             case GET_MANY_REFERENCE: {
                 let pagination = Pagination.asSpringUrlPart(params.pagination, params.sort);
-                let filter = params.filter;
-                url = `${apiUrl}/${resource}/search/findBy${_.upperFirst(params.target)}?${params.target}=${params.id}&${pagination}`;
+                let constructedFilter = {};
+                constructedFilter[params.target] = params.id;
+                url = `${apiUrl}/${resource}/${ResourceFilter.getResourcePath_ByParent(constructedFilter)}?${params.target}=${params.id}&${pagination}`;
                 break;
             }
             case UPDATE:
-                url = `${apiUrl}/${resource}s`;
+                url = params.data.files ? `${apiUrl}/${resource}s/withFile` : `${apiUrl}/${resource}s`;
                 options.method = 'PUT';
                 options.body = params.data.files ? createFormData(params.data) : JSON.stringify(params.data);
                 break;
             case CREATE:
-                url = `${apiUrl}/${resource}s`;
+                url = params.data.files ? `${apiUrl}/${resource}s/withFile` : `${apiUrl}/${resource}s`;
                 options.method = 'POST';
                 options.body = params.data.files ? createFormData(params.data) : JSON.stringify(params.data);
                 break;

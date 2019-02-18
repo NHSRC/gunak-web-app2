@@ -20,6 +20,7 @@ import {FacilityAssessmentCreate, FacilityAssessmentEdit, FacilityAssessmentList
 import {UserCreate, UserEdit, UserList} from "./View/User";
 import AppConfiguration from "./framework/AppConfiguration";
 import FAQ from "./View/FAQ";
+import {AssessmentMissingCheckpointList} from "./View/AssessmentMissingCheckpoint";
 
 const nonExistentResource = <Resource name="placeholder"/>;
 
@@ -47,7 +48,7 @@ const App = () => (
 
         {/*Include device*/}
         <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>
-        {AppConfiguration.isNHSRC() ? <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}/>  : nonExistentResource}
+        {AppConfiguration.isNHSRC() ? <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}} list={AssessmentMissingCheckpointList}/>  : nonExistentResource}
         {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
         <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} options={{label: 'Users'}}/>
