@@ -41,5 +41,9 @@ deploy-jss-prod:
 	$(call _build,JSS)
 	$(call _deploy_prod,igunatmac)
 
+deploy-nhsrc-prod:
+	$(call _build,NHSRC)
+	$(call _deploy_prod,gunak-main)
+
 test:
 	CI=true npm test

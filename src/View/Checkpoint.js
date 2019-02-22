@@ -106,7 +106,7 @@ export const CheckpointList = props => {
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
             <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>}>
-                <Datagrid>
+                <Datagrid rowClick="edit">
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement" sortBy="measurableElement.reference">
                         <TextField source="reference"/>
                     </ReferenceField>
@@ -118,9 +118,11 @@ export const CheckpointList = props => {
                     <BooleanField source="assessmentMethodPatientInterview" label="AM Patient Interview"/>
                     <BooleanField source="assessmentMethodRecordReview" label="AM Record Review"/>
                     <BooleanField source="inactive"/>
-                    <EditButton/>
                     <TextField source="id"/>
                     <ReferenceField label="Checklist" source="checklistId" reference="checklist" sortBy="checklist.name">
+                        <TextField source="name"/>
+                    </ReferenceField>
+                    <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
                         <TextField source="name"/>
                     </ReferenceField>
                 </Datagrid>
@@ -179,7 +181,7 @@ let form = function (isCreate) {
                                 target="checkpointMeasurableElementIdAndChecklistId"
                                 sort={{field: 'sortOrder', order: 'ASC'}}>
                 <Datagrid>
-                    <NumberField source="id"/>
+                    <NumberField source="id" options={{ style: 'decimal', useGrouping: false }}/>
                     <TextField source="name"/>
                     <NumberField source="sortOrder"/>
                 </Datagrid>

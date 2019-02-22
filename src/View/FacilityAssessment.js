@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+    BooleanField,
+    BooleanInput,
     UrlField,
     required,
     SingleFieldList,
@@ -46,7 +48,7 @@ export const FacilityAssessmentList = props => (
             <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                 <TextField source="name"/>
             </ReferenceField>
-            <ReferenceField label="Facility" source="facilityId" reference="facility" allowEmpty={true} sortBy="facility.name">
+            <ReferenceField label="Facility" source="facilityId" reference="facility" allowEmpty sortBy="facility.name">
                 <TextField source="name"/>
             </ReferenceField>
             {AppConfiguration.isNHSRC() ? <TextField source="facilityName" label="Non-coded Facility Name"/> : null}
@@ -56,6 +58,7 @@ export const FacilityAssessmentList = props => (
             </ReferenceField>
             <TextField source="startDate"/>
             <TextField source="endDate"/>
+            <BooleanField source="inactive"/>
             <EditButton/>
             <TextField source="id"/>
         </Datagrid>
@@ -91,10 +94,11 @@ let getForm = function (isEdit) {
         <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"/>
         <DateInput source="startDate" label="Assessment start date" validate={[required("Mandatory")]}/>
         <DateInput source="endDate" label="Assessment end date" validate={[required("Mandatory")]}/>
+        <BooleanInput source="inactive" defaultValue={false}/>
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <FileField source="uploadFile" title="title"/>
         </FileInput>
-        {displayMissingReport(isEdit) && <InlineHelp helpNumber={8} message="Rows/Sheets that could not be imported because not present in the database"/>}
+        {displayMissingReport(isEdit) && <InlineHelp helpNumber={8} message="Rows/Sheets that could not be imported because not present in the database. If empty then all rows were successfully imported or submission happened via mobile."/>}
         {displayMissingReport(isEdit) &&
         <ReferenceArrayField addLabel={false} label="Missing checklists" reference="missingChecklist" target="facilityAssessmentId">
             <SingleFieldList>
@@ -106,7 +110,7 @@ let getForm = function (isEdit) {
         <ReferenceManyField addLabel={false} label="Checkpoints not found" reference="facilityAssessmentMissingCheckpoint"
                             target="facilityAssessmentId"
                             sort={{field: 'missingCheckpoint.checklist.name', order: 'ASC'}}>
-            <Datagrid>
+            <Datagrid rowClick="edit">
                 <ReferenceField label="Checklist" source="checklistId" reference="checklist">
                     <TextField source="name"/>
                 </ReferenceField>

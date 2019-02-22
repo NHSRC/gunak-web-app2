@@ -51,13 +51,16 @@ export const ChecklistList = props => (
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checklist"/>
         <h4>To view checklist belonging to all states please leave the filter blank.</h4>
         <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'name', order: 'ASC'}}>
-            <Datagrid>
+            <Datagrid rowClick="edit">
                 <TextField
                     source={(AppConfiguration.isNHSRC() || (AppConfiguration.isJSS() && !_.isNil(currentFilter.stateId) && !_.isEmpty(currentFilter.stateId))) ? "name" : "fullName"}/>
                 <ReferenceField label="Department" source="departmentId" reference="department" sortBy="department.name">
                     <TextField source="name"/>
                 </ReferenceField>
                 <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
+                    <TextField source="name"/>
+                </ReferenceField>
+                <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
                     <TextField source="name"/>
                 </ReferenceField>
                 <EditButton/>
