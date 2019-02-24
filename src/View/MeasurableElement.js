@@ -73,7 +73,7 @@ const EntityFilter = (props) => (
 
         {props.filterValues.areaOfConcernId &&
         <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId}}
+                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId, checklistId: props.filterValues.checklistId}}
                         onChange={(obj, id) => {
                             currentFilter.standardId = id;
                         }}>
