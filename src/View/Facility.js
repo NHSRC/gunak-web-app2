@@ -34,7 +34,6 @@ const EntityFilter = (props) => (
         <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.stateId = id;
-                            delete(props.filterValues.districtId);
                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>

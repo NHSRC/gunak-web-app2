@@ -40,21 +40,19 @@ const EntityFilter = (props) => (
                         sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
-                            delete(props.filterValues.checklistId);
                             delete(props.filterValues.areaOfConcernId);
                         }}>
             <SelectInput optionText="fullName"/>
         </ReferenceInput>
 
         {props.filterValues.assessmentToolId &&
-        <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
                         filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
                             assessmentToolId: props.filterValues.assessmentToolId,
                             stateId: props.filterValues.stateId
                         } : {assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.checklistId = id;
-                            delete(props.filterValues.areaOfConcernId);
                         }}>
             <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}

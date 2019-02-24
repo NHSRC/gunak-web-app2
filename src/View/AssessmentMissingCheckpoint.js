@@ -28,7 +28,6 @@ const EntityFilter = (props) => (
         <ReferenceInput label="Facility assessment" source="facilityAssessmentId" reference="facilityAssessment" alwaysOn
                         onChange={(obj, id) => {
                             currentFilter.facilityAssessmentId = id;
-                            delete (props.filterValues.checklistId);
                         }}>
             <SelectInput optionText="id"/>
         </ReferenceInput>

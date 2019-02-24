@@ -36,10 +36,9 @@ const EntityFilter = (props) => (
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={{field: 'assessmentToolMode.id', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
-                            delete(props.filterValues.checklistId);
                             delete(props.filterValues.areaOfConcernId);
                             delete(props.filterValues.standardId);
                         }}>
@@ -47,7 +46,7 @@ const EntityFilter = (props) => (
         </ReferenceInput>
 
         {props.filterValues.assessmentToolId &&
-        <ReferenceInput label="Checklist" key={props.filterValues.assessmentToolId} source="checklistId" reference="checklist"
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
                         filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
                             assessmentToolId: props.filterValues.assessmentToolId,
                             stateId: props.filterValues.stateId
@@ -55,7 +54,6 @@ const EntityFilter = (props) => (
                         alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.checklistId = id;
-                            delete(props.filterValues.areaOfConcernId);
                             delete(props.filterValues.standardId);
                         }}>
             <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
@@ -66,7 +64,6 @@ const EntityFilter = (props) => (
                         filter={{checklistId: props.filterValues.checklistId}}
                         onChange={(obj, id) => {
                             currentFilter.areaOfConcernId = id;
-                            delete(props.filterValues.standardId);
                         }}>
             <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
@@ -83,6 +80,7 @@ const EntityFilter = (props) => (
 );
 
 export const MeasurableElementList = props => {
+    console.log(JSON.stringify(currentFilter));
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="measurableElement"/>
