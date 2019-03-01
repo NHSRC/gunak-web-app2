@@ -27,3 +27,5 @@ yarn.lock
 gunak-web-app2.iml
 package-lock.json
 app/*
+
+public/images/*.png
