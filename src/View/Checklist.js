@@ -46,14 +46,14 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const ChecklistList = props => (
-    <div>
+export const ChecklistList = props => {
+    let displayName = AppConfiguration.isNHSRC() || (AppConfiguration.isJSS() && !_.isNil(currentFilter.stateId) && !_.isEmpty(currentFilter.stateId));
+    return <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checklist"/>
         <h4>To view checklist belonging to all states please leave the filter blank.</h4>
         <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'name', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                <TextField
-                    source={(AppConfiguration.isNHSRC() || (AppConfiguration.isJSS() && !_.isNil(currentFilter.stateId) && !_.isEmpty(currentFilter.stateId))) ? "name" : "fullName"}/>
+                <TextField source={displayName ? "name" : "fullName"} label={displayName ? "Name" : "Name - [State]"}/>
                 <ReferenceField label="Department" source="departmentId" reference="department" sortBy="department.name">
                     <TextField source="name"/>
                 </ReferenceField>
@@ -68,7 +68,8 @@ export const ChecklistList = props => (
                 <TextField source="id"/>
             </Datagrid>
         </List></div>
-);
+
+};
 
 let getForm = function (props, isCreate) {
     return <SimpleForm>
