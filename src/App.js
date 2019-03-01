@@ -22,6 +22,7 @@ import AppConfiguration from "./framework/AppConfiguration";
 import FAQ from "./View/FAQ";
 import {AssessmentMissingCheckpointList} from "./View/AssessmentMissingCheckpoint";
 import {RoleCreate, RoleEdit, RoleList} from "./View/Role";
+import {PrivilegeList} from "./View/Privilege";
 
 const nonExistentResource = <Resource name="placeholder"/>;
 
@@ -57,7 +58,7 @@ const App = () => (
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
         <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} options={{label: 'Users'}}/>
         <Resource name="role" list={RoleList} options={{label: 'Roles'}} create={RoleCreate} edit={RoleEdit}/>
-        <Resource name="privilege" options={{label: 'Privileges'}}/>
+        <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList}/>
     </Admin>
 );
 
