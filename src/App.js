@@ -21,6 +21,7 @@ import {UserCreate, UserEdit, UserList} from "./View/User";
 import AppConfiguration from "./framework/AppConfiguration";
 import FAQ from "./View/FAQ";
 import {AssessmentMissingCheckpointList} from "./View/AssessmentMissingCheckpoint";
+import {RoleCreate, RoleEdit, RoleList} from "./View/Role";
 
 const nonExistentResource = <Resource name="placeholder"/>;
 
@@ -39,7 +40,8 @@ const App = () => (
                   options={{label: 'Measurable elements'}}/>
         <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} create={CheckpointCreate} options={{label: 'Checkpoints'}}/>
 
-        {AppConfiguration.isNHSRC() ? <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{label: 'Indicator definitions'}}/> : nonExistentResource}
+        {AppConfiguration.isNHSRC() ?
+            <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{label: 'Indicator definitions'}}/> : nonExistentResource}
 
         <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{label: 'States'}}/>
         <Resource name="district" list={DistrictList} create={DistrictCreate} edit={DistrictEdit} options={{label: 'Districts'}}/>
@@ -47,11 +49,15 @@ const App = () => (
         <Resource name="facilityType" list={FacilityTypeList} options={{label: 'Facility types'}} create={FacilityTypeCreate} edit={FacilityTypeEdit}/>
 
         {/*Include device*/}
-        <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate} edit={FacilityAssessmentEdit}/>
-        {AppConfiguration.isNHSRC() ? <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}} list={AssessmentMissingCheckpointList}/>  : nonExistentResource}
+        <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate}
+                  edit={FacilityAssessmentEdit}/>
+        {AppConfiguration.isNHSRC() ?
+            <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}} list={AssessmentMissingCheckpointList}/> : nonExistentResource}
         {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
         {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
         <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} options={{label: 'Users'}}/>
+        <Resource name="role" list={RoleList} options={{label: 'Roles'}} create={RoleCreate} edit={RoleEdit}/>
+        <Resource name="privilege" options={{label: 'Privileges'}}/>
     </Admin>
 );
 

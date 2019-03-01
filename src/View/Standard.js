@@ -80,7 +80,7 @@ export const StandardList = props => (
                 </ReferenceField>}
                 <TextField source="reference"/>
                 <TextField source="name"/>
-                <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" sortBy="areaOfConcern.reference">
+                <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" sortable={false}>
                     <TextField source="reference"/>
                 </ReferenceField>
                 <EditButton/>

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {parseUrl, stringify} from 'query-string';
+import {stringify} from 'query-string';
 
 class ResourceFilter {
     static ENTITY = "ENTITY";

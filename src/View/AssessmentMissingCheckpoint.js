@@ -1,25 +1,5 @@
 import React from 'react';
-import {
-    Datagrid,
-    DisabledInput,
-    Edit,
-    EditButton,
-    List,
-    SimpleForm,
-    TextField,
-    TextInput,
-    ReferenceField,
-    Create,
-    ReferenceInput,
-    SelectInput,
-    required,
-    BooleanField,
-    LongTextInput,
-    BooleanInput,
-    NumberInput,
-    NumberField,
-    Filter
-} from 'react-admin';
+import {Datagrid, Filter, List, ReferenceField, ReferenceInput, SelectInput, TextField} from 'react-admin';
 
 let currentFilter = {};
 

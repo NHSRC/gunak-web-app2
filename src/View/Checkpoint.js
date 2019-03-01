@@ -6,7 +6,6 @@ import {
     Datagrid,
     DisabledInput,
     Edit,
-    EditButton,
     Filter,
     FormDataConsumer,
     List,
@@ -15,19 +14,17 @@ import {
     NumberInput,
     ReferenceField,
     ReferenceInput,
+    ReferenceManyField,
     required,
     SelectInput,
     SimpleForm,
-    TextField,
-    ReferenceManyField
+    TextField
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
 let currentFilter = {};
 

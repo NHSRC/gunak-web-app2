@@ -9,10 +9,8 @@ class Pagination {
             size: perPage
         };
 
-        let sortString;
         if (sort instanceof Array) {
-            let sortStringParts = sort.map((sortItem) => _.join(_.values(sortItem), ","));
-            query.sort = sortStringParts;
+            query.sort = sort.map((sortItem) => _.join(_.values(sortItem), ","));
         } else if (sort instanceof Object)
             query.sort = _.join(_.values(sort), ",");
         else
