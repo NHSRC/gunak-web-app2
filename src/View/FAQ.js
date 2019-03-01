@@ -43,6 +43,13 @@ function FAQ(props) {
         {helpItem(classes, "6. How to sort checkpoints within a measurable element?", "The sort order field on checkpoint is used to display them in a logical order in the app when assessor is filling the scores. The checkpoints are displayed in ascending order based on the sort order value. While creating you can set the checkpoint sort order as any value. You can edit the checkpoints and set their sort order. At the bottom of edit checkpoint screen the other checkpoints belonging to the same checklist and in the measurable elements are shown.")}
         {helpItem(classes, "7. How to create checkpoints specific to a state?", "A checkpoint can belong a checklist which is common. In such a case one can choose the state and that checkpoint will be visible only to that state. Also, a checkpoint can belong to a checklist that is for a state. In such cases setting the state is not required and will be ignored.")}
         {helpItem(classes, "8. Why certain sheets/rows could not be imported?", "While importing the sheet name in the excel is used to identify the checklist, using the name match. If the checklist with the same name in the assessment tool, cannot be found then those are displayed under missing checklist. If a checkpoint in the excel file is not present in the database then those are listed as missing checkpoints.")}
+        <Paper className={classes.root} elevation={1}>
+            <Typography variant="title" component="h3">Understanding relationship between - PROGRAMS, ASSESSMENT TOOL and CHECKLIST - from left to right.</Typography>
+            <br/>
+            <img src="./images/programs.png" height="300" width="300" alt="Programs"/>
+            <img src="./images/assessmentTools.png" height="300" width="350" alt="Assessment Tools" style={{"margin-left": "30px"}}/>
+            <img src="./images/checklists.png" height="300" width="300" alt="Checklists" style={{"margin-left": "30px"}}/>
+        </Paper>
     </div>);
 }
 
