@@ -23,6 +23,7 @@ import {GunakReferenceInput} from "../components/Inputs";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
+import Privileges from "../model/Privileges";
 
 let currentFilter = {};
 
@@ -79,8 +80,7 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const MeasurableElementList = props => {
-    console.log(JSON.stringify(currentFilter));
+export const MeasurableElementList = ({privileges, ...props}) => {
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="measurableElement"/>
@@ -91,9 +91,9 @@ export const MeasurableElementList = props => {
                     <ReferenceField label="Standard" source="standardId" reference="standard" sortBy="standard.reference">
                         <TextField source="reference"/>
                     </ReferenceField>
-                    <EditButton/>
                     <BooleanField source="inactive"/>
                     <TextField source="id" sortable={false}/>
+                    {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
                 </Datagrid>
             </List>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    EditButton,
     BooleanField,
     BooleanInput,
     Create,
@@ -25,6 +26,7 @@ import {GunakReferenceInput} from "../components/Inputs";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
+import Privileges from "../model/Privileges";
 
 let currentFilter = {};
 
@@ -94,7 +96,7 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const CheckpointList = props => {
+export const CheckpointList = ({privileges, ...props}) => {
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
@@ -118,6 +120,7 @@ export const CheckpointList = props => {
                     <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
                         <TextField source="name"/>
                     </ReferenceField>
+                    {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
                 </Datagrid>
             </List>
         </div>

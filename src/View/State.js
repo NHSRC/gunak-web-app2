@@ -1,13 +1,14 @@
 import React from 'react';
 import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput, required} from 'react-admin';
+import Privileges from "../model/Privileges";
 
-export const StateList = props => (
+export const StateList = ({privileges, ...props}) => (
     <List {...props} title='States' perPage={25}>
         <Datagrid rowClick="edit">
-            <TextField source="name" />
-            <EditButton/>
+            <TextField source="name"/>
+            {Privileges.hasPrivilege(privileges, 'Facility_Write') && <EditButton/>}
             <BooleanField source="inactive"/>
-            <TextField source="id" />
+            <TextField source="id"/>
         </Datagrid>
     </List>
 );

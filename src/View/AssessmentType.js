@@ -1,12 +1,14 @@
 import React from 'react';
-import {BooleanField, BooleanInput, Datagrid, DisabledInput, Create, Edit, List, SimpleForm, TextField, TextInput} from 'react-admin';
+import {BooleanField, BooleanInput, Datagrid, DisabledInput, Create, Edit, List, SimpleForm, TextField, EditButton, TextInput} from 'react-admin';
+import Privileges from "../model/Privileges";
 
-export const AssessmentTypeList = props => (
+export const AssessmentTypeList = ({privileges, ...props}) => (
     <List {...props} title='Assessment types'>
         <Datagrid rowClick="edit">
             <TextField source="name" />
             <TextField source="shortName" />
             <BooleanField source="inactive"/>
+            {Privileges.hasPrivilege(privileges, 'Checklist_Metadata_Write') && <EditButton/>}
             <TextField source="id" />
         </Datagrid>
     </List>

@@ -1,11 +1,12 @@
 import React from 'react';
 import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
+import Privileges from "../model/Privileges";
 
-export const AssessmentToolModeList = props => (
+export const AssessmentToolModeList = ({privileges, ...props}) => (
     <List {...props} title='Programs' sort={{ field: 'name', order: 'ASC' }} perPage={25}>
         <Datagrid rowClick="edit">
             <TextField source="name" />
-            <EditButton/>
+            {Privileges.hasPrivilege(privileges, 'Checklist_Metadata_Write') && <EditButton/>}
             <BooleanField source="inactive"/>
             <TextField source="id" />
         </Datagrid>

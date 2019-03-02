@@ -15,15 +15,16 @@ import {
     TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
+import Privileges from "../model/Privileges";
 
-export const AssessmentToolList = props => (
+export const AssessmentToolList = ({privileges, ...props}) => (
     <List {...props} title='Assessment Tools' sort={{ field: 'assessmentToolMode,name', order: 'ASC' }} perPage={25}>
         <Datagrid rowClick="edit">
             <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name">
                 <TextField source="name"/>
             </ReferenceField>
             <TextField source="name"/>
-            <EditButton/>
+            {Privileges.hasPrivilege(privileges, 'Checklist_Metadata_Write') && <EditButton/>}
             <BooleanField source="inactive"/>
             <TextField source="id" />
         </Datagrid>

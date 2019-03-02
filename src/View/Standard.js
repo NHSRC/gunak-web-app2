@@ -23,6 +23,7 @@ import ContextActions from "../components/ContextActions";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
+import Privileges from "../model/Privileges";
 
 let currentFilter = {};
 
@@ -68,7 +69,7 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const StandardList = props => (
+export const StandardList = ({privileges, ...props}) => (
     <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="standard"/>
         <List {...props} title='Standards' filters={<EntityFilter/>} perPage={25}
@@ -83,9 +84,9 @@ export const StandardList = props => (
                 <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" sortable={false}>
                     <TextField source="reference"/>
                 </ReferenceField>
-                <EditButton/>
                 <BooleanField source="inactive"/>
                 <TextField source="id"/>
+                {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
             </Datagrid>
         </List></div>
 );

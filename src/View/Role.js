@@ -25,8 +25,9 @@ import {
     ReferenceArrayField,
     SingleFieldList
 } from 'react-admin';
+import Privileges from "../model/Privileges";
 
-export const RoleList = props => (
+export const RoleList = ({privileges, ...props}) => (
     <List {...props} title='Roles'>
         <Datagrid rowClick="edit">
             <TextField source="name"/>
@@ -35,7 +36,7 @@ export const RoleList = props => (
                     <ChipField source="name"/>
                 </SingleFieldList>
             </ReferenceArrayField>
-            <EditButton/>
+            {Privileges.hasPrivilege(privileges, 'Privilege_Write') && <EditButton/>}
             <TextField source="id"/>
         </Datagrid>
     </List>

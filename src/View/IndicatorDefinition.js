@@ -16,8 +16,9 @@ import {
     TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
+import Privileges from "../model/Privileges";
 
-export const IndicatorDefinitionList = props => (
+export const IndicatorDefinitionList = ({privileges, ...props}) => (
     <List {...props} title='Indicator definitions'>
         <Datagrid rowClick="edit">
             <TextField source="name" />
@@ -30,9 +31,9 @@ export const IndicatorDefinitionList = props => (
             <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                 <TextField source="name"/>
             </ReferenceField>
-            <EditButton/>
             <BooleanField source="inactive"/>
             <TextField source="id" />
+            {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
         </Datagrid>
     </List>
 );

@@ -21,6 +21,7 @@ import {
     TextInput
 } from 'react-admin';
 import AppConfiguration from "../framework/AppConfiguration";
+import Privileges from "../model/Privileges";
 
 let currentFilter = {};
 
@@ -46,7 +47,7 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const AreaOfConcernList = props => (
+export const AreaOfConcernList = ({privileges, ...props}) => (
     <div>
         <List {...props} title='Area of concerns' filters={<EntityFilter/>} perPage={100} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
@@ -55,7 +56,7 @@ export const AreaOfConcernList = props => (
                 </ReferenceField>
                 <TextField source="reference"/>
                 <TextField source="name"/>
-                <EditButton/>
+                {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
                 <BooleanField source="inactive"/>
                 <TextField source="id"/>
             </Datagrid>

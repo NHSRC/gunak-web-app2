@@ -30,6 +30,7 @@ import {GunakReferenceInput} from "../components/Inputs";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import NavigationField from "../components/NavigationField";
+import Privileges from "../model/Privileges";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -42,7 +43,7 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const FacilityAssessmentList = props => (
+export const FacilityAssessmentList = ({privileges, ...props}) => (
     <List {...props} title='FacilityAssessments' perPage={25} filters={<EntityFilter/>}>
         <Datagrid rowClick="edit">
             <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
@@ -59,7 +60,7 @@ export const FacilityAssessmentList = props => (
             <TextField source="startDate"/>
             <TextField source="endDate"/>
             <BooleanField source="inactive"/>
-            <EditButton/>
+            {Privileges.hasPrivilege(privileges, 'Assessment_Write') && <EditButton/>}
             <TextField source="id"/>
         </Datagrid>
     </List>

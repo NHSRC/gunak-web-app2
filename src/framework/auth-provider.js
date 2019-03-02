@@ -1,4 +1,4 @@
-import {AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_ERROR} from 'react-admin';
+import {AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_ERROR, AUTH_GET_PERMISSIONS} from 'react-admin';
 import _ from 'lodash';
 
 export default (type, params) => {
@@ -15,7 +15,7 @@ export default (type, params) => {
             headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
         });
 
-        const verifyLoginRequest = new Request('/api/loginSuccess', {
+        const verifyLoginRequest = new Request('/api/currentUser', {
             method: 'GET'
         });
 
@@ -32,25 +32,26 @@ export default (type, params) => {
                 if (verifyLoginResponse.status < 200 || verifyLoginResponse.status >= 300) {
                     throw new Error(verifyLoginResponse.statusText);
                 }
+                return verifyLoginResponse.json();
             })
-            .then(() => {
-                localStorage.setItem('token', "LOGGED IN");
+            .then((user) => {
+                localStorage.setItem('user', user);
             });
-    }
-    else if (type === AUTH_LOGOUT) {
-        localStorage.removeItem('token');
+    } else if (type === AUTH_LOGOUT) {
+        localStorage.removeItem('user');
         return Promise.resolve();
-    }
-    else if (type === AUTH_CHECK) {
-        return localStorage.getItem('token') ? Promise.resolve() : Promise.reject();
-    }
-    else if (type === AUTH_ERROR) {
+    } else if (type === AUTH_CHECK) {
+        return localStorage.getItem('user') ? Promise.resolve() : Promise.reject();
+    } else if (type === AUTH_ERROR) {
         const status  = params.status;
         if (status === 401 || status === 403 || status === 404) {
-            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             return Promise.reject();
         }
         return Promise.resolve();
+    } else if (type === AUTH_GET_PERMISSIONS) {
+        const user = localStorage.getItem('user');
+        return user ? Promise.resolve(user["privileges"]) : Promise.reject();
     }
     return Promise.resolve();
 }

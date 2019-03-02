@@ -20,10 +20,11 @@ import {
     SelectArrayInput,
     ChipField
 } from 'react-admin';
+import Privileges from "../model/Privileges";
 
 const validateEmail = email();
 
-export const UserList = props => (
+export const UserList = ({privileges, ...props}) => (
     <List {...props} title='Users'>
         <Datagrid rowClick="edit">
             <EmailField source="email"/>
@@ -35,8 +36,8 @@ export const UserList = props => (
                 </SingleFieldList>
             </ReferenceArrayField>
             <BooleanField source="inactive"/>
-            <EditButton/>
             <TextField source="id"/>
+            {Privileges.hasPrivilege(privileges, 'Users_Write') && <EditButton/>}
         </Datagrid>
     </List>
 );

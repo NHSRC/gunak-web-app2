@@ -25,6 +25,7 @@ import AppConfiguration from "../framework/AppConfiguration";
 import _ from 'lodash';
 import InlineHelp from "../components/InlineHelp";
 import ContextActions from "../components/ContextActions";
+import Privileges from "../model/Privileges";
 
 let currentFilter = {};
 
@@ -46,7 +47,7 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const ChecklistList = props => {
+export const ChecklistList = ({privileges, ...props}) => {
     let displayName = AppConfiguration.isNHSRC() || (AppConfiguration.isJSS() && !_.isNil(currentFilter.stateId) && !_.isEmpty(currentFilter.stateId));
     return <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checklist"/>
@@ -63,7 +64,7 @@ export const ChecklistList = props => {
                 <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
                     <TextField source="name"/>
                 </ReferenceField>
-                <EditButton/>
+                {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
                 <BooleanField source="inactive"/>
                 <TextField source="id"/>
             </Datagrid>

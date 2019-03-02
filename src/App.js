@@ -23,43 +23,149 @@ import FAQ from "./View/FAQ";
 import {AssessmentMissingCheckpointList} from "./View/AssessmentMissingCheckpoint";
 import {RoleCreate, RoleEdit, RoleList} from "./View/Role";
 import {PrivilegeList} from "./View/Privilege";
+import _ from 'lodash';
+import Privileges from "./model/Privileges";
 
 const nonExistentResource = <Resource name="placeholder"/>;
 
-const App = () => (
+const resourceRestrictedIfNotPrivileged = function (privileges, privilege, resource) {
+    return Privileges.hasPrivilege(privileges, privilege) ? resource : nonExistentResource;
+};
+
+const resourceWithReadWriteRestriction = function (privileges, readPrivilege, writePrivilege, resourceName, list, edit, create, options) {
+    return Privileges.hasPrivilege(privileges, readPrivilege) ?
+        <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, writePrivilege) && edit}
+                  create={Privileges.hasPrivilege(privileges, writePrivilege) && create}
+                  options={options}/> : nonExistentResource;
+};
+
+const resourceWithWriteRestrictionOnly = function (privileges, privilege, resourceName, list, edit, create, options) {
+    return <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, privilege) && edit}
+                     create={Privileges.hasPrivilege(privileges, privilege) && create}
+                     options={options}/>;
+};
+
+// Assessment_Read
+// Assessment_Write
+// Checklist_Metadata_Write
+// Checklist_Write
+// Facility_Metadata_Write
+// Facility_Write
+// Privilege_Write
+// User
+// Users_Read
+// Users_Write
+
+const faq = function () {
+    return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}}/>;
+};
+
+const assessmentType = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentType", AssessmentTypeList, AssessmentTypeEdit, AssessmentTypeCreate, {label: 'Assessment Types'});
+};
+
+const department = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "department", DepartmentList, DepartmentEdit, DepartmentCreate, {label: 'Departments'});
+};
+
+const program = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentToolMode", AssessmentToolModeList, AssessmentToolModeEdit, AssessmentToolModeCreate, {label: 'Programs'});
+};
+
+const assessmentTool = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentTool", AssessmentToolList, AssessmentToolEdit, AssessmentToolCreate, {label: 'Assessment Tools'});
+};
+
+const checklist = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checklist", ChecklistList, ChecklistEdit, ChecklistCreate, {label: 'Checklists'});
+};
+
+const areaOfConcern = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "areaOfConcern", AreaOfConcernList, AreaOfConcernEdit, AreaOfConcernCreate, {label: 'Area of concerns'});
+};
+
+const standard = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "standard", StandardList, StandardEdit, StandardCreate, {label: 'Standards'});
+};
+
+const measurableElement = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "measurableElement", MeasurableElementList, MeasurableElementEdit, MeasurableElementCreate, {label: 'Measurable elements'});
+};
+
+const checkpoint = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checkpoint", CheckpointList, CheckpointEdit, CheckpointCreate, {label: 'Checkpoints'});
+};
+
+const indicatorDefinition = function (privileges) {
+    return AppConfiguration.isNHSRC() ? resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', 'indicatorDefinition', IndicatorDefinitionList, null, null, {label: 'Indicator definitions'}) : nonExistentResource;
+};
+
+const state = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "state", StateList, StateEdit, StateCreate, {label: 'States'});
+};
+
+const district = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "district", DistrictList, DistrictEdit, DistrictCreate, {label: 'Districts'});
+};
+
+const facility = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Write', "facility", FacilityList, FacilityEdit, FacilityCreate, {label: 'Facilities'});
+};
+
+const facilityType = function (privileges) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "facilityType", FacilityTypeList, FacilityTypeEdit, FacilityTypeCreate, {label: 'Facility types'});
+};
+
+const assessment = function (privileges) {
+    return resourceWithReadWriteRestriction(privileges, 'Assessment_Read', 'Assessment_Write', 'facilityAssessment', FacilityAssessmentList, FacilityAssessmentCreate, FacilityAssessmentEdit);
+};
+
+const assessmentMissingCheckpoint = function (privileges) {
+    return AppConfiguration.isNHSRC() ? resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write',
+        <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}
+                  list={AssessmentMissingCheckpointList}/>) : nonExistentResource;
+};
+
+const user = function (privileges) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Users_Write', <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate}
+                                                                                  options={{label: 'Users'}}/>);
+};
+
+const role = function (privileges) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="role" list={RoleList} options={{label: 'Roles'}} create={RoleCreate}
+                                                                                      edit={RoleEdit}/>);
+};
+
+const privilege = function (privileges) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList}/>);
+};
+
+const App = () =>
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
-        <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}}/>
-        <Resource name="assessmentType" list={AssessmentTypeList} edit={AssessmentTypeEdit} options={{label: 'Assessment Types'}} create={AssessmentTypeCreate}/>
-        <Resource name="department" list={DepartmentList} edit={DepartmentEdit} create={DepartmentCreate} options={{label: 'Departments'}}/>
+        {privileges => [
+            faq(),
+            assessmentType(privileges),
+            department(privileges),
 
-        <Resource name="assessmentToolMode" list={AssessmentToolModeList} edit={AssessmentToolModeEdit} create={AssessmentToolModeCreate} options={{label: 'Programs'}}/>
-        <Resource name="assessmentTool" list={AssessmentToolList} edit={AssessmentToolEdit} create={AssessmentToolCreate} options={{label: 'Assessment Tools'}}/>
-        <Resource name="checklist" list={ChecklistList} edit={ChecklistEdit} create={ChecklistCreate} options={{label: 'Checklists'}}/>
-        <Resource name="areaOfConcern" list={AreaOfConcernList} edit={AreaOfConcernEdit} create={AreaOfConcernCreate} options={{label: 'Area of concerns'}}/>
-        <Resource name="standard" list={StandardList} create={StandardCreate} edit={StandardEdit} options={{label: 'Standards'}}/>
-        <Resource name="measurableElement" list={MeasurableElementList} create={MeasurableElementCreate} edit={MeasurableElementEdit}
-                  options={{label: 'Measurable elements'}}/>
-        <Resource name="checkpoint" list={CheckpointList} edit={CheckpointEdit} create={CheckpointCreate} options={{label: 'Checkpoints'}}/>
+            program(privileges),
+            assessmentTool(privileges),
+            checklist(privileges),
+            areaOfConcern(privileges),
+            standard(privileges),
+            measurableElement(privileges),
+            checkpoint(privileges),
+            indicatorDefinition(privileges),
+            state(privileges),
+            district(privileges),
+            facilityType(privileges),
+            facility(privileges),
 
-        {AppConfiguration.isNHSRC() ?
-            <Resource name="indicatorDefinition" list={IndicatorDefinitionList} options={{label: 'Indicator definitions'}}/> : nonExistentResource}
-
-        <Resource name="state" list={StateList} create={StateCreate} edit={StateEdit} options={{label: 'States'}}/>
-        <Resource name="district" list={DistrictList} create={DistrictCreate} edit={DistrictEdit} options={{label: 'Districts'}}/>
-        <Resource name="facility" list={FacilityList} create={FacilityCreate} edit={FacilityEdit} options={{label: 'Facilities'}}/>
-        <Resource name="facilityType" list={FacilityTypeList} options={{label: 'Facility types'}} create={FacilityTypeCreate} edit={FacilityTypeEdit}/>
-
-        {/*Include device*/}
-        <Resource name="facilityAssessment" list={FacilityAssessmentList} options={{label: 'Assessments'}} create={FacilityAssessmentCreate}
-                  edit={FacilityAssessmentEdit}/>
-        {AppConfiguration.isNHSRC() ?
-            <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}} list={AssessmentMissingCheckpointList}/> : nonExistentResource}
-        {/*<Resource name="checkpointScore" list={ListGuesser} options={{label: 'Scores'}}/>*/}
-        {/*<Resource name="indicator" list={ListGuesser} options={{label: 'Indicators'}}/>*/}
-        <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} options={{label: 'Users'}}/>
-        <Resource name="role" list={RoleList} options={{label: 'Roles'}} create={RoleCreate} edit={RoleEdit}/>
-        <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList}/>
-    </Admin>
-);
+            assessment(privileges),
+            assessmentMissingCheckpoint(privileges),
+            user(privileges),
+            role(privileges),
+            privilege(privileges)
+        ]}
+    </Admin>;
 
 export default App;

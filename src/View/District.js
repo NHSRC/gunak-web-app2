@@ -19,6 +19,7 @@ import {
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
+import Privileges from "../model/Privileges";
 
 let currentFilter = {};
 
@@ -33,7 +34,7 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-export const DistrictList = props => (
+export const DistrictList = ({privileges, ...props}) => (
     <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="district"/>
         <List {...props} title='Districts' perPage={100} filters={<EntityFilter/>} sort={{field: 'name', order: 'ASC'}}>
@@ -42,7 +43,7 @@ export const DistrictList = props => (
                 <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name">
                     <TextField source="name"/>
                 </ReferenceField>
-                <EditButton/>
+                {Privileges.hasPrivilege(privileges, 'Facility_Metadata_Write') && <EditButton/>}
                 <BooleanField source="inactive"/>
                 <TextField source="id"/>
             </Datagrid>
