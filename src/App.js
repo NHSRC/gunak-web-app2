@@ -23,8 +23,13 @@ import FAQ from "./View/FAQ";
 import {AssessmentMissingCheckpointList} from "./View/AssessmentMissingCheckpoint";
 import {RoleCreate, RoleEdit, RoleList} from "./View/Role";
 import {PrivilegeList} from "./View/Privilege";
-import _ from 'lodash';
 import Privileges from "./model/Privileges";
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import ChecklistIcon from '@material-ui/icons/CheckBox';
+import FacilityIcon from '@material-ui/icons/LocalHospital';
+import GeoIcon from '@material-ui/icons/Map';
+import FolderIcon from '@material-ui/icons/Folder';
+import HelpIcon from '@material-ui/icons/QuestionAnswer';
 
 const nonExistentResource = <Resource name="placeholder"/>;
 
@@ -32,17 +37,17 @@ const resourceRestrictedIfNotPrivileged = function (privileges, privilege, resou
     return Privileges.hasPrivilege(privileges, privilege) ? resource : nonExistentResource;
 };
 
-const resourceWithReadWriteRestriction = function (privileges, readPrivilege, writePrivilege, resourceName, list, edit, create, options) {
+const resourceWithReadWriteRestriction = function (privileges, readPrivilege, writePrivilege, resourceName, list, edit, create, options, icon) {
     return Privileges.hasPrivilege(privileges, readPrivilege) ?
         <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, writePrivilege) && edit}
                   create={Privileges.hasPrivilege(privileges, writePrivilege) && create}
-                  options={options}/> : nonExistentResource;
+                  options={options} icon={icon}/> : nonExistentResource;
 };
 
-const resourceWithWriteRestrictionOnly = function (privileges, privilege, resourceName, list, edit, create, options) {
+const resourceWithWriteRestrictionOnly = function (privileges, privilege, resourceName, list, edit, create, options, icon) {
     return <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, privilege) && edit}
                      create={Privileges.hasPrivilege(privileges, privilege) && create}
-                     options={options}/>;
+                     options={options} icon={icon}/>;
 };
 
 // Assessment_Read
@@ -57,73 +62,73 @@ const resourceWithWriteRestrictionOnly = function (privileges, privilege, resour
 // Users_Write
 
 const faq = function () {
-    return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}}/>;
+    return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}} icon={HelpIcon}/>;
 };
 
 const assessmentType = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentType", AssessmentTypeList, AssessmentTypeEdit, AssessmentTypeCreate, {label: 'Assessment Types'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentType", AssessmentTypeList, AssessmentTypeEdit, AssessmentTypeCreate, {label: 'Assessment Types'}, FolderIcon);
 };
 
 const department = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "department", DepartmentList, DepartmentEdit, DepartmentCreate, {label: 'Departments'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "department", DepartmentList, DepartmentEdit, DepartmentCreate, {label: 'Departments'}, FolderIcon);
 };
 
 const program = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentToolMode", AssessmentToolModeList, AssessmentToolModeEdit, AssessmentToolModeCreate, {label: 'Programs'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentToolMode", AssessmentToolModeList, AssessmentToolModeEdit, AssessmentToolModeCreate, {label: 'Programs'}, FolderIcon);
 };
 
 const assessmentTool = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentTool", AssessmentToolList, AssessmentToolEdit, AssessmentToolCreate, {label: 'Assessment Tools'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentTool", AssessmentToolList, AssessmentToolEdit, AssessmentToolCreate, {label: 'Assessment Tools'}, FolderIcon);
 };
 
 const checklist = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checklist", ChecklistList, ChecklistEdit, ChecklistCreate, {label: 'Checklists'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checklist", ChecklistList, ChecklistEdit, ChecklistCreate, {label: 'Checklists'}, ChecklistIcon);
 };
 
 const areaOfConcern = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "areaOfConcern", AreaOfConcernList, AreaOfConcernEdit, AreaOfConcernCreate, {label: 'Area of concerns'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "areaOfConcern", AreaOfConcernList, AreaOfConcernEdit, AreaOfConcernCreate, {label: 'Area of concerns'}, ChecklistIcon);
 };
 
 const standard = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "standard", StandardList, StandardEdit, StandardCreate, {label: 'Standards'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "standard", StandardList, StandardEdit, StandardCreate, {label: 'Standards'}, ChecklistIcon);
 };
 
 const measurableElement = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "measurableElement", MeasurableElementList, MeasurableElementEdit, MeasurableElementCreate, {label: 'Measurable elements'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "measurableElement", MeasurableElementList, MeasurableElementEdit, MeasurableElementCreate, {label: 'Measurable elements'}, ChecklistIcon);
 };
 
 const checkpoint = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checkpoint", CheckpointList, CheckpointEdit, CheckpointCreate, {label: 'Checkpoints'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checkpoint", CheckpointList, CheckpointEdit, CheckpointCreate, {label: 'Checkpoints'}, ChecklistIcon);
 };
 
 const indicatorDefinition = function (privileges) {
-    return AppConfiguration.isNHSRC() ? resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', 'indicatorDefinition', IndicatorDefinitionList, null, null, {label: 'Indicator definitions'}) : nonExistentResource;
+    return AppConfiguration.isNHSRC() ? resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', 'indicatorDefinition', IndicatorDefinitionList, null, null, {label: 'Indicator definitions'}, ChecklistIcon) : nonExistentResource;
 };
 
 const state = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "state", StateList, StateEdit, StateCreate, {label: 'States'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "state", StateList, StateEdit, StateCreate, {label: 'States'}, GeoIcon);
 };
 
 const district = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "district", DistrictList, DistrictEdit, DistrictCreate, {label: 'Districts'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "district", DistrictList, DistrictEdit, DistrictCreate, {label: 'Districts'}, GeoIcon);
 };
 
 const facility = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Write', "facility", FacilityList, FacilityEdit, FacilityCreate, {label: 'Facilities'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Write', "facility", FacilityList, FacilityEdit, FacilityCreate, {label: 'Facilities'}, FacilityIcon);
 };
 
 const facilityType = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "facilityType", FacilityTypeList, FacilityTypeEdit, FacilityTypeCreate, {label: 'Facility types'});
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "facilityType", FacilityTypeList, FacilityTypeEdit, FacilityTypeCreate, {label: 'Facility types'}, FacilityIcon);
 };
 
 const assessment = function (privileges) {
-    return resourceWithReadWriteRestriction(privileges, 'Assessment_Read', 'Assessment_Write', 'facilityAssessment', FacilityAssessmentList, FacilityAssessmentCreate, FacilityAssessmentEdit);
+    return resourceWithReadWriteRestriction(privileges, 'Assessment_Read', 'Assessment_Write', 'facilityAssessment', FacilityAssessmentList, FacilityAssessmentCreate, FacilityAssessmentEdit, AssessmentIcon);
 };
 
 const assessmentMissingCheckpoint = function (privileges) {
     return AppConfiguration.isNHSRC() ? resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write',
         <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}
-                  list={AssessmentMissingCheckpointList}/>) : nonExistentResource;
+                  list={AssessmentMissingCheckpointList} icon={AssessmentIcon}/>) : nonExistentResource;
 };
 
 const user = function (privileges) {
