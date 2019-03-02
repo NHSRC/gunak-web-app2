@@ -35,7 +35,7 @@ export default (type, params) => {
                 return verifyLoginResponse.json();
             })
             .then((user) => {
-                localStorage.setItem('user', user);
+                localStorage.setItem('user', JSON.stringify(user));
             });
     } else if (type === AUTH_LOGOUT) {
         localStorage.removeItem('user');
@@ -50,8 +50,8 @@ export default (type, params) => {
         }
         return Promise.resolve();
     } else if (type === AUTH_GET_PERMISSIONS) {
-        const user = localStorage.getItem('user');
-        return user ? Promise.resolve(user["privileges"]) : Promise.reject();
+        let userAsJSON = localStorage.getItem('user');
+        return userAsJSON ? Promise.resolve(JSON.parse(userAsJSON)["privileges"]) : Promise.reject();
     }
     return Promise.resolve();
 }

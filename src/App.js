@@ -30,6 +30,7 @@ import FacilityIcon from '@material-ui/icons/LocalHospital';
 import GeoIcon from '@material-ui/icons/Map';
 import FolderIcon from '@material-ui/icons/Folder';
 import HelpIcon from '@material-ui/icons/QuestionAnswer';
+import PersonIcon from '@material-ui/icons/PersonOutline';
 
 const nonExistentResource = <Resource name="placeholder"/>;
 
@@ -133,16 +134,17 @@ const assessmentMissingCheckpoint = function (privileges) {
 
 const user = function (privileges) {
     return resourceRestrictedIfNotPrivileged(privileges, 'Users_Write', <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate}
-                                                                                  options={{label: 'Users'}}/>);
+                                                                                  options={{label: 'Users'}} icon={PersonIcon}/>);
 };
 
 const role = function (privileges) {
     return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="role" list={RoleList} options={{label: 'Roles'}} create={RoleCreate}
-                                                                                      edit={RoleEdit}/>);
+                                                                                      edit={RoleEdit} icon={PersonIcon}/>);
 };
 
 const privilege = function (privileges) {
-    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList}/>);
+    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList}
+                                                                                      icon={PersonIcon}/>);
 };
 
 const App = () =>
