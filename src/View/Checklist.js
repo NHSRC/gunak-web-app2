@@ -53,7 +53,7 @@ export const ChecklistList = props => {
         <h4>To view checklist belonging to all states please leave the filter blank.</h4>
         <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'name', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                <TextField source={displayName ? "name" : "fullName"} label={displayName ? "Name" : "Name - [State]"}/>
+                <TextField source={displayName ? "name" : "fullName"} label={displayName ? "Name" : "Name - [State]"} sortable={false}/>
                 <ReferenceField label="Department" source="departmentId" reference="department" sortBy="department.name">
                     <TextField source="name"/>
                 </ReferenceField>

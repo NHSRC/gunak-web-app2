@@ -53,8 +53,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             case GET_MANY_REFERENCE: {
                 let pagination = Pagination.asSpringUrlPart(params.pagination, params.sort);
                 let constructedFilter = {};
-                constructedFilter[params.target] = params.id;
-                url = `${apiUrl}/${resource}/${ResourceFilter.getResourcePath_ByParent(constructedFilter)}?${params.target}=${params.id}&${pagination}`;
+                let id = params.id ? params.id : -1;
+                constructedFilter[params.target] = id;
+                url = `${apiUrl}/${resource}/${ResourceFilter.getResourcePath_ByParent(constructedFilter)}?${params.target}=${id}&${pagination}`;
                 break;
             }
             case UPDATE:
