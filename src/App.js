@@ -51,17 +51,6 @@ const resourceWithWriteRestrictionOnly = function (privileges, privilege, resour
                      options={options} icon={icon}/>;
 };
 
-// Assessment_Read
-// Assessment_Write
-// Checklist_Metadata_Write
-// Checklist_Write
-// Facility_Metadata_Write
-// Facility_Write
-// Privilege_Write
-// User
-// Users_Read
-// Users_Write
-
 const faq = function () {
     return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}} icon={HelpIcon}/>;
 };
@@ -132,6 +121,10 @@ const assessmentMissingCheckpoint = function (privileges) {
                   list={AssessmentMissingCheckpointList} icon={AssessmentIcon}/>) : nonExistentResource;
 };
 
+const assessmentProgress = function (privileges) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write', <Resource name="facilityAssessmentProgress"/>);
+};
+
 const user = function (privileges) {
     return resourceRestrictedIfNotPrivileged(privileges, 'Users_Write', <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate}
                                                                                   options={{label: 'Users'}} icon={PersonIcon}/>);
@@ -169,6 +162,7 @@ const App = () =>
 
             assessment(privileges),
             assessmentMissingCheckpoint(privileges),
+            assessmentProgress(privileges),
             user(privileges),
             role(privileges),
             privilege(privileges)

@@ -99,7 +99,19 @@ let getForm = function (isEdit) {
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <FileField source="uploadFile" title="title"/>
         </FileInput>
-        {displayMissingReport(isEdit) && <InlineHelp helpNumber={8} message="Rows/Sheets that could not be imported because not present in the database. If empty then all rows were successfully imported or submission happened via mobile."/>}
+        {isEdit && <ReferenceManyField label="Checklist progress" reference="facilityAssessmentProgress"
+                                       target="facilityAssessmentId"
+                                       sort={{field: 'missingCheckpoint.checklist.name', order: 'ASC'}}>
+            <Datagrid rowClick="edit">
+                <ReferenceField label="Checklist" source="checklistId" reference="checklist">
+                    <TextField source="name"/>
+                </ReferenceField>
+                <TextField source="missingCheckpointName"/>
+                <TextField source="measurableElementReference"/>
+            </Datagrid>
+        </ReferenceManyField>}
+        {displayMissingReport(isEdit) && <InlineHelp helpNumber={8}
+                                                     message="Rows/Sheets that could not be imported because not present in the database. If empty then all rows were successfully imported or submission happened via mobile."/>}
         {displayMissingReport(isEdit) &&
         <ReferenceArrayField addLabel={false} label="Missing checklists" reference="missingChecklist" target="facilityAssessmentId">
             <SingleFieldList>
