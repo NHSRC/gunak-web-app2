@@ -50,7 +50,7 @@ export const AreaOfConcernList = props => (
     <div>
         <List {...props} title='Area of concerns' filters={<EntityFilter/>} perPage={100} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
+                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name" allowEmpty>
                     <TextField source="name"/>
                 </ReferenceField>
                 <TextField source="reference"/>
