@@ -100,11 +100,15 @@ let getForm = function (isEdit) {
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <FileField source="uploadFile" title="title"/>
         </FileInput>
-        {isEdit && <ReferenceManyField label="Checklist progress" reference="facilityAssessmentProgress"
+        {isEdit && <InlineHelp message="Table below provides information about the checklists where any score was filled and which area of concerns were completed."/>}
+        {isEdit && <ReferenceManyField addLabel={false} reference="checklistProgress"
                                        target="facilityAssessmentId">
             <Datagrid>
-                <ReferenceField label="Checklist" source="id" reference="checklist">
+                <ReferenceField label="Checklist" source="checklistId" reference="checklist">
                     <TextField source="name"/>
+                </ReferenceField>
+                <ReferenceField label="Area of concern" source="id" reference="areaOfConcern">
+                    <TextField source="reference"/>
                 </ReferenceField>
                 <NumberField source="completed"/>
                 <NumberField source="total"/>
