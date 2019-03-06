@@ -81,6 +81,7 @@ let getForm = function (props, isCreate) {
         <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
         <br/>
         <GunakReferenceInput label="Department" optionText="name" source="department"/>
+        <InlineHelp message="The area of concerns associated with this checklist. In the drop down there are areas of concern which are used in this assessment tool in other checklists or the ones which are yet not associated to any checklist." helpNumber={9}/>
         <FormDataConsumer>
             {({formData, ...rest}) =>
                 <ReferenceArrayInput label="Area of concerns" source="areaOfConcernIds" reference="areaOfConcern"
