@@ -112,7 +112,7 @@ const facilityType = function (privileges) {
 };
 
 const assessment = function (privileges) {
-    return resourceWithReadWriteRestriction(privileges, 'Assessment_Read', 'Assessment_Write', 'facilityAssessment', FacilityAssessmentList, FacilityAssessmentCreate, FacilityAssessmentEdit, AssessmentIcon);
+    return resourceWithReadWriteRestriction(privileges, 'Assessment_Read', 'Assessment_Write', 'facilityAssessment', FacilityAssessmentList, FacilityAssessmentEdit, FacilityAssessmentCreate, {label: "Assessments"}, AssessmentIcon);
 };
 
 const assessmentMissingCheckpoint = function (privileges) {
@@ -121,8 +121,8 @@ const assessmentMissingCheckpoint = function (privileges) {
                   list={AssessmentMissingCheckpointList} icon={AssessmentIcon}/>) : nonExistentResource;
 };
 
-const assessmentProgress = function (privileges) {
-    return resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write', <Resource name="facilityAssessmentProgress"/>);
+const checklistProgress = function (privileges) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write', <Resource name="checklistProgress"/>);
 };
 
 const user = function (privileges) {
@@ -162,7 +162,7 @@ const App = () =>
 
             assessment(privileges),
             assessmentMissingCheckpoint(privileges),
-            assessmentProgress(privileges),
+            checklistProgress(privileges),
             user(privileges),
             role(privileges),
             privilege(privileges)

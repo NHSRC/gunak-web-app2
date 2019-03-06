@@ -24,7 +24,8 @@ import {
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    NumberField
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import AppConfiguration from "../framework/AppConfiguration";
@@ -83,7 +84,7 @@ let getForm = function (isEdit) {
         </FormDataConsumer>
         <GunakReferenceInput label="Facility type" optionText="name" source="facilityType"/>
         <FormDataConsumer>
-            {({formData, ...rest}) => {
+            {({formData}) => {
                 let filter = {};
                 if (formData.districtId) filter["districtId"] = formData.districtId;
                 if (formData.facilityTypeId) filter["facilityTypeId"] = formData.facilityTypeId;
@@ -100,14 +101,13 @@ let getForm = function (isEdit) {
             <FileField source="uploadFile" title="title"/>
         </FileInput>
         {isEdit && <ReferenceManyField label="Checklist progress" reference="facilityAssessmentProgress"
-                                       target="facilityAssessmentId"
-                                       sort={{field: 'missingCheckpoint.checklist.name', order: 'ASC'}}>
-            <Datagrid rowClick="edit">
-                <ReferenceField label="Checklist" source="checklistId" reference="checklist">
+                                       target="facilityAssessmentId">
+            <Datagrid>
+                <ReferenceField label="Checklist" source="id" reference="checklist">
                     <TextField source="name"/>
                 </ReferenceField>
-                <TextField source="missingCheckpointName"/>
-                <TextField source="measurableElementReference"/>
+                <NumberField source="completed"/>
+                <NumberField source="total"/>
             </Datagrid>
         </ReferenceManyField>}
         {displayMissingReport(isEdit) && <InlineHelp helpNumber={8}
