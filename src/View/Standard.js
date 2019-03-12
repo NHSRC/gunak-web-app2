@@ -122,7 +122,7 @@ let getForm = function (props, isEdit) {
 };
 
 export const StandardEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(props, true)}
     </Edit>
 );

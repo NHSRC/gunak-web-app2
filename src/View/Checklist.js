@@ -90,11 +90,11 @@ let getForm = function (props, isCreate) {
                 </ReferenceArrayInput>
             }
         </FormDataConsumer>
-        <BooleanInput source="inactive" defaultValue={false}/>
+        <BooleanInput source="inactive" defaultValue={AppConfiguration.isNHSRC()}/>
     </SimpleForm>;
 };
 export const ChecklistEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(props, false)}
     </Edit>
 );

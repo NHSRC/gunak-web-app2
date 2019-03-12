@@ -63,7 +63,7 @@ export const UserCreate = (props) => (
 );
 
 export const UserEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(true)}
     </Edit>
 );

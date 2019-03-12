@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import {
     EditButton,
     BooleanField,
@@ -27,6 +27,7 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
+import ToggleActiveInactiveButton from '../components/ToggleActiveInactiveButton';
 
 let currentFilter = {};
 
@@ -96,11 +97,18 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
+const BulkActionButtons = props => (
+    <Fragment>
+        <ToggleActiveInactiveButton label="Active" inactive={false} {...props}/>
+        <ToggleActiveInactiveButton label="Inactive" inactive={true} {...props} />
+    </Fragment>
+);
+
 export const CheckpointList = ({privileges, ...props}) => {
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
-            <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>}>
+            <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>}>
                 <Datagrid rowClick="edit">
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement" sortBy="measurableElement.reference">
                         <TextField source="reference"/>
@@ -165,7 +173,7 @@ let form = function (isCreate) {
                                      filter={formData.standardId ? {standardId: formData.standardId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
-        <BooleanInput source="inactive" defaultValue={false}/>
+        <BooleanInput source="inactive" defaultValue={AppConfiguration.isNHSRC()}/>
         {isCreate ? <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/> : null}
         <InlineHelp message="Choose state if this checkpoint is specific to a state" helpNumber={7}/>
         <GunakReferenceInput label="State" optionText="name" source="state" sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
@@ -177,7 +185,7 @@ let form = function (isCreate) {
                                 target="checkpointMeasurableElementIdAndChecklistId"
                                 sort={{field: 'sortOrder', order: 'ASC'}}>
                 <Datagrid>
-                    <NumberField source="id" options={{ style: 'decimal', useGrouping: false }}/>
+                    <NumberField source="id" options={{style: 'decimal', useGrouping: false}}/>
                     <TextField source="name"/>
                     <NumberField source="sortOrder"/>
                 </Datagrid>
@@ -187,7 +195,7 @@ let form = function (isCreate) {
 };
 
 export const CheckpointEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {form(false)}
     </Edit>
 );

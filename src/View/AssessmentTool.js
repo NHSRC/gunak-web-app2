@@ -40,7 +40,7 @@ let getForm = function (props, isCreate) {
     </SimpleForm>;
 };
 export const AssessmentToolEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(props, false)}
     </Edit>
 );

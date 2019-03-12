@@ -78,7 +78,7 @@ let getForm = function (props, isEdit) {
     </SimpleForm>;
 };
 export const AreaOfConcernEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(props, true)}
     </Edit>
 );

@@ -22,7 +22,7 @@ let getForm = function (isEdit) {
 };
 
 export const FacilityTypeEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(true)}
     </Edit>
 );

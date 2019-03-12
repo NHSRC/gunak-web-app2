@@ -80,7 +80,7 @@ let getForm = function (isCreate) {
 };
 
 export const FacilityEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(false)}
     </Edit>
 );

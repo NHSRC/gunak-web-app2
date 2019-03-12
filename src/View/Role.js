@@ -59,7 +59,7 @@ export const RoleCreate = (props) => (
 );
 
 export const RoleEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(true)}
     </Edit>
 );

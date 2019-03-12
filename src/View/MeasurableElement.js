@@ -136,7 +136,7 @@ let getForm = function (props, isEdit) {
     </SimpleForm>;
 };
 export const MeasurableElementEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(props, true)}
     </Edit>
 );

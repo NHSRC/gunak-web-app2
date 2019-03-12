@@ -53,7 +53,7 @@ let getForm = function (isCreate) {
     </SimpleForm>;
 };
 export const IndicatorDefinitionEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(false)}
     </Edit>
 );

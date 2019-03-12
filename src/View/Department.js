@@ -14,7 +14,7 @@ export const DepartmentList = ({privileges, ...props}) => (
 );
 
 export const DepartmentEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="name" />

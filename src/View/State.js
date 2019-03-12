@@ -27,7 +27,7 @@ export const StateCreate = (props) => (
 );
 
 export const StateEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(true)}
     </Edit>
 );

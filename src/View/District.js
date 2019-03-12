@@ -66,7 +66,7 @@ let getForm = function (isCreate, props) {
 };
 
 export const DistrictEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(false, props)}
     </Edit>
 );

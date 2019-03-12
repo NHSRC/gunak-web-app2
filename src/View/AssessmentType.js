@@ -24,7 +24,7 @@ let getForm = function (isEdit) {
 };
 
 export const AssessmentTypeEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(true)}
     </Edit>
 );

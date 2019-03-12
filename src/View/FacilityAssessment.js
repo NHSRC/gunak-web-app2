@@ -148,7 +148,7 @@ export const FacilityAssessmentCreate = (props) => (
 );
 
 export const FacilityAssessmentEdit = props => (
-    <Edit {...props}>
+    <Edit {...props} undoable={false}>
         {getForm(true)}
     </Edit>
 );
