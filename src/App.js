@@ -31,6 +31,7 @@ import GeoIcon from '@material-ui/icons/Map';
 import FolderIcon from '@material-ui/icons/Folder';
 import HelpIcon from '@material-ui/icons/QuestionAnswer';
 import PersonIcon from '@material-ui/icons/PersonOutline';
+import AppHelp from "./View/GunakMobileAppHelp";
 
 const nonExistentResource = <Resource name="placeholder"/>;
 
@@ -53,6 +54,10 @@ const resourceWithWriteRestrictionOnly = function (privileges, privilege, resour
 
 const faq = function () {
     return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}} icon={HelpIcon}/>;
+};
+
+const userHelp = function () {
+    return <Resource name="userHelp" list={AppHelp} options={{label: 'User Help'}} icon={HelpIcon}/>;
 };
 
 const assessmentType = function (privileges) {
@@ -143,6 +148,7 @@ const privilege = function (privileges) {
 const App = () =>
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
         {privileges => [
+            userHelp(),
             faq(),
             assessmentType(privileges),
             department(privileges),
