@@ -136,8 +136,11 @@ const user = function (privileges) {
 };
 
 const role = function (privileges) {
-    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="role" list={RoleList} options={{label: 'Roles'}} create={RoleCreate}
-                                                                                      edit={RoleEdit} icon={PersonIcon}/>);
+    return Privileges.hasPrivilege(privileges, 'Users_Write') && <Resource name="role" list={Privileges.hasPrivilege(privileges, 'Privilege_Write') && RoleList}
+                                                                           edit={Privileges.hasPrivilege(privileges, 'Privilege_Write') && RoleEdit}
+                                                                           create={Privileges.hasPrivilege(privileges, 'Privilege_Write') && RoleCreate}
+                                                                           options={{label: 'Roles'}}
+                                                                           icon={PersonIcon}/>;
 };
 
 const privilege = function (privileges) {
@@ -148,8 +151,6 @@ const privilege = function (privileges) {
 const App = () =>
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
         {privileges => [
-            userHelp(),
-            faq(),
             assessmentType(privileges),
             department(privileges),
 
@@ -171,7 +172,10 @@ const App = () =>
             checklistProgress(privileges),
             user(privileges),
             role(privileges),
-            privilege(privileges)
+            privilege(privileges),
+
+            userHelp(),
+            faq()
         ]}
     </Admin>;
 

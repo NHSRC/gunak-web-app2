@@ -30,7 +30,7 @@ export const UserList = ({privileges, ...props}) => (
             <EmailField source="email"/>
             <TextField source="firstName"/>
             <TextField source="lastName"/>
-            <ReferenceArrayField label="Roles" reference="role" source="roleIds">
+            <ReferenceArrayField label="Roles" reference="role" source="roleIds" allowEmpty>
                 <SingleFieldList>
                     <ChipField source="name" />
                 </SingleFieldList>
