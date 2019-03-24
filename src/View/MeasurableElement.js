@@ -8,15 +8,15 @@ import {
     Edit,
     EditButton,
     Filter,
+    FormDataConsumer,
     List,
     ReferenceField,
     ReferenceInput,
+    required,
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput,
-    required,
-    FormDataConsumer
+    TextInput
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";

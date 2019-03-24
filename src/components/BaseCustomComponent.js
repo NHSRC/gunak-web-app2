@@ -1,4 +1,3 @@
-import _ from "lodash";
 import {Component} from 'react';
 
 class BaseCustomComponent extends Component {

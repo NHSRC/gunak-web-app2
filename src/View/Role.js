@@ -1,29 +1,19 @@
 import React from 'react';
 import {
-    ReferenceArrayInput,
-    SelectArrayInput,
+    ChipField,
+    Create,
     Datagrid,
     DisabledInput,
     Edit,
     EditButton,
     List,
-    SimpleForm,
-    TextField,
-    TextInput,
-    ReferenceField,
-    Create,
-    ReferenceInput,
-    SelectInput,
-    required,
-    BooleanField,
-    LongTextInput,
-    BooleanInput,
-    NumberInput,
-    ChipField,
-    NumberField,
-    Filter,
     ReferenceArrayField,
-    SingleFieldList
+    ReferenceArrayInput,
+    SelectArrayInput,
+    SimpleForm,
+    SingleFieldList,
+    TextField,
+    TextInput
 } from 'react-admin';
 import Privileges from "../model/Privileges";
 

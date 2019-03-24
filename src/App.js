@@ -22,7 +22,7 @@ import AppConfiguration from "./framework/AppConfiguration";
 import FAQ from "./View/FAQ";
 import {AssessmentMissingCheckpointList} from "./View/AssessmentMissingCheckpoint";
 import {RoleCreate, RoleEdit, RoleList} from "./View/Role";
-import {PrivilegeList} from "./View/Privilege";
+import {PrivilegeCreate, PrivilegeList} from "./View/Privilege";
 import Privileges from "./model/Privileges";
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ChecklistIcon from '@material-ui/icons/CheckBox';
@@ -144,7 +144,7 @@ const role = function (privileges) {
 };
 
 const privilege = function (privileges) {
-    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList}
+    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList} create={PrivilegeCreate}
                                                                                       icon={PersonIcon}/>);
 };
 

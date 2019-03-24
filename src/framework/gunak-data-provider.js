@@ -119,10 +119,13 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         // simple-rest doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
         if (type === UPDATE_MANY) {
             let payload = JSON.stringify(params.ids.map(id => Object.assign({id: id}, params.data)));
-            return httpClient(`${apiUrl}/${resource}s`, {
+            let options = {
                 method: 'PATCH',
                 body: payload
-            }).then(responses => {
+            };
+            let url = `${apiUrl}/${resource}s`;
+            console.log(`[GunakDataProvider][UPDATE_MANY]   URL=${url}   Options: ${JSON.stringify(options)}`);
+            return httpClient(url, options).then(responses => {
                 console.log(responses);
                 return {data: responses.json};
             });
@@ -130,10 +133,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         // simple-rest doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
         if (type === DELETE_MANY) {
             return Promise.all(
-                params.ids.map(id =>
-                    httpClient(`${apiUrl}/${resource}/${id}`, {
-                        method: 'DELETE',
-                    })
+                params.ids.map(id => {
+                        let url = `${apiUrl}/${resource}/${id}`;
+                        let options = {
+                            method: 'DELETE',
+                        };
+                        console.log(`[GunakDataProvider][DELETE_MANY]   URL=${url}   Options: ${JSON.stringify(options)}`);
+                        return httpClient(url, options);
+                    }
                 )
             ).then(responses => ({
                 data: responses.map(response => response.json),
@@ -145,6 +152,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             resource,
             params
         );
+        console.log(`[GunakDataProvider][OTHERS]   URL=${url}   Options: ${JSON.stringify(options)}`);
         return httpClient(url, options).then(response =>
             convertHTTPResponse(response, type, resource, params)
         );

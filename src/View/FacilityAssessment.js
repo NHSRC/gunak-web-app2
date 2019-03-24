@@ -1,13 +1,8 @@
 import React from 'react';
 import {
+    AutocompleteInput,
     BooleanField,
     BooleanInput,
-    UrlField,
-    required,
-    SingleFieldList,
-    ReferenceArrayField,
-    ReferenceManyField,
-    AutocompleteInput,
     Create,
     Datagrid,
     DateInput,
@@ -19,13 +14,17 @@ import {
     Filter,
     FormDataConsumer,
     List,
+    NumberField,
+    ReferenceArrayField,
     ReferenceField,
     ReferenceInput,
+    ReferenceManyField,
+    required,
     SelectInput,
     SimpleForm,
+    SingleFieldList,
     TextField,
-    TextInput,
-    NumberField
+    TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import AppConfiguration from "../framework/AppConfiguration";

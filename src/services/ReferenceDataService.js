@@ -1,5 +1,5 @@
 import dataProvider from '../framework/gunak-data-provider';
-import {CREATE, DELETE, DELETE_MANY, fetchUtils, GET_LIST, GET_MANY, GET_MANY_REFERENCE, GET_ONE, UPDATE, UPDATE_MANY} from 'react-admin';
+import {GET_LIST} from 'react-admin';
 import _ from 'lodash';
 
 const RestClient = dataProvider('/api');

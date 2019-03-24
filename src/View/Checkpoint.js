@@ -1,12 +1,12 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 import {
-    EditButton,
     BooleanField,
     BooleanInput,
     Create,
     Datagrid,
     DisabledInput,
     Edit,
+    EditButton,
     Filter,
     FormDataConsumer,
     List,

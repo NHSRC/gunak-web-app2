@@ -1,4 +1,3 @@
-import _ from "lodash";
 import {parseUrl} from 'query-string';
 
 class ParentResource {

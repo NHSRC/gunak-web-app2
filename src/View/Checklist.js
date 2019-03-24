@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    FormDataConsumer,
     BooleanField,
     BooleanInput,
     Create,
@@ -9,16 +8,17 @@ import {
     Edit,
     EditButton,
     Filter,
+    FormDataConsumer,
     List,
+    ReferenceArrayInput,
     ReferenceField,
     ReferenceInput,
     required,
+    SelectArrayInput,
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput,
-    ReferenceArrayInput,
-    SelectArrayInput
+    TextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import AppConfiguration from "../framework/AppConfiguration";

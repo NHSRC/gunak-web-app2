@@ -1,5 +1,5 @@
 import React from 'react';
-import {BooleanField, BooleanInput, Datagrid, DisabledInput, Create, Edit, List, SimpleForm, TextField, EditButton, TextInput} from 'react-admin';
+import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
 import Privileges from "../model/Privileges";
 
 export const AssessmentTypeList = ({privileges, ...props}) => (

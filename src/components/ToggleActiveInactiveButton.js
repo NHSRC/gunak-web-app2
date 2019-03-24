@@ -1,6 +1,6 @@
-import React, { Fragment, Component } from 'react';
-import { connect } from 'react-redux';
-import { Button, Confirm, crudUpdateMany } from 'react-admin';
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
+import {Button, Confirm, crudUpdateMany} from 'react-admin';
 
 class ToggleActiveInactiveButton extends Component {
     state = {

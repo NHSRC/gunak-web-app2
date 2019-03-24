@@ -1,7 +1,8 @@
-import {AUTH_LOGIN, AUTH_LOGOUT, AUTH_CHECK, AUTH_ERROR, AUTH_GET_PERMISSIONS} from 'react-admin';
+import {AUTH_CHECK, AUTH_ERROR, AUTH_GET_PERMISSIONS, AUTH_LOGIN, AUTH_LOGOUT} from 'react-admin';
 import _ from 'lodash';
 
 export default (type, params) => {
+    console.log(`[AUTH PROVIDER][${type}]   ${JSON.stringify(params)}`);
     if (type === AUTH_LOGIN) {
         const {username, password} = params;
         let postObject = {email: username, password: password};
@@ -9,7 +10,7 @@ export default (type, params) => {
         let encodedObj = _.keys(postObject).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(postObject[key])}`);
         let formBody = encodedObj.join("&");
 
-        const request = new Request('/api/login', {
+        const request = new Request('/api/login',{
             method: 'POST',
             body: formBody,
             headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
@@ -19,6 +20,7 @@ export default (type, params) => {
             method: 'GET'
         });
 
+        console.log(`[AUTH PROVIDER][AUTH_LOGIN]   Request: ${JSON.stringify(request)}`);
         return fetch(request)
             .then(response => {
                 if (response.status < 200 || response.status >= 300) {
@@ -26,6 +28,7 @@ export default (type, params) => {
                 }
             })
             .then(() => {
+                console.log(`[AUTH PROVIDER][VERIFY_LOGIN]   Request: ${JSON.stringify(verifyLoginRequest)}`);
                 return fetch(verifyLoginRequest);
             })
             .then((verifyLoginResponse) => {

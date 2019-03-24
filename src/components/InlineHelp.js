@@ -16,7 +16,6 @@ const styles = theme => ({
 
 function InlineHelp(props) {
     const {classes} = props;
-    let faqNumberPrefixMessage = props.helpNumber ? ' Please see more details in ' : '';
     let messageWithoutLink = `${props.message}.`;
     let linkedMessage = <a href="#/faq">{`FAQ #${props.helpNumber}`}</a>;
     return (<Paper className={classes.root} elevation={1}>
