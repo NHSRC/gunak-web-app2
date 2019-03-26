@@ -22,7 +22,7 @@ import AppConfiguration from "./framework/AppConfiguration";
 import FAQ from "./View/FAQ";
 import {AssessmentMissingCheckpointList} from "./View/AssessmentMissingCheckpoint";
 import {RoleCreate, RoleEdit, RoleList} from "./View/Role";
-import {PrivilegeCreate, PrivilegeList} from "./View/Privilege";
+import {PrivilegeCreate, PrivilegeEdit, PrivilegeList} from "./View/Privilege";
 import Privileges from "./model/Privileges";
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import ChecklistIcon from '@material-ui/icons/CheckBox';
@@ -41,14 +41,14 @@ const resourceRestrictedIfNotPrivileged = function (privileges, privilege, resou
 
 const resourceWithReadWriteRestriction = function (privileges, readPrivilege, writePrivilege, resourceName, list, edit, create, options, icon) {
     return Privileges.hasPrivilege(privileges, readPrivilege) ?
-        <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, writePrivilege) && edit}
-                  create={Privileges.hasPrivilege(privileges, writePrivilege) && create}
+        <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, writePrivilege) ? edit : null}
+                  create={Privileges.hasPrivilege(privileges, writePrivilege) ? create : null}
                   options={options} icon={icon}/> : nonExistentResource;
 };
 
 const resourceWithWriteRestrictionOnly = function (privileges, privilege, resourceName, list, edit, create, options, icon) {
-    return <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, privilege) && edit}
-                     create={Privileges.hasPrivilege(privileges, privilege) && create}
+    return <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, privilege) ? edit : null}
+                     create={Privileges.hasPrivilege(privileges, privilege) ? create : null}
                      options={options} icon={icon}/>;
 };
 
@@ -136,16 +136,16 @@ const user = function (privileges) {
 };
 
 const role = function (privileges) {
-    return Privileges.hasPrivilege(privileges, 'Users_Write') && <Resource name="role" list={Privileges.hasPrivilege(privileges, 'Privilege_Write') && RoleList}
-                                                                           edit={Privileges.hasPrivilege(privileges, 'Privilege_Write') && RoleEdit}
-                                                                           create={Privileges.hasPrivilege(privileges, 'Privilege_Write') && RoleCreate}
+    return Privileges.hasPrivilege(privileges, 'Users_Write') && <Resource name="role" list={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleList : null}
+                                                                           edit={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleEdit : null}
+                                                                           create={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleCreate : null}
                                                                            options={{label: 'Roles'}}
                                                                            icon={PersonIcon}/>;
 };
 
 const privilege = function (privileges) {
     return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList} create={PrivilegeCreate}
-                                                                                      icon={PersonIcon}/>);
+                                                                                      edit={PrivilegeEdit} icon={PersonIcon}/>);
 };
 
 const App = () =>

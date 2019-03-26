@@ -1,4 +1,4 @@
-import {Create, Datagrid, DisabledInput, List, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
+import {required, Create, Datagrid, DisabledInput, List, Edit, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
 import React from 'react';
 import {GunakReferenceInput} from "../components/Inputs";
 
@@ -7,8 +7,12 @@ export const PrivilegeList = props => (
         <Datagrid rowClick="edit">
             <TextField source="name"/>
             <TextField source="id"/>
-            <ReferenceField source="stateId" allowEmpty/>
-            <ReferenceField source="assessmentToolModeId" allowEmpty/>
+            <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
+                <TextField source="name"/>
+            </ReferenceField>
+            <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name" allowEmpty>
+                <TextField source="name"/>
+            </ReferenceField>
         </Datagrid>
     </List>
 );
@@ -16,9 +20,9 @@ export const PrivilegeList = props => (
 let getForm = function (isEdit) {
     return <SimpleForm>
         {isEdit && <DisabledInput source="id"/>}
-        <TextInput source="name"/>
-        <GunakReferenceInput label="State" optionText="name" source="state"/>
-        <GunakReferenceInput label="Program" optionText="name" source="assessmentTool"/>
+        <TextInput source="name" validate={[required("Mandatory")]}/>
+        <GunakReferenceInput label="State" optionText="name" source="state" mandatory={false}/>
+        <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode" mandatory={false}/>
     </SimpleForm>;
 };
 
@@ -26,4 +30,10 @@ export const PrivilegeCreate = (props) => (
     <Create {...props}>
         {getForm(false)}
     </Create>
+);
+
+export const PrivilegeEdit = props => (
+    <Edit {...props}>
+        {getForm(true)}
+    </Edit>
 );

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    required,
     ChipField,
     Create,
     Datagrid,
@@ -35,7 +36,7 @@ export const RoleList = ({privileges, ...props}) => (
 let getForm = function (isEdit) {
     return <SimpleForm>
         {isEdit && <DisabledInput source="id"/>}
-        <TextInput source="name"/>
+        <TextInput source="name" validate={[required("Mandatory")]}/>
         <ReferenceArrayInput label="Privileges" source="privilegeIds" reference="privilege" sort={{field: 'name', order: 'ASC'}}>
             <SelectArrayInput optionText="name"/>
         </ReferenceArrayInput>
