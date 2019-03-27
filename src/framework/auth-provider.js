@@ -2,7 +2,6 @@ import {AUTH_CHECK, AUTH_ERROR, AUTH_GET_PERMISSIONS, AUTH_LOGIN, AUTH_LOGOUT} f
 import _ from 'lodash';
 
 export default (type, params) => {
-    console.log(`[AUTH PROVIDER][${type}]   ${JSON.stringify(params)}`);
     if (type === AUTH_LOGIN) {
         const {username, password} = params;
         let postObject = {email: username, password: password};
