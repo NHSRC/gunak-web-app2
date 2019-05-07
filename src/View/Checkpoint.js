@@ -120,6 +120,7 @@ export const CheckpointList = ({privileges, ...props}) => {
                     <BooleanField source="assessmentMethodStaffInterview" label="AM Staff Interview"/>
                     <BooleanField source="assessmentMethodPatientInterview" label="AM Patient Interview"/>
                     <BooleanField source="assessmentMethodRecordReview" label="AM Record Review"/>
+                    <BooleanField source="optional"/>
                     <BooleanField source="inactive"/>
                     <TextField source="id"/>
                     <ReferenceField label="Checklist" source="checklistId" reference="checklist" sortBy="checklist.name">
@@ -144,6 +145,7 @@ let form = function (isCreate) {
         <BooleanInput source="assessmentMethodStaffInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodPatientInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodRecordReview" validate={[required("Mandatory")]} defaultValue={false}/>
+        <BooleanInput source="optional" validate={[required("Mandatory")]} defaultValue={false}/>
 
         <InlineHelp message="Assessment tool, Area of concern, standard are for filtering only" helpNumber={2}/>
         <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" defaultValue={false} mandatory={false}/>

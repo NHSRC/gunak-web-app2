@@ -15,6 +15,9 @@ endef
 clean:
 	rm -rf node_modules && rm package-lock.json && rm -rf build
 
+deps:
+	npm install
+
 post-ra-upgrade: clean
 	npm install
 	yarn build

@@ -33,7 +33,7 @@ import HelpIcon from '@material-ui/icons/QuestionAnswer';
 import PersonIcon from '@material-ui/icons/PersonOutline';
 import AppHelp from "./View/GunakMobileAppHelp";
 
-const nonExistentResource = <Resource name="placeholder"/>;
+const nonExistentResource = <Resource name="placeholder" context="registration" options={{}}/>;
 
 const resourceRestrictedIfNotPrivileged = function (privileges, privilege, resource) {
     return Privileges.hasPrivilege(privileges, privilege) ? resource : nonExistentResource;
@@ -43,21 +43,21 @@ const resourceWithReadWriteRestriction = function (privileges, readPrivilege, wr
     return Privileges.hasPrivilege(privileges, readPrivilege) ?
         <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, writePrivilege) ? edit : null}
                   create={Privileges.hasPrivilege(privileges, writePrivilege) ? create : null}
-                  options={options} icon={icon}/> : nonExistentResource;
+                  options={options} icon={icon} context="route"/> : nonExistentResource;
 };
 
 const resourceWithWriteRestrictionOnly = function (privileges, privilege, resourceName, list, edit, create, options, icon) {
     return <Resource name={resourceName} list={list} edit={Privileges.hasPrivilege(privileges, privilege) ? edit : null}
                      create={Privileges.hasPrivilege(privileges, privilege) ? create : null}
-                     options={options} icon={icon}/>;
+                     options={options} icon={icon} context="route"/>;
 };
 
 const faq = function () {
-    return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}} icon={HelpIcon}/>;
+    return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}} icon={HelpIcon} context="route"/>;
 };
 
 const userHelp = function () {
-    return <Resource name="userHelp" list={AppHelp} options={{label: 'User Help'}} icon={HelpIcon}/>;
+    return <Resource name="userHelp" list={AppHelp} options={{label: 'User Help'}} icon={HelpIcon} context="route"/>;
 };
 
 const assessmentType = function (privileges) {
@@ -123,16 +123,16 @@ const assessment = function (privileges) {
 const assessmentMissingCheckpoint = function (privileges) {
     return AppConfiguration.isNHSRC() ? resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write',
         <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}
-                  list={AssessmentMissingCheckpointList} icon={AssessmentIcon}/>) : nonExistentResource;
+                  list={AssessmentMissingCheckpointList} icon={AssessmentIcon} context="route"/>) : nonExistentResource;
 };
 
 const checklistProgress = function (privileges) {
-    return resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write', <Resource name="checklistProgress"/>);
+    return resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write', <Resource name="checklistProgress" context="registration" options={{}}/>);
 };
 
 const user = function (privileges) {
     return resourceRestrictedIfNotPrivileged(privileges, 'Users_Write', <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate}
-                                                                                  options={{label: 'Users'}} icon={PersonIcon}/>);
+                                                                                  options={{label: 'Users'}} icon={PersonIcon} context="route"/>);
 };
 
 const role = function (privileges) {
@@ -140,12 +140,12 @@ const role = function (privileges) {
                                                                            edit={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleEdit : null}
                                                                            create={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleCreate : null}
                                                                            options={{label: 'Roles'}}
-                                                                           icon={PersonIcon}/>;
+                                                                           icon={PersonIcon} context="route"/>;
 };
 
 const privilege = function (privileges) {
     return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList} create={PrivilegeCreate}
-                                                                                      edit={PrivilegeEdit} icon={PersonIcon}/>);
+                                                                                      edit={PrivilegeEdit} icon={PersonIcon} context="route"/>);
 };
 
 const App = () =>
