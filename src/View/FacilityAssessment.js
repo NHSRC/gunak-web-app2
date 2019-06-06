@@ -91,14 +91,15 @@ let getForm = function (isEdit) {
             }
             }
         </FormDataConsumer>
-        <TextInput source="facilityName" label="Facility name (if not given above)"/>
+        {AppConfiguration.isNHSRC() && <TextInput source="facilityName" label="Facility name (if not given above)"/>}
         <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"/>
         <DateInput source="startDate" label="Assessment start date" validate={[required("Mandatory")]}/>
         <DateInput source="endDate" label="Assessment end date" validate={[required("Mandatory")]}/>
-        <BooleanInput source="inactive" defaultValue={false}/>
+        {AppConfiguration.isNHSRC() && <BooleanInput source="inactive" defaultValue={false}/>}
+        {AppConfiguration.isNHSRC() &&
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
             <FileField source="uploadFile" title="title"/>
-        </FileInput>
+        </FileInput>}
         {isEdit && <InlineHelp message="Table below provides information about the checklists where any score was filled and which area of concerns were completed."/>}
         {isEdit && <ReferenceManyField addLabel={false} reference="checklistProgress"
                                        target="facilityAssessmentId">
