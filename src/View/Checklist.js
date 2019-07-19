@@ -51,7 +51,7 @@ export const ChecklistList = ({privileges, ...props}) => {
     let displayName = AppConfiguration.isNHSRC() || (AppConfiguration.isJSS() && !_.isNil(currentFilter.stateId) && !_.isEmpty(currentFilter.stateId));
     return <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checklist"/>
-        <h4>To view checklist belonging to all states please leave the filter blank.</h4>
+        <h4>To view checklist belonging to all states please leave the State filter blank.</h4>
         <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'name', order: 'ASC'}}>
             <Datagrid rowClick="edit">
                 <TextField source={displayName ? "name" : "fullName"} label={displayName ? "Name" : "Name - [State]"} sortable={false}/>
