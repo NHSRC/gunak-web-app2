@@ -1,20 +1,24 @@
 import {AUTH_CHECK, AUTH_ERROR, AUTH_GET_PERMISSIONS, AUTH_LOGIN, AUTH_LOGOUT} from 'react-admin';
 import _ from 'lodash';
 
-function daysFromLastAction() {
+const sessionDurationSeconds = 1000 * 60 * 60 * 24 * 5;
+const lastActionTimeStorageKey = "LAST_ACTION_TIME";
+
+function sessionExpired() {
     let nowTimeStamp = new Date().getTime();
-    let lastActionTime = localStorage.getItem('lastActionTime');
-    return Math.floor(Math.abs(lastActionTime - nowTimeStamp )/(1000*60*60*24));
+    let lastActionTime = localStorage.getItem(lastActionTimeStorageKey);
+    let difference = Math.abs((lastActionTime ? lastActionTime : nowTimeStamp) - nowTimeStamp);
+    return difference > sessionDurationSeconds;
 }
 
 function updateLocalStoredTime() {
     let lastActionTime = new Date().getTime();
-    localStorage.setItem('LastActionTime',lastActionTime);
+    localStorage.setItem(lastActionTimeStorageKey, lastActionTime);
 }
 
 function clearLocalStorage() {
     localStorage.removeItem('user');
-    localStorage.removeItem('LastActionTime');
+    localStorage.removeItem(lastActionTimeStorageKey);
 }
 
 export default (type, params) => {
@@ -25,7 +29,7 @@ export default (type, params) => {
         let encodedObj = _.keys(postObject).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(postObject[key])}`);
         let formBody = encodedObj.join("&");
 
-        const request = new Request('/api/login',{
+        const request = new Request('/api/login', {
             method: 'POST',
             body: formBody,
             headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
@@ -60,14 +64,14 @@ export default (type, params) => {
         clearLocalStorage();
         return Promise.resolve();
     } else if (type === AUTH_CHECK) {
-        if(daysFromLastAction()>=5){
+        if (sessionExpired()) {
+            console.log("[AuthProvider][AUTH_CHECK]   Session expired");
             return Promise.reject();
-        }else{
-            updateLocalStoredTime();
-            return localStorage.getItem('user') ? Promise.resolve() : Promise.reject();
         }
+        updateLocalStoredTime();
+        return localStorage.getItem('user') ? Promise.resolve() : Promise.reject();
     } else if (type === AUTH_ERROR) {
-        const status  = params.status;
+        const status = params.status;
         if (status === 400 || status === 401 || status === 403 || status === 404) {
             clearLocalStorage();
             return Promise.reject();
