@@ -22,6 +22,7 @@ import {
 } from 'react-admin';
 import AppConfiguration from "../framework/AppConfiguration";
 import Privileges from "../model/Privileges";
+import InlineHelp from "../components/InlineHelp";
 
 let currentFilter = {};
 
@@ -49,9 +50,10 @@ const EntityFilter = (props) => (
 
 export const AreaOfConcernList = ({privileges, ...props}) => (
     <div>
+        <InlineHelp message="Area of concerns that are not associated to any checklist will show assessment tool as empty"/>
         <List {...props} title='Area of concerns' filters={<EntityFilter/>} perPage={100} sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name" allowEmpty>
+                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="checklists.assessmentTool.name" allowEmpty>
                     <TextField source="name"/>
                 </ReferenceField>
                 <TextField source="reference"/>
@@ -70,11 +72,14 @@ let getForm = function (props, isEdit) {
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
-        <ReferenceManyField label="Used by checklists" reference="checklist" target="areaOfConcernId">
-            <SingleFieldList>
-                <ChipField source="fullReference" />
-            </SingleFieldList>
-        </ReferenceManyField>
+        <InlineHelp message="Associate to checklist if it is created. If not then create checklist. You can also associate area of concern while creating checklist"/>
+        <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
+                        sort={[{field: 'assessmentTool.assessmentToolMode.id', order: 'ASC'}, {field: 'assessmentTool.name', order: 'ASC'}, {
+                            field: 'name',
+                            order: 'ASC'
+                        }]} perPage={1000}>
+            <SelectInput optionText="fullReference" style={{width: 600}}/>
+        </ReferenceInput>
     </SimpleForm>;
 };
 export const AreaOfConcernEdit = props => (

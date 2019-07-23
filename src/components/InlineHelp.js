@@ -7,10 +7,10 @@ import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
     root: {
         ...theme.mixins.gutters(),
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
-        marginTop: theme.spacing.unit * 2,
-        backgroundColor: 'grey'
+        paddingTop: theme.spacing.unit,
+        paddingBottom: theme.spacing.unit,
+        marginTop: theme.spacing.unit,
+        backgroundColor: 'lightgrey'
     },
 });
 
@@ -19,7 +19,7 @@ function InlineHelp(props) {
     let messageWithoutLink = `${props.message}.`;
     let linkedMessage = <a href="#/faq">{`FAQ #${props.helpNumber}`}</a>;
     return (<Paper className={classes.root} elevation={1}>
-        <Typography variant="title" component="h4">{messageWithoutLink}{props.helpNumber ? linkedMessage : ''}</Typography>
+        <Typography component="h4">{messageWithoutLink}{props.helpNumber ? linkedMessage : ''}</Typography>
     </Paper>);
 }
 
