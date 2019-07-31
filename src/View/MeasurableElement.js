@@ -16,7 +16,9 @@ import {
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    ReferenceArrayInput,
+    SelectArrayInput
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
@@ -112,8 +114,10 @@ let getForm = function (props, isEdit) {
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <br/>
-        <InlineHelp message="Assessment tool, Checklist and Area of concern are for filtering only" helpNumber={2}/>
-        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" mandatory={false}/>
+        <InlineHelp message="Use assessment tool, checklist and area of concern for narrowing down your standard" helpNumber={2}/>
+        <ReferenceArrayInput label="Assessment tools" source="assessmentToolIds" reference="assessmentTool" sort={{field: 'name', order: 'ASC'}} mandatory={false}>
+            <SelectArrayInput optionText="fullName"/>
+        </ReferenceArrayInput>
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}

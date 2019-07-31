@@ -61,6 +61,7 @@ export default (type, params) => {
                 updateLocalStoredTime();
             });
     } else if (type === AUTH_LOGOUT) {
+        console.log(`[AUTH PROVIDER][AUTH_LOGOUT] Clearing local storage`);
         clearLocalStorage();
         return Promise.resolve();
     } else if (type === AUTH_CHECK) {
@@ -72,7 +73,7 @@ export default (type, params) => {
         return localStorage.getItem('user') ? Promise.resolve() : Promise.reject();
     } else if (type === AUTH_ERROR) {
         const status = params.status;
-        if (status === 400 || status === 401 || status === 403 || status === 404) {
+        if (status === 401 || status === 403 || status === 404) {
             clearLocalStorage();
             return Promise.reject();
         }

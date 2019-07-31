@@ -16,4 +16,16 @@ describe('ResourceFilter', () => {
     it('filterAsQueryParam', function () {
         assert.equal(ResourceFilter.filterAsQueryParam("resource", 1), 'filter=%7B%22resource%22%3A1%7D');
     });
+
+    it('is selected', function () {
+        assert.equal(ResourceFilter.isSelected('1'), true);
+        assert.equal(ResourceFilter.isSelected(' '), false);
+        assert.equal(ResourceFilter.isSelected(''), false);
+        assert.equal(ResourceFilter.isSelected(undefined), false);
+        assert.equal(ResourceFilter.isSelected(null), false);
+        assert.equal(ResourceFilter.isSelected(1), true);
+        assert.equal(ResourceFilter.isSelected(0), false);
+        assert.equal(ResourceFilter.isSelected('0'), false);
+        assert.equal(ResourceFilter.isSelected(""), false);
+    });
 });

@@ -42,6 +42,11 @@ class ResourceFilter {
         filterWrapper["filter"] = JSON.stringify(filter);
         return stringify(filterWrapper);
     }
+
+    static isSelected(filterValue) {
+        let toNumber = _.toNumber(filterValue);
+        return !(toNumber === 0 || isNaN(toNumber));
+    }
 }
 
 export default ResourceFilter;

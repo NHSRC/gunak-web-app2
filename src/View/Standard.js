@@ -10,9 +10,11 @@ import {
     Filter,
     FormDataConsumer,
     List,
+    ReferenceArrayInput,
     ReferenceField,
     ReferenceInput,
     required,
+    SelectArrayInput,
     SelectInput,
     SimpleForm,
     TextField,
@@ -24,11 +26,12 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
+import ResourceFilter from "../framework/ResourceFilter";
 
 let currentFilter = {};
 
-const EntityFilter = (props) => (
-    <Filter {...props}>
+const EntityFilter = (props) => {
+    return <Filter {...props}>
         {AppConfiguration.isJSS() &&
         <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
@@ -38,15 +41,16 @@ const EntityFilter = (props) => (
         </ReferenceInput>}
 
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn
-                        sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
+                        sort={{field: 'assessmentToolMode.name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
-                            delete(props.filterValues.areaOfConcernId);
+                            delete (props.filterValues.areaOfConcernId);
+                            delete (props.filterValues.checklistId);
                         }}>
             <SelectInput optionText="fullName"/>
         </ReferenceInput>
 
-        {props.filterValues.assessmentToolId &&
+        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) &&
         <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
                         filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
                             assessmentToolId: props.filterValues.assessmentToolId,
@@ -54,42 +58,43 @@ const EntityFilter = (props) => (
                         } : {assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.checklistId = id;
+                            delete (props.filterValues.areaOfConcernId);
                         }}>
             <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
         </ReferenceInput>}
 
-        {props.filterValues.checklistId &&
+        {ResourceFilter.isSelected(props.filterValues.checklistId) &&
         <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{checklistId: props.filterValues.checklistId}}
+                        filter={{checklistId: props.filterValues.checklistId, assessmentToolId: props.filterValues.assessmentToolId}}
                         onChange={(obj, id) => {
                             currentFilter.areaOfConcernId = id;
                         }}>
             <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
     </Filter>
-);
+};
 
-export const StandardList = ({privileges, ...props}) => (
-    <div>
+export const StandardList = ({privileges, ...props}) => {
+    return <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="standard"/>
         <List {...props} title='Standards' filters={<EntityFilter/>} perPage={25}
               sort={{field: 'reference', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                {!currentFilter.assessmentToolId &&
-                <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name" sortable={false}>
-                    <TextField source="name"/>
-                </ReferenceField>}
                 <TextField source="reference"/>
                 <TextField source="name"/>
                 <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" sortable={false}>
                     <TextField source="reference"/>
                 </ReferenceField>
+                {!ResourceFilter.isSelected(currentFilter.assessmentToolId) &&
+                <TextField source="assessmentToolNames" label="Assessment tools" style={{width: 160}} sortable={false}/>
+                }
                 <BooleanField source="inactive"/>
                 <TextField source="id"/>
                 {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
             </Datagrid>
-        </List></div>
-);
+        </List>
+    </div>
+};
 
 export const StandardCreate = (props) => (
     <Create {...props}>
@@ -103,8 +108,10 @@ let getForm = function (props, isEdit) {
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <br/>
-        <InlineHelp message="Assessment tool and Checklist are for filtering only" helpNumber={2}/>
-        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" mandatory={false}/>
+        <InlineHelp message="Use assessment tool and checklist for narrowing down your area of concern" helpNumber={2}/>
+        <ReferenceArrayInput label="Assessment tools" source="assessmentToolIds" reference="assessmentTool" sort={{field: 'name', order: 'ASC'}} mandatory={false}>
+            <SelectArrayInput optionText="fullName"/>
+        </ReferenceArrayInput>
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}

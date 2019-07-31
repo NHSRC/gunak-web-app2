@@ -42,7 +42,7 @@ const EntityFilter = (props) => (
         </ReferenceInput>}
 
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50}
-                        sort={[{field: 'id', order: 'ASC'}, {field: 'name', order: 'ASC'}]}
+                        sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                             delete (props.filterValues.areaOfConcernId);

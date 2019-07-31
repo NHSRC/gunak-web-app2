@@ -10,23 +10,23 @@ const styles = theme => ({
         paddingTop: theme.spacing.unit,
         paddingBottom: theme.spacing.unit,
         marginTop: theme.spacing.unit,
-        backgroundColor: 'lightgrey'
+        backgroundColor: 'black'
     },
 });
 
 function InlineHelp(props) {
     const {classes} = props;
     let messageWithoutLink = `${props.message}.`;
-    let linkedMessage = <a href="#/faq">{`FAQ #${props.helpNumber}`}</a>;
+    let linkedMessage = <a href="#/faq" style={{color: 'lightblue'}}>{`FAQ #${props.helpNumber}`}</a>;
     return (<Paper className={classes.root} elevation={1}>
-        <Typography component="h4">{messageWithoutLink}{props.helpNumber ? linkedMessage : ''}</Typography>
+        <Typography component="h4" style={{color: 'white'}}>{messageWithoutLink}{props.helpNumber ? linkedMessage : ''}</Typography>
     </Paper>);
 }
 
 InlineHelp.propTypes = {
     classes: PropTypes.object.isRequired,
     message: PropTypes.string.isRequired,
-    helpNumber: PropTypes.number.isRequired
+    helpNumber: PropTypes.number
 };
 
 export default withStyles(styles)(InlineHelp);
