@@ -38,7 +38,7 @@ const EntityFilter = (props) => (
             <SelectInput optionText="name"/>
         </ReferenceInput>
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100}
-                        sort={{field: 'name', order: 'ASC'}}
+                        sort={{field: 'assessmentToolMode.name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                         }}>

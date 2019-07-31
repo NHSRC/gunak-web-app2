@@ -12,16 +12,15 @@ import {
     ReferenceArrayInput,
     ReferenceInput,
     required,
+    SelectArrayInput,
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput,
-    SelectArrayInput
+    TextInput
 } from 'react-admin';
 import AppConfiguration from "../framework/AppConfiguration";
 import Privileges from "../model/Privileges";
 import InlineHelp from "../components/InlineHelp";
-import _ from 'lodash';
 
 let currentFilter = {};
 
@@ -38,7 +37,7 @@ const EntityFilter = (props) => (
         <ReferenceInput label="Assessment tool"
                         source="assessmentToolId"
                         reference="assessmentTool"
-                        alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+                        alwaysOn perPage={100} sort={{field: 'assessmentToolMode.name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
                         }}>
@@ -47,25 +46,23 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-const aocSorting = [{field: 'checklists.assessmentTools.name', order: 'ASC'}, {
-    field: 'reference',
-    order: 'ASC'
-}];
 const checklistSorting = [{field: 'assessmentTools.name', order: 'ASC'}, {
     field: 'name',
     order: 'ASC'
 }];
-const checklistSortingForAnAssessmentTool = {field: 'reference', order: 'ASC'};
 
 export const AreaOfConcernList = ({privileges, ...props}) => (
     <div>
         <InlineHelp message="Area of concerns that are not associated to any checklist will show assessment tool as empty"/>
         <List {...props} title='Area of concerns' filters={<EntityFilter/>} perPage={100}
-              sort={_.isNil(currentFilter.assessmentToolId) ? checklistSortingForAnAssessmentTool : aocSorting}>
+              sort={{
+                  field: 'reference',
+                  order: 'ASC'
+              }}>
             <Datagrid rowClick="edit">
-                <TextField source="assessmentToolNames" label="Assessment tools"/>
                 <TextField source="reference"/>
                 <TextField source="name"/>
+                <TextField source="assessmentToolNames" label="Assessment tools"/>
                 {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
                 <BooleanField source="inactive"/>
                 <TextField source="id"/>
