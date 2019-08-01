@@ -107,21 +107,9 @@ let getForm = function (props, isEdit) {
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <br/>
-        <InlineHelp message="Use assessment tool and checklist for narrowing down your area of concern" helpNumber={2}/>
-        <ReferenceArrayInput label="Assessment tools" source="assessmentToolIds" reference="assessmentTool" sort={{field: 'name', order: 'ASC'}} mandatory={false}>
-            <SelectArrayInput optionText="fullName"/>
-        </ReferenceArrayInput>
         <FormDataConsumer>
             {({formData}) =>
-                <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}
-                                     filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}} mandatory={false}/>
-            }
-        </FormDataConsumer>
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Area of concern" optionText="referenceAndName" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
+                <GunakReferenceInput label="Area of concern" optionText="fullyQualifiedName" source="areaOfConcern" perPage={100} sort={{field: 'id', order: 'ASC'}} autoComplete={false}/>
             }
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={false}/>

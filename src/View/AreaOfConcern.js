@@ -46,11 +46,6 @@ const EntityFilter = (props) => (
     </Filter>
 );
 
-const checklistSorting = [{field: 'assessmentTools.name', order: 'ASC'}, {
-    field: 'name',
-    order: 'ASC'
-}];
-
 export const AreaOfConcernList = ({privileges, ...props}) => (
     <div>
         <InlineHelp message="Area of concerns that are not associated to any checklist will show assessment tool as empty"/>
@@ -79,7 +74,10 @@ let getForm = function (props, isEdit) {
         <BooleanInput source="inactive" defaultValue={false}/>
         <InlineHelp
             message="Associate to checklist if it is created. If not then create checklist. You can also create association between area of concern and checklist, while creating checklist"/>
-        <ReferenceArrayInput label="Checklists" source="checklistIds" reference="checklist" sort={checklistSorting} style={{width: 400}} perPage={1000}>
+        <ReferenceArrayInput label="Checklists" source="checklistIds" reference="checklist" sort={[{field: 'assessmentTools.name', order: 'ASC'}, {
+            field: 'name',
+            order: 'ASC'
+        }]} style={{width: 400}} perPage={1000}>
             <SelectArrayInput optionText="fullName"/>
         </ReferenceArrayInput>
     </SimpleForm>;
