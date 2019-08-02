@@ -10,11 +10,9 @@ import {
     Filter,
     FormDataConsumer,
     List,
-    ReferenceArrayInput,
     ReferenceField,
     ReferenceInput,
     required,
-    SelectArrayInput,
     SelectInput,
     SimpleForm,
     TextField,
@@ -24,7 +22,6 @@ import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
-import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
 import ResourceFilter from "../framework/ResourceFilter";
 

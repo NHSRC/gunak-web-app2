@@ -26,59 +26,73 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
+import RAFilterUtil from "../utils/RAFilterUtil";
+import ResourceFilter from "../framework/ResourceFilter";
 
 let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        {AppConfiguration.isJSS() &&
-        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.stateId = id;
-                        }}>
+        {AppConfiguration.isJSS() && <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
+                                                     onChange={(obj, id) => {
+                                                         currentFilter.stateId = id;
+                                                     }}>
             <SelectInput optionText="name"/>
-        </ReferenceInput>}
-
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} sort={{field: 'assessmentToolMode.id', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.assessmentToolId = id;
-                            delete(props.filterValues.areaOfConcernId);
-                            delete(props.filterValues.standardId);
-                        }}>
-            <SelectInput optionText="fullName"/>
         </ReferenceInput>
+        }
 
-        {props.filterValues.assessmentToolId &&
-        <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
-                        filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
-                            assessmentToolId: props.filterValues.assessmentToolId,
-                            stateId: props.filterValues.stateId
-                        } : {assessmentToolId: props.filterValues.assessmentToolId}}
-                        alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.checklistId = id;
-                            delete(props.filterValues.standardId);
-                        }}>
-            <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
-        </ReferenceInput>}
+        <FormDataConsumer form={'filterForm'} alwaysOn>
+            {({formData, dispatch, ...rest}) => (
+                <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50} key="1"
+                                sort={{field: 'assessmentToolMode.name', order: 'ASC'}}
+                                onChange={(obj, id) => {
+                                    RAFilterUtil.handleFilterChange(currentFilter, 'assessmentToolId', id, dispatch, ['checklistId', 'areaOfConcernId', 'standardId']);
+                                }}>
+                    <SelectInput optionText="fullName"/>
+                </ReferenceInput>
+            )}
+        </FormDataConsumer>
 
-        {props.filterValues.checklistId &&
-        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{checklistId: props.filterValues.checklistId}}
-                        onChange={(obj, id) => {
-                            currentFilter.areaOfConcernId = id;
-                        }}>
-            <SelectInput optionText="referenceAndName"/>
-        </ReferenceInput>}
+        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) &&
+        <FormDataConsumer form={'filterForm'} alwaysOn>
+            {({formData, dispatch, ...rest}) => (
+                <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
+                                filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
+                                    assessmentToolId: props.filterValues.assessmentToolId,
+                                    stateId: props.filterValues.stateId
+                                } : {assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn sort={{field: 'name', order: 'ASC'}}
+                                perPage={100}
+                                onChange={(obj, id) => {
+                                    RAFilterUtil.handleFilterChange(currentFilter, 'checklistId', id, dispatch, ['areaOfConcernId', 'standardId']);
+                                }}>
+                    <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
+                </ReferenceInput>
+            )}
+        </FormDataConsumer>}
 
-        {props.filterValues.areaOfConcernId &&
-        <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId, checklistId: props.filterValues.checklistId}}
-                        onChange={(obj, id) => {
-                            currentFilter.standardId = id;
-                        }}>
-            <SelectInput optionText="referenceAndName"/>
-        </ReferenceInput>}
+        {ResourceFilter.isSelected(props.filterValues.checklistId) &&
+        <FormDataConsumer form={'filterForm'} alwaysOn>
+            {({formData, dispatch, ...rest}) => (
+                <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
+                                filter={{checklistId: props.filterValues.checklistId, assessmentToolId: props.filterValues.assessmentToolId}}
+                                onChange={(obj, id) => {
+                                    RAFilterUtil.handleFilterChange(currentFilter, 'areaOfConcernId', id, dispatch, ['standardId']);
+                                }}>
+                    <SelectInput optionText="referenceAndName"/>
+                </ReferenceInput>)}
+        </FormDataConsumer>}
+
+        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) &&
+        <FormDataConsumer form={'filterForm'} alwaysOn>
+            {({formData, dispatch, ...rest}) => (
+                <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort={{field: 'reference', order: 'ASC'}}
+                                filter={{areaOfConcernId: props.filterValues.areaOfConcernId}}
+                                onChange={(obj, id) => {
+                                    RAFilterUtil.handleFilterChange(currentFilter, 'standardId', id, dispatch);
+                                }}>
+                    <SelectInput optionText="referenceAndName"/>
+                </ReferenceInput>)}
+        </FormDataConsumer>}
     </Filter>
 );
 
@@ -127,7 +141,8 @@ let getForm = function (props, isEdit) {
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Area of concern" optionText="referenceAndName" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false} sort={{field: 'reference', order: 'ASC'}}/>
+                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false}
+                                     sort={{field: 'reference', order: 'ASC'}}/>
             }
         </FormDataConsumer>
         <FormDataConsumer>
