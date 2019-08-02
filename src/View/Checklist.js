@@ -26,6 +26,7 @@ import _ from 'lodash';
 import InlineHelp from "../components/InlineHelp";
 import ContextActions from "../components/ContextActions";
 import Privileges from "../model/Privileges";
+import GunakFilters from "../components/GunakFilters";
 
 let currentFilter = {};
 
@@ -37,13 +38,8 @@ const EntityFilter = (props) => (
                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100}
-                        sort={{field: 'assessmentToolMode.name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.assessmentToolId = id;
-                        }}>
-            <SelectInput optionText="fullName"/>
-        </ReferenceInput>
+
+        {GunakFilters.AssessmentTool(currentFilter)}
     </Filter>
 );
 
