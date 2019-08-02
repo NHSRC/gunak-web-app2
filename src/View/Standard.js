@@ -24,6 +24,7 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import Privileges from "../model/Privileges";
 import ResourceFilter from "../framework/ResourceFilter";
+import GunakFilters from "../components/GunakFilters";
 
 let currentFilter = {};
 
@@ -37,37 +38,11 @@ const EntityFilter = (props) => {
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn
-                        sort={{field: 'assessmentToolMode.name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.assessmentToolId = id;
-                            delete (props.filterValues.areaOfConcernId);
-                            delete (props.filterValues.checklistId);
-                        }}>
-            <SelectInput optionText="fullName"/>
-        </ReferenceInput>
+        {GunakFilters.AssessmentTool(currentFilter, ['checklistId', 'areaOfConcernId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) &&
-        <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
-                        filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
-                            assessmentToolId: props.filterValues.assessmentToolId,
-                            stateId: props.filterValues.stateId
-                        } : {assessmentToolId: props.filterValues.assessmentToolId}} alwaysOn sort={{field: 'name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.checklistId = id;
-                            delete (props.filterValues.areaOfConcernId);
-                        }}>
-            <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
-        </ReferenceInput>}
+        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) && GunakFilters.Checklist(currentFilter, props, ['areaOfConcernId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.checklistId) &&
-        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{checklistId: props.filterValues.checklistId, assessmentToolId: props.filterValues.assessmentToolId}}
-                        onChange={(obj, id) => {
-                            currentFilter.areaOfConcernId = id;
-                        }}>
-            <SelectInput optionText="referenceAndName"/>
-        </ReferenceInput>}
+        {ResourceFilter.isSelected(props.filterValues.checklistId) && GunakFilters.AreaOfConcern(currentFilter, props)}
     </Filter>
 };
 

@@ -42,11 +42,11 @@ const EntityFilter = (props) => (
         </ReferenceInput>
         }
 
-        {GunakFilters.createAssessmentToolFilter(currentFilter, ['checklistId', 'areaOfConcernId', 'standardId'])}
+        {GunakFilters.AssessmentTool(currentFilter, ['checklistId', 'areaOfConcernId', 'standardId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) && GunakFilters.createChecklistFilter(currentFilter, props, ['areaOfConcernId', 'standardId'])}
+        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) && GunakFilters.Checklist(currentFilter, props, ['areaOfConcernId', 'standardId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.checklistId) && GunakFilters.createAreaOfConcernFilter(currentFilter, props, ['standardId'])}
+        {ResourceFilter.isSelected(props.filterValues.checklistId) && GunakFilters.AreaOfConcern(currentFilter, props, ['standardId'])}
 
         {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) && GunakFilters.createStandardFilter(currentFilter, props)}
     </Filter>
