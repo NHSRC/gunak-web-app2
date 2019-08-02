@@ -26,8 +26,9 @@ import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
-import RAFilterUtil from "../utils/RAFilterUtil";
 import ResourceFilter from "../framework/ResourceFilter";
+import GunakFilters from "../components/GunakFilters";
+import Logger from "../utils/Logger";
 
 let currentFilter = {};
 
@@ -41,30 +42,13 @@ const EntityFilter = (props) => (
         </ReferenceInput>
         }
 
-        {RAFilterUtil.createFilterItem(currentFilter, "Assessment tool", "assessmentToolId", "assessmentTool", {
-            field: 'assessmentToolMode.name',
-            order: 'ASC'
-        }, "fullName", {}, ['checklistId', 'areaOfConcernId', 'standardId'])}
+        {GunakFilters.createAssessmentToolFilter(currentFilter, ['checklistId', 'areaOfConcernId', 'standardId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) &&
-        RAFilterUtil.createFilterItem(currentFilter, "Checklist", "checklistId", "checklist", {
-            field: 'name',
-            order: 'ASC'
-        }, ChecklistConfiguration.getDisplayProperty(), {
-            assessmentToolId: props.filterValues.assessmentToolId
-        }, ['areaOfConcernId', 'standardId'])}
+        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) && GunakFilters.createChecklistFilter(currentFilter, props, ['areaOfConcernId', 'standardId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.checklistId) &&
-        RAFilterUtil.createFilterItem(currentFilter, "Area of concern", "areaOfConcernId", "areaOfConcern", {
-            field: 'reference',
-            order: 'ASC'
-        }, "referenceAndName", {checklistId: props.filterValues.checklistId, assessmentToolId: props.filterValues.assessmentToolId}, ['standardId'])}
+        {ResourceFilter.isSelected(props.filterValues.checklistId) && GunakFilters.createAreaOfConcernFilter(currentFilter, props, ['standardId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) &&
-        RAFilterUtil.createFilterItem(currentFilter, "Standard", "standardId", "standard", {
-            field: 'reference',
-            order: 'ASC'
-        }, "referenceAndName", {areaOfConcernId: props.filterValues.areaOfConcernId}, ['standardId'])}
+        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) && GunakFilters.createStandardFilter(currentFilter, props)}
     </Filter>
 );
 
