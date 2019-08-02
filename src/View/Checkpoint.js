@@ -28,6 +28,8 @@ import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
 import ToggleActiveInactiveButton from '../components/ToggleActiveInactiveButton';
+import GunakFilters from "../components/GunakFilters";
+import ResourceFilter from "../framework/ResourceFilter";
 
 let currentFilter = {};
 
@@ -41,52 +43,15 @@ const EntityFilter = (props) => (
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={50}
-                        sort={{field: 'name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.assessmentToolId = id;
-                            delete (props.filterValues.areaOfConcernId);
-                            delete (props.filterValues.standardId);
-                            delete (props.filterValues.measurableElementId);
-                        }}>
-            <SelectInput optionText="fullName"/>
-        </ReferenceInput>
+        {GunakFilters.AssessmentTool(currentFilter, ['checklistId', 'areaOfConcernId', 'standardId', 'measurableElementId'])}
 
-        {props.filterValues.assessmentToolId &&
-        <ReferenceInput label="Checklist" source="checklistId" reference="checklist"
-                        filter={AppConfiguration.isJSS() && props.filterValues.stateId ? {
-                            assessmentToolId: props.filterValues.assessmentToolId,
-                            stateId: props.filterValues.stateId
-                        } : {assessmentToolId: props.filterValues.assessmentToolId}}
-                        alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.checklistId = id;
-                            delete (props.filterValues.standardId);
-                            delete (props.filterValues.measurableElementId);
-                        }}>
-            <SelectInput optionText={ChecklistConfiguration.getDisplayProperty()}/>
-        </ReferenceInput>}
+        {ResourceFilter.isSelected(props.filterValues.assessmentToolId) && GunakFilters.Checklist(currentFilter, props, ['areaOfConcernId', 'standardId', 'measurableElementId'])}
 
-        {props.filterValues.checklistId &&
-        <ReferenceInput label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{checklistId: props.filterValues.checklistId}}
-                        onChange={(obj, id) => {
-                            currentFilter.areaOfConcernId = id;
-                            delete (props.filterValues.measurableElementId);
-                        }}>
-            <SelectInput optionText="referenceAndName"/>
-        </ReferenceInput>}
+        {ResourceFilter.isSelected(props.filterValues.checklistId) && GunakFilters.AreaOfConcern(currentFilter, props, ['standardId', 'measurableElementId'])}
 
-        {props.filterValues.areaOfConcernId &&
-        <ReferenceInput label="Standard" source="standardId" reference="standard" alwaysOn sort={{field: 'reference', order: 'ASC'}}
-                        filter={{areaOfConcernId: props.filterValues.areaOfConcernId, checklistId: props.filterValues.checklistId}}
-                        onChange={(obj, id) => {
-                            currentFilter.standardId = id;
-                        }}>
-            <SelectInput optionText="referenceAndName"/>
-        </ReferenceInput>}
+        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) && GunakFilters.createStandardFilter(currentFilter, props, ['measurableElementId'])}
 
-        {props.filterValues.standardId &&
+        {ResourceFilter.isSelected(props.filterValues.standardId) &&
         <ReferenceInput label="Measurable element" source="measurableElementId" reference="measurableElement" alwaysOn sort={{field: 'reference', order: 'ASC'}}
                         filter={{standardId: props.filterValues.standardId, checklistId: props.filterValues.checklistId}}
                         onChange={(obj, id) => {
@@ -108,7 +73,7 @@ export const CheckpointList = ({privileges, ...props}) => {
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
-            <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>}>
+            <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>} sort={{field: 'measurableElement.reference', order: 'ASC'}}>
                 <Datagrid rowClick="edit">
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement" sortBy="measurableElement.reference">
                         <TextField source="reference"/>
