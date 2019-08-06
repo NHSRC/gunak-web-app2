@@ -27,6 +27,7 @@ import InlineHelp from "../components/InlineHelp";
 import ContextActions from "../components/ContextActions";
 import Privileges from "../model/Privileges";
 import GunakFilters from "../components/GunakFilters";
+import RAFilterUtil from "../utils/RAFilterUtil";
 
 let currentFilter = {};
 
@@ -66,27 +67,32 @@ export const ChecklistList = ({privileges, ...props}) => {
 
 };
 
+let formFilter = {};
+
 let getForm = function (props, isCreate) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <InlineHelp message="Leave state as empty if you want checklist to be available for all states" helpNumber={4}/>
         <GunakReferenceInput label="State" optionText="name" source="state" mandatory={false}/>
-        <ReferenceArrayInput label="Assessment tools" source="assessmentToolIds" reference="assessmentTool" sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceArrayInput label="Assessment tools" source="assessmentToolIds" reference="assessmentTool"
+                             sort={{field: 'assessmentToolMode.name,name', order: 'ASC,ASC'}}
+                             onChange={(data) => {
+                                 formFilter.assessmentToolIds = RAFilterUtil.valuesFromMultiSelectFilter(data);
+                             }}>
             <SelectArrayInput optionText="fullName"/>
         </ReferenceArrayInput>
         <br/>
         <GunakReferenceInput label="Department" optionText="name" source="department"/>
-        <InlineHelp message="The area of concerns associated with this checklist. In the drop down there are areas of concern which are used in this assessment tool in other checklists or the ones which are yet not associated to any checklist." helpNumber={9}/>
-        <FormDataConsumer>
-            {({formData, ...rest}) =>
-                <ReferenceArrayInput label="Area of concerns" source="areaOfConcernIds" reference="areaOfConcern"
-                                     filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}} sort={{field: 'reference', order: 'ASC'}}>
-                    <SelectArrayInput optionText="referenceAndName"/>
-                </ReferenceArrayInput>
-            }
-        </FormDataConsumer>
-        <BooleanInput source="inactive" defaultValue={AppConfiguration.isNHSRC()}/>
+        <InlineHelp
+            message="The area of concerns associated with this checklist. In the drop down there are areas of concern which are used in this assessment tool in other checklists or the ones which are yet not associated to any checklist."
+            helpNumber={9}/>
+
+        <ReferenceArrayInput label="Area of concerns" source="areaOfConcernIds" reference="areaOfConcern" perPage={1000}>
+            <SelectArrayInput optionText="fullyQualifiedName"/>
+        </ReferenceArrayInput>
+
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 export const ChecklistEdit = props => (

@@ -5,3 +5,5 @@ Doesn't support dynamic value for sort on the List. It always takes the first va
 When you use defaultFilterValues, manually changing the filter to remove all filters will result in application of default filter values - this is not intuitive. Hence if one has alwaysOn filters use of default filter values is not useful.
 
 Passing functions to a component is disallowed.
+
+FormDataConsumer with ReferenceArrayInput doesn't work

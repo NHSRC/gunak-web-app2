@@ -12,13 +12,15 @@ import {
     required,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    ReferenceArrayInput,
+    SelectArrayInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import Privileges from "../model/Privileges";
 
 export const AssessmentToolList = ({privileges, ...props}) => (
-    <List {...props} title='Assessment Tools' sort={{ field: 'assessmentToolMode,name', order: 'ASC' }} perPage={25}>
+    <List {...props} title='Assessment Tools' sort={{ field: 'assessmentToolMode.name,name', order: 'ASC,ASC' }} perPage={25}>
         <Datagrid rowClick="edit">
             <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name">
                 <TextField source="name"/>
@@ -37,6 +39,9 @@ let getForm = function (props, isCreate) {
         <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode"/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
+        <ReferenceArrayInput label="Checklists" source="checklistIds" reference="checklist" perPage={1000} style={{width: 400}} sort={{field: "assessmentTools.assessmentToolMode.name", order: "ASC"}}>
+            <SelectArrayInput optionText="fullName"/>
+        </ReferenceArrayInput>
     </SimpleForm>;
 };
 export const AssessmentToolEdit = props => (

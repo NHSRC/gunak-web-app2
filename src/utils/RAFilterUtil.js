@@ -1,6 +1,7 @@
 import React from 'react';
 import {FormDataConsumer, ReferenceInput, SelectInput} from 'react-admin';
 import {change} from 'redux-form';
+import _ from 'lodash';
 
 class RAFilterUtil {
     static handleFilterChange(currentFilter, currentFilterSource, filterValue, dispatchFn, dependentFilterSources = []) {
@@ -21,6 +22,10 @@ class RAFilterUtil {
                 </ReferenceInput>
             )}
         </FormDataConsumer>
+    }
+
+    static valuesFromMultiSelectFilter(filter) {
+        return _.filter(_.keys(filter), (filterKey) => !_.isNaN(_.toNumber(filterKey))).map(filterKey => filter[filterKey]);
     }
 }
 
