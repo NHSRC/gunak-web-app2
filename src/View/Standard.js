@@ -79,11 +79,7 @@ let getForm = function (props, isEdit) {
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Area of concern" optionText="fullyQualifiedName" source="areaOfConcern" perPage={100} sort={{field: 'id', order: 'ASC'}} autoComplete={false}/>
-            }
-        </FormDataConsumer>
+        {GunakFilters.AreaOfConcernForm()}
         <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };

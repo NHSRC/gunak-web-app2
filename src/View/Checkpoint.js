@@ -49,7 +49,7 @@ const EntityFilter = (props) => (
 
         {ResourceFilter.isSelected(props.filterValues.checklistId) && GunakFilters.AreaOfConcern(currentFilter, props, ['standardId', 'measurableElementId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) && GunakFilters.createStandardFilter(currentFilter, props, ['measurableElementId'])}
+        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) && GunakFilters.Standard(currentFilter, props, ['measurableElementId'])}
 
         {ResourceFilter.isSelected(props.filterValues.standardId) &&
         <ReferenceInput label="Measurable element" source="measurableElementId" reference="measurableElement" alwaysOn sort={{field: 'reference', order: 'ASC'}}

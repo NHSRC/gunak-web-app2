@@ -1,6 +1,9 @@
+import React from 'react';
 import RAFilterUtil from "../utils/RAFilterUtil";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
+import {GunakReferenceInput} from "./Inputs";
+import {FormDataConsumer} from 'react-admin';
 
 class GunakFilters {
     static AssessmentTool(currentFilter, dependants) {
@@ -30,11 +33,19 @@ class GunakFilters {
         }, "referenceAndName", {checklistId: props.filterValues.checklistId, assessmentToolId: props.filterValues.assessmentToolId}, dependants)
     }
 
-    static createStandardFilter(currentFilter, props, dependants = []) {
+    static Standard(currentFilter, props, dependants = []) {
         return RAFilterUtil.createFilterItem(currentFilter, "Standard", "standardId", "standard", {
             field: 'reference',
             order: 'ASC'
         }, "referenceAndName", {areaOfConcernId: props.filterValues.areaOfConcernId}, dependants);
+    }
+
+    static AreaOfConcernForm() {
+        return <FormDataConsumer>
+            {({formData}) =>
+                <GunakReferenceInput label="Area of concern" optionText="fullyQualifiedName" source="areaOfConcern" perPage={100} sort={{field: 'id', order: 'ASC'}} autoComplete={false}/>
+            }
+        </FormDataConsumer>
     }
 }
 

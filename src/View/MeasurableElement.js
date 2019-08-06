@@ -48,7 +48,7 @@ const EntityFilter = (props) => (
 
         {ResourceFilter.isSelected(props.filterValues.checklistId) && GunakFilters.AreaOfConcern(currentFilter, props, ['standardId'])}
 
-        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) && GunakFilters.createStandardFilter(currentFilter, props)}
+        {ResourceFilter.isSelected(props.filterValues.areaOfConcernId) && GunakFilters.Standard(currentFilter, props)}
     </Filter>
 );
 
@@ -85,22 +85,7 @@ let getForm = function (props, isEdit) {
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <br/>
         <InlineHelp message="Use assessment tool, checklist and area of concern for narrowing down your standard" helpNumber={2}/>
-        <ReferenceArrayInput label="Assessment tools" source="assessmentToolIds" reference="assessmentTool" sort={{field: 'name', order: 'ASC'}} mandatory={false}>
-            <SelectArrayInput optionText="fullName"/>
-        </ReferenceArrayInput>
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}
-                                     filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}} mandatory={false}/>
-            }
-        </FormDataConsumer>
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Area of concern" optionText="referenceAndName" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false}
-                                     sort={{field: 'reference', order: 'ASC'}}/>
-            }
-        </FormDataConsumer>
+        {GunakFilters.AreaOfConcernForm()}
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Standard" optionText="referenceAndName" source="standard"
