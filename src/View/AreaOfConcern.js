@@ -61,12 +61,12 @@ export const AreaOfConcernList = ({privileges, ...props}) => (
 
 let getForm = function (props, isEdit) {
     return <SimpleForm>
+        <InlineHelp
+            message="Checklist and area of concern are associated to each other. A checklist can be associated to multiple area of concern and vice-versa"/>
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
-        <InlineHelp
-            message="Associate to checklist if it is created. If not then create checklist. You can also create association between area of concern and checklist, while creating checklist"/>
         <ReferenceArrayInput label="Checklists" source="checklistIds" reference="checklist" sort={[{field: 'assessmentTools.name', order: 'ASC'}, {
             field: 'name',
             order: 'ASC'

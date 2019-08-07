@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-admin';
+import InlineHelp from "./InlineHelp";
 
 const styles = {
     root: {
@@ -17,16 +18,16 @@ const styles = {
     }
 };
 
-const ContextActions = ({userFilter, childResource, label}) => {
+const ContextActions = ({userFilter, childResource, label, helpText}) => {
     let record = {};
     _.keys(userFilter).forEach((key) => {
         record[key] = userFilter[key];
     });
 
     return <div style={styles.root}>
-        <AppBar position="static">
+        <AppBar position="static" style={{backgroundColor: 'black'}}>
             <Toolbar>
-                <Typography variant="subheading" color="inherit" style={styles.grow}/>
+                <Typography variant="subheading" color="inherit" style={styles.grow}>{helpText}</Typography>
                 <Button
                     component={Link}
                     color="default"
@@ -43,7 +44,8 @@ const ContextActions = ({userFilter, childResource, label}) => {
 ContextActions.propTypes = {
     userFilter: PropTypes.object.isRequired,
     childResource: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
+    helpText: PropTypes.string
 };
 
 export default ContextActions;

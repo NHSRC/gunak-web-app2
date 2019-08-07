@@ -47,8 +47,8 @@ const EntityFilter = (props) => (
 export const ChecklistList = ({privileges, ...props}) => {
     let displayName = AppConfiguration.isNHSRC() || (AppConfiguration.isJSS() && !_.isNil(currentFilter.stateId) && !_.isEmpty(currentFilter.stateId));
     return <div>
-        <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checklist"/>
-        <h4>To view checklist belonging to all states please leave the State filter blank.</h4>
+        <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checklist"
+                        helpText="Each assessment tool can have one or more checklists. To view checklist belonging to all states please leave the State filter blank."/>
         <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'assessmentTools.name,name', order: 'ASC,ASC'}}>
             <Datagrid rowClick="edit">
                 <TextField source="assessmentToolNames" label="Assessment tools"/>
@@ -71,9 +71,9 @@ let formFilter = {};
 
 let getForm = function (props, isCreate) {
     return <SimpleForm>
+        <InlineHelp message="Leave state as empty if you want checklist to be available for all states" helpNumber={4}/>
         {isCreate ? null : <DisabledInput source="id"/>}
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <InlineHelp message="Leave state as empty if you want checklist to be available for all states" helpNumber={4}/>
         <GunakReferenceInput label="State" optionText="name" source="state" mandatory={false}/>
         <ReferenceArrayInput label="Assessment tools" source="assessmentToolIds" reference="assessmentTool"
                              sort={{field: 'assessmentToolMode.name,name', order: 'ASC,ASC'}}
@@ -84,11 +84,7 @@ let getForm = function (props, isCreate) {
         </ReferenceArrayInput>
         <br/>
         <GunakReferenceInput label="Department" optionText="name" source="department"/>
-        <InlineHelp
-            message="The area of concerns associated with this checklist. In the drop down there are areas of concern which are used in this assessment tool in other checklists or the ones which are yet not associated to any checklist."
-            helpNumber={9}/>
-
-        <ReferenceArrayInput label="Area of concerns" source="areaOfConcernIds" reference="areaOfConcern" perPage={1000}>
+        <ReferenceArrayInput label="Area of concerns" source="areaOfConcernIds" reference="areaOfConcern" perPage={1000} style={{width: 400}}>
             <SelectArrayInput optionText="fullyQualifiedName"/>
         </ReferenceArrayInput>
 

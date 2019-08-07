@@ -110,6 +110,7 @@ let form = function (isCreate) {
         <BooleanInput source="assessmentMethodStaffInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodPatientInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodRecordReview" validate={[required("Mandatory")]} defaultValue={false}/>
+        <InlineHelp message="If a field is optional, the user can choose to make it not applicable when doing assessment in the app."/>
         <BooleanInput source="optional" validate={[required("Mandatory")]} defaultValue={false}/>
 
         <GunakReferenceInput label="Checklist" optionText="fullName" source="checklist" perPage={100} sort={{field: "assessmentTools.name"}}/>

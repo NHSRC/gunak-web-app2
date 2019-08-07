@@ -18,9 +18,12 @@ import {
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import Privileges from "../model/Privileges";
+import InlineHelp from "../components/InlineHelp";
 
 export const AssessmentToolList = ({privileges, ...props}) => (
-    <List {...props} title='Assessment Tools' sort={{ field: 'assessmentToolMode.name,name', order: 'ASC,ASC' }} perPage={25}>
+    <div>
+        <InlineHelp message="Each program can have one or more assessment tools"/>
+        <List {...props} title='Assessment Tools' sort={{field: 'assessmentToolMode.name,name', order: 'ASC,ASC'}} perPage={25}>
         <Datagrid rowClick="edit">
             <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name">
                 <TextField source="name"/>
@@ -28,9 +31,9 @@ export const AssessmentToolList = ({privileges, ...props}) => (
             <TextField source="name"/>
             {Privileges.hasPrivilege(privileges, 'Checklist_Metadata_Write') && <EditButton/>}
             <BooleanField source="inactive"/>
-            <TextField source="id" />
+            <TextField source="id"/>
         </Datagrid>
-    </List>
+    </List></div>
 );
 
 let getForm = function (props, isCreate) {
