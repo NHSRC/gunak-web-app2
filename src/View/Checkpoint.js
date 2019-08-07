@@ -112,28 +112,11 @@ let form = function (isCreate) {
         <BooleanInput source="assessmentMethodRecordReview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="optional" validate={[required("Mandatory")]} defaultValue={false}/>
 
-        <InlineHelp message="Assessment tool, Area of concern, standard are for filtering only" helpNumber={2}/>
-        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool" defaultValue={false} mandatory={false}/>
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Checklist" optionText={ChecklistConfiguration.getDisplayProperty()} source="checklist" perPage={100}
-                                     filter={formData.assessmentToolId ? {assessmentToolId: formData.assessmentToolId} : {}}/>
-            }
-        </FormDataConsumer>
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Area of concern" optionText="referenceAndName" source="areaOfConcern" perPage={100}
-                                     filter={formData.checklistId ? {checklistId: formData.checklistId} : {}} mandatory={false}
-                                     sort={{field: 'reference', order: 'ASC'}}/>
-            }
-        </FormDataConsumer>
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Standard" optionText="referenceAndName" source="standard"
-                                     filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}} mandatory={false}
-                                     sort={{field: 'reference', order: 'ASC'}}/>
-            }
-        </FormDataConsumer>
+        <GunakReferenceInput label="Checklist" optionText="fullName" source="checklist" perPage={100} sort={{field: "assessmentTools.name"}}/>
+
+        <InlineHelp message="Use area of concern, standard for narrowing down your measurable element" helpNumber={2}/>
+        {GunakFilters.AreaOfConcernForm()}
+        {GunakFilters.StandardForm()}
         <FormDataConsumer>
             {({formData}) =>
                 <GunakReferenceInput label="Measurable element" optionText="referenceAndName" source="measurableElement"

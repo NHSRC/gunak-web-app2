@@ -84,14 +84,9 @@ let getForm = function (props, isEdit) {
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <br/>
-        <InlineHelp message="Use assessment tool, checklist and area of concern for narrowing down your standard" helpNumber={2}/>
+        <InlineHelp message="Use area of concern for narrowing down your standard" helpNumber={2}/>
         {GunakFilters.AreaOfConcernForm()}
-        <FormDataConsumer>
-            {({formData}) =>
-                <GunakReferenceInput label="Standard" optionText="referenceAndName" source="standard"
-                                     filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
-            }
-        </FormDataConsumer>
+        {GunakFilters.StandardForm()}
         <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };

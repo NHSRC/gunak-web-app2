@@ -47,6 +47,15 @@ class GunakFilters {
             }
         </FormDataConsumer>
     }
+
+    static StandardForm() {
+        return <FormDataConsumer>
+            {({formData}) =>
+                <GunakReferenceInput label="Standard" optionText="referenceAndName" source="standard"
+                                     filter={formData.areaOfConcernId ? {areaOfConcernId: formData.areaOfConcernId} : {}} sort={{field: 'reference', order: 'ASC'}}/>
+            }
+        </FormDataConsumer>;
+    }
 }
 
 export default GunakFilters;
