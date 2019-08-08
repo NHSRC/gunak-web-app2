@@ -8,6 +8,7 @@ function sessionExpired() {
     let nowTimeStamp = new Date().getTime();
     let lastActionTime = localStorage.getItem(lastActionTimeStorageKey);
     let difference = Math.abs((lastActionTime ? lastActionTime : nowTimeStamp) - nowTimeStamp);
+    console.log('[AUTH PROVIDER][AUTH_LOGIN]', 'Inactivity period duration in seconds: ', difference/1000);
     return difference > sessionDurationSeconds;
 }
 
