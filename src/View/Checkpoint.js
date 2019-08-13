@@ -23,7 +23,6 @@ import {
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
-import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
@@ -128,7 +127,7 @@ let form = function (isCreate) {
         {isCreate ? <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/> : null}
         <InlineHelp message="Choose state if this checkpoint is specific to a state" helpNumber={7}/>
         <GunakReferenceInput label="State" optionText="name" source="state" sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
-        {isCreate ? null : <InlineHelp message="Refer below for setting sort order" helpNumber={6}/>}
+        {isCreate ? null : <InlineHelp message="Multiple checkpoints within same measurable element are displayed based on their sort order. Checkpoints with smaller sort order is displayed before checkpoints with higher sort order value" helpNumber={6}/>}
         {isCreate ? null : <DisabledInput label="CURRENT CHECKPOINT ID" source="id"/>}
         {isCreate ? null : <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>}
         {isCreate ? null :
@@ -136,8 +135,12 @@ let form = function (isCreate) {
                                 target="checkpointMeasurableElementIdAndChecklistId"
                                 sort={{field: 'sortOrder', order: 'ASC'}}>
                 <Datagrid>
-                    <NumberField source="id" options={{style: 'decimal', useGrouping: false}}/>
-                    <TextField source="name"/>
+                    <ReferenceField label="Id" source="id" reference="checkpoint">
+                        <TextField source="id"/>
+                    </ReferenceField>
+                    <ReferenceField label="Name" source="id" reference="checkpoint">
+                        <TextField source="name"/>
+                    </ReferenceField>
                     <NumberField source="sortOrder"/>
                 </Datagrid>
             </ReferenceManyField>

@@ -32,6 +32,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import HelpIcon from '@material-ui/icons/QuestionAnswer';
 import PersonIcon from '@material-ui/icons/PersonOutline';
 import AppHelp from "./View/GunakMobileAppHelp";
+import GunakRALayout from "./framework/layout/Layout";
 
 const nonExistentResource = <Resource name="placeholder" context="registration" options={{}}/>;
 
@@ -149,7 +150,7 @@ const privilege = function (privileges) {
 };
 
 const App = () =>
-    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider}>
+    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider} layout={GunakRALayout}>
         {privileges => [
             assessmentType(privileges),
             department(privileges),
