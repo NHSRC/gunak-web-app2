@@ -16,11 +16,14 @@ import {
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    BooleanInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import Privileges from "../model/Privileges";
+import ResourceFilter from "../framework/ResourceFilter";
+import RAFilterUtil from "../utils/RAFilterUtil";
 
 let currentFilter = {};
 
@@ -32,13 +35,10 @@ const EntityFilter = (props) => (
                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
-        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
-                        onChange={(obj, id) => {
-                            currentFilter.stateId = id;
-                        }}>
-            <SelectInput optionText="name"/>
-        </ReferenceInput>
-        {props.filterValues.stateId && <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}
+
+        {RAFilterUtil.createFilterItem(currentFilter, "State", "stateId", "state", {field: 'name', order: 'ASC'}, "name", {}, ["districtId"])}
+
+        {ResourceFilter.isSelected(props.filterValues.stateId) && <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}
                                                        filter={{stateId: props.filterValues.stateId}}
                                                        onChange={(obj, id) => {
                                                            currentFilter.districtId = id;
@@ -76,6 +76,7 @@ let getForm = function (isCreate) {
                 <GunakReferenceInput label="District" optionText="name" source="district"
                                      filter={formData.stateId ? {stateId: formData.stateId} : {}}/>}
         </FormDataConsumer>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 
