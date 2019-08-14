@@ -17,6 +17,7 @@ let getForm = function (props, isEdit) {
     return <SimpleForm>
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="name" validate={[required("Mandatory")]}/>
+        <TextInput source="shortName" validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };

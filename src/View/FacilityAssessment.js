@@ -73,7 +73,7 @@ let displayMissingReport = function (isEdit) {
 let getForm = function (isEdit) {
     return <SimpleForm>
         {isEdit && <DisabledInput source="id"/>}
-        <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"/>
+        <GunakReferenceInput label="Assessment tool" optionText="fullName" source="assessmentTool" sort={{field: "assessmentToolMode.name", order: 'ASC'}}/>
         <GunakReferenceInput label="State" optionText="name" source="state"/>
         <FormDataConsumer>
             {({formData, ...rest}) =>
@@ -107,7 +107,7 @@ let getForm = function (isEdit) {
                 <ReferenceField label="Checklist" source="checklistId" reference="checklist">
                     <TextField source="name"/>
                 </ReferenceField>
-                <ReferenceField label="Area of concern" source="id" reference="areaOfConcern">
+                <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern">
                     <TextField source="reference"/>
                 </ReferenceField>
                 <NumberField source="completed"/>
@@ -128,7 +128,7 @@ let getForm = function (isEdit) {
                             target="facilityAssessmentId"
                             sort={{field: 'missingCheckpoint.checklist.name', order: 'ASC'}}>
             <Datagrid rowClick="edit">
-                <ReferenceField label="Checklist" source="checklistId" reference="checklist">
+                <ReferenceField label="Checklist" source="checklistId" reference="checklist" style={{width: 160}}>
                     <TextField source="name"/>
                 </ReferenceField>
                 <TextField source="missingCheckpointName"/>
