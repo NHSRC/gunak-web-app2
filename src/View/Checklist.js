@@ -49,7 +49,7 @@ export const ChecklistList = ({privileges, ...props}) => {
     return <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checklist"
                         helpText="Each assessment tool can have one or more checklists. To view checklist belonging to all states please leave the State filter blank."/>
-        <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={25} sort={{field: 'assessmentTools.name,name', order: 'ASC,ASC'}}>
+        <List {...props} title='Checklists' filters={<EntityFilter/>} perPage={50} sort={{field: 'assessmentTools.name,name', order: 'ASC,ASC'}}>
             <Datagrid rowClick="edit">
                 <TextField source="assessmentToolNames" label="Assessment tools"/>
                 <TextField source={displayName ? "name" : "fullName"} label={displayName ? "Checklist" : "Checklist - [State]"} sortable={false}/>

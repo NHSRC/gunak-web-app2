@@ -16,7 +16,7 @@ class RAFilterUtil {
                                 onChange={(obj, id) => {
                                     this.handleFilterChange(currentFilter, source, id, dispatch, dependants);
                                 }}
-                                filter={filter}>
+                                filter={filter} allowEmpty>
                     <SelectInput optionText={optionText}/>
                 </ReferenceInput>
             )}

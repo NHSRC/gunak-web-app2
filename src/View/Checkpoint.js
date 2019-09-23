@@ -19,7 +19,9 @@ import {
     required,
     SelectInput,
     SimpleForm,
-    TextField
+    TextField,
+    ReferenceArrayInput,
+    SelectArrayInput
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
@@ -72,19 +74,14 @@ export const CheckpointList = ({privileges, ...props}) => {
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
-            <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>} sort={{field: 'measurableElement.reference', order: 'ASC'}}>
+            <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>}
+                  sort={{field: 'measurableElement.reference', order: 'ASC'}}>
                 <Datagrid rowClick="edit">
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement" sortBy="measurableElement.reference">
                         <TextField source="reference"/>
                     </ReferenceField>
                     <TextField source="name"/>
                     <NumberField source="sortOrder"/>
-                    <TextField source="meansOfVerification"/>
-                    <BooleanField source="assessmentMethodObservation" label="AM Obs"/>
-                    <BooleanField source="assessmentMethodStaffInterview" label="AM Staff Interview"/>
-                    <BooleanField source="assessmentMethodPatientInterview" label="AM Patient Interview"/>
-                    <BooleanField source="assessmentMethodRecordReview" label="AM Record Review"/>
-                    <BooleanField source="optional"/>
                     <BooleanField source="inactive"/>
                     <TextField source="id"/>
                     <ReferenceField label="Checklist" source="checklistId" reference="checklist" sortBy="checklist.name">
@@ -125,9 +122,21 @@ let form = function (isCreate) {
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={AppConfiguration.isNHSRC()}/>
         {isCreate ? <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/> : null}
-        <InlineHelp message="Choose state if this checkpoint is specific to a state" helpNumber={7}/>
-        <GunakReferenceInput label="State" optionText="name" source="state" sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
-        {isCreate ? null : <InlineHelp message="Multiple checkpoints within same measurable element are displayed based on their sort order. Checkpoints with smaller sort order is displayed before checkpoints with higher sort order value" helpNumber={6}/>}
+        <InlineHelp message="Choose states based on applicability." helpNumber={7}/>
+        <GunakReferenceInput label="Applicable only for state (leave empty if applicable for all)" optionText="name" source="state"
+                             sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
+        <FormDataConsumer>
+            {({formData}) =>
+                formData.stateId ? null : <ReferenceArrayInput label="Not applicable for states" source="excludedStateIds" reference="state"
+                                                               sort={{field: 'name', order: 'ASC'}} style={{width: 400}}>
+                    <SelectArrayInput optionText="name"/>
+                </ReferenceArrayInput>
+            }
+        </FormDataConsumer>
+
+        {isCreate ? null : <InlineHelp
+            message="Multiple checkpoints within same measurable element are displayed based on their sort order. Checkpoints with smaller sort order is displayed before checkpoints with higher sort order value"
+            helpNumber={6}/>}
         {isCreate ? null : <DisabledInput label="CURRENT CHECKPOINT ID" source="id"/>}
         {isCreate ? null : <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>}
         {isCreate ? null :
