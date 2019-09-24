@@ -1,5 +1,5 @@
 import React from 'react';
-import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
+import {BooleanField, BooleanInput, Create, ReferenceManyField, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput,ReferenceField,SingleFieldList,ChipField} from 'react-admin';
 import Privileges from "../model/Privileges";
 import InlineHelp from "../components/InlineHelp";
 
@@ -22,6 +22,12 @@ const getForm = function (props, isEdit) {
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="name"/>
         <BooleanInput source="inactive" defaultValue={false}/>
+        <ReferenceManyField label="Checklists using this department" reference="checklist"
+                            target="departmentId">
+            <SingleFieldList>
+                <ChipField source="fullName" />
+            </SingleFieldList>
+        </ReferenceManyField>
     </SimpleForm>;
 };
 
