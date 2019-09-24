@@ -4,7 +4,8 @@ import Privileges from "../model/Privileges";
 
 export const AssessmentTypeList = ({privileges, ...props}) => (
     <List {...props} title='Assessment types'>
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton/>
             <TextField source="name" />
             <TextField source="shortName" />
             <BooleanField source="inactive"/>

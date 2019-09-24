@@ -47,7 +47,8 @@ export const AreaOfConcernList = ({privileges, ...props}) => (
                   field: 'reference',
                   order: 'ASC'
               }}>
-            <Datagrid rowClick="edit">
+            <Datagrid>
+                <EditButton/>
                 <TextField source="reference"/>
                 <TextField source="name"/>
                 <TextField source="assessmentToolNames" label="Assessment tools"/>

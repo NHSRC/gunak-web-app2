@@ -52,7 +52,8 @@ export const FacilityList = ({privileges, ...props}) => (
     <div>
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="facility"/>
         <List {...props} title='Facilities' perPage={25} filters={<EntityFilter/>} sort={{field: 'name', order: 'ASC'}}>
-            <Datagrid rowClick="edit">
+            <Datagrid>
+                <EditButton/>
                 <TextField source="name"/>
                 <ReferenceField label="Facility Type" source="facilityTypeId" reference="facilityType" sortBy="facilityType.name">
                     <TextField source="name"/>

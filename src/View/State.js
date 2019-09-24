@@ -4,7 +4,8 @@ import Privileges from "../model/Privileges";
 
 export const StateList = ({privileges, ...props}) => (
     <List {...props} title='States' perPage={25}>
-        <Datagrid rowClick="edit">
+        <Datagrid >
+            <EditButton/>
             <TextField source="name"/>
             {Privileges.hasPrivilege(privileges, 'Facility_Write') && <EditButton/>}
             <BooleanField source="inactive"/>

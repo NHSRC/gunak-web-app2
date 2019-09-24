@@ -45,7 +45,8 @@ const EntityFilter = (props) => (
 
 export const FacilityAssessmentList = ({privileges, ...props}) => (
     <List {...props} title='FacilityAssessments' perPage={25} filters={<EntityFilter/>}>
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton label="View"/>
             <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                 <TextField source="name"/>
             </ReferenceField>

@@ -76,11 +76,12 @@ export const CheckpointList = ({privileges, ...props}) => {
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
             <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>}
                   sort={{field: 'measurableElement.reference', order: 'ASC'}}>
-                <Datagrid rowClick="edit">
+                <Datagrid>
+                    <EditButton/>
+                    <TextField source="name"/>
                     <ReferenceField label="Measurable Element" source="measurableElementId" reference="measurableElement" sortBy="measurableElement.reference">
                         <TextField source="reference"/>
                     </ReferenceField>
-                    <TextField source="name"/>
                     <NumberField source="sortOrder"/>
                     <BooleanField source="inactive"/>
                     <TextField source="id"/>

@@ -4,7 +4,8 @@ import Privileges from "../model/Privileges";
 
 export const AssessmentToolModeList = ({privileges, ...props}) => (
     <List {...props} title='Programs' sort={{ field: 'name', order: 'ASC' }} perPage={25}>
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton/>
             <TextField source="name" />
             {Privileges.hasPrivilege(privileges, 'Checklist_Metadata_Write') && <EditButton/>}
             <BooleanField source="inactive"/>

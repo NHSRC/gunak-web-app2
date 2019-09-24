@@ -21,14 +21,11 @@ import {
     TextInput
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
-import {GunakReferenceInput} from "../components/Inputs";
-import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
 import ResourceFilter from "../framework/ResourceFilter";
 import GunakFilters from "../components/GunakFilters";
-import Logger from "../utils/Logger";
 
 let currentFilter = {};
 
@@ -57,7 +54,8 @@ export const MeasurableElementList = ({privileges, ...props}) => {
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="measurableElement"/>
             <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
-                <Datagrid rowClick="edit">
+                <Datagrid>
+                    <EditButton/>
                     <TextField source="reference"/>
                     <TextField source="name"/>
                     <ReferenceField label="Standard" source="standardId" reference="standard" sortBy="standard.reference">

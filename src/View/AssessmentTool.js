@@ -24,12 +24,13 @@ export const AssessmentToolList = ({privileges, ...props}) => (
     <div>
         <InlineHelp message="Each program can have one or more assessment tools"/>
         <List {...props} title='Assessment Tools' sort={{field: 'assessmentToolMode.name,name', order: 'ASC,ASC'}} perPage={25}>
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton/>
+            <TextField source="name"/>
+            {Privileges.hasPrivilege(privileges, 'Checklist_Metadata_Write') && <EditButton/>}
             <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name">
                 <TextField source="name"/>
             </ReferenceField>
-            <TextField source="name"/>
-            {Privileges.hasPrivilege(privileges, 'Checklist_Metadata_Write') && <EditButton/>}
             <BooleanField source="inactive"/>
             <TextField source="id"/>
         </Datagrid>

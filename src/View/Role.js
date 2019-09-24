@@ -20,7 +20,8 @@ import Privileges from "../model/Privileges";
 
 export const RoleList = ({privileges, ...props}) => (
     <List {...props} title='Roles'>
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton/>
             <TextField source="name"/>
             <ReferenceArrayField label="Privileges" reference="privilege" source="privilegeIds">
                 <SingleFieldList>

@@ -1,10 +1,11 @@
-import {required, Create, Datagrid, DisabledInput, List, Edit, ReferenceField, SimpleForm, TextField, TextInput} from 'react-admin';
+import {required, Create, Datagrid, DisabledInput, List, Edit, ReferenceField, SimpleForm, TextField, TextInput, EditButton} from 'react-admin';
 import React from 'react';
 import {GunakReferenceInput} from "../components/Inputs";
 
 export const PrivilegeList = props => (
     <List {...props} title='Privileges' perPage={25} sortBy="name">
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton/>
             <TextField source="name"/>
             <TextField source="id"/>
             <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>

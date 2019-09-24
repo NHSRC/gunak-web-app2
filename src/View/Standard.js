@@ -51,7 +51,8 @@ export const StandardList = ({privileges, ...props}) => {
         <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="standard"/>
         <List {...props} title='Standards' filters={<EntityFilter/>} perPage={25}
               sort={{field: 'reference', order: 'ASC'}}>
-            <Datagrid rowClick="edit">
+            <Datagrid>
+                <EditButton/>
                 <TextField source="reference"/>
                 <TextField source="name"/>
                 <ReferenceField label="Area of concern" source="areaOfConcernId" reference="areaOfConcern" sortable={false}>

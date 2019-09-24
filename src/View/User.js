@@ -26,7 +26,8 @@ const validateEmail = email();
 
 export const UserList = ({privileges, ...props}) => (
     <List {...props} title='Users'>
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton/>
             <EmailField source="email"/>
             <TextField source="firstName"/>
             <TextField source="lastName"/>

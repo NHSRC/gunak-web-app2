@@ -4,7 +4,8 @@ import Privileges from "../model/Privileges";
 
 export const FacilityTypeList = ({privileges, ...props}) => (
     <List {...props} title='FacilityTypes'>
-        <Datagrid rowClick="edit">
+        <Datagrid>
+            <EditButton/>
             <TextField source="name" />
             <BooleanField source="inactive"/>
             <TextField source="id" />
