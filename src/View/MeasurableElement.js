@@ -8,17 +8,16 @@ import {
     Edit,
     EditButton,
     Filter,
-    FormDataConsumer,
     List,
-    ReferenceArrayInput,
     ReferenceField,
     ReferenceInput,
     required,
-    SelectArrayInput,
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    Toolbar,
+    SaveButton
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import AppConfiguration from "../framework/AppConfiguration";
@@ -77,7 +76,7 @@ export const MeasurableElementCreate = (props) => (
 );
 
 let getForm = function (props, isEdit) {
-    return <SimpleForm>
+    return <SimpleForm toolbar={<EditToolbar/>}>
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
@@ -92,4 +91,10 @@ export const MeasurableElementEdit = props => (
     <Edit {...props} undoable={false}>
         {getForm(props, true)}
     </Edit>
+);
+
+const EditToolbar = props => (
+    <Toolbar {...props} >
+        <SaveButton />
+    </Toolbar>
 );

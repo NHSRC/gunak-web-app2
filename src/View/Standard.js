@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+    Toolbar,
+    SaveButton,
     BooleanField,
     BooleanInput,
     Create,
@@ -76,7 +78,7 @@ export const StandardCreate = (props) => (
 );
 
 let getForm = function (props, isEdit) {
-    return <SimpleForm>
+    return <SimpleForm toolbar={<EditToolbar/>}>
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="reference" validate={[required("Mandatory")]}/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
@@ -89,4 +91,10 @@ export const StandardEdit = props => (
     <Edit {...props} undoable={false}>
         {getForm(props, true)}
     </Edit>
+);
+
+const EditToolbar = props => (
+    <Toolbar {...props} >
+        <SaveButton />
+    </Toolbar>
 );

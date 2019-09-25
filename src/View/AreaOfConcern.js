@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+    Toolbar,
+    SaveButton,
     BooleanField,
     BooleanInput,
     Create,
@@ -61,7 +63,7 @@ export const AreaOfConcernList = ({privileges, ...props}) => (
 );
 
 let getForm = function (props, isEdit) {
-    return <SimpleForm>
+    return <SimpleForm toolbar={<EditToolbar/>}>
         <InlineHelp
             message="Checklist and area of concern are associated to each other. A checklist can be associated to multiple area of concern and vice-versa"/>
         {isEdit && <DisabledInput source="id"/>}
@@ -86,4 +88,10 @@ export const AreaOfConcernCreate = (props) => (
     <Create {...props} title="Create new area of concern">
         {getForm(props, false)}
     </Create>
+);
+
+const EditToolbar = props => (
+    <Toolbar {...props} >
+        <SaveButton />
+    </Toolbar>
 );

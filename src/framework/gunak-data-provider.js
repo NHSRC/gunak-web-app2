@@ -69,7 +69,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 options.body = params.data.files ? createFormData(params.data) : JSON.stringify(params.data);
                 break;
             case DELETE:
-                url = `${apiUrl}/${resource}/${params.id}`;
+                url = `${apiUrl}/${resource}s/${params.id}`;
                 options.method = 'DELETE';
                 break;
             default:
@@ -155,6 +155,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         console.log(`[GunakDataProvider][OTHERS]   URL=${url}   Options: ${JSON.stringify(options)}`);
         return httpClient(url, options).then(response =>
             convertHTTPResponse(response, type, resource, params)
-        );
+        ).catch((error) => {
+            console.log(`[GunakDataProvider][ERROR]   URL=${url}   ${JSON.stringify(error)}`);
+            throw {status: error.status, message: error.body.errorMessage.includes("DataIntegrityViolationException") ? "Cannot delete because it is used by another entity." : error.message};
+        });
     };
 };

@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+    Toolbar,
+    SaveButton,
     AutocompleteInput,
     BooleanField,
     BooleanInput,
@@ -72,7 +74,7 @@ let displayMissingReport = function (isEdit) {
 };
 
 let getForm = function (isEdit) {
-    return <SimpleForm>
+    return <SimpleForm toolbar={<EditToolbar/>}>
         {isEdit && <DisabledInput source="id"/>}
         <GunakReferenceInput label="Assessment tool" optionText="fullName" source="assessmentTool" sort={{field: "assessmentToolMode.name", order: 'ASC'}}/>
         <GunakReferenceInput label="State" optionText="name" source="state"/>
@@ -152,4 +154,10 @@ export const FacilityAssessmentEdit = props => (
     <Edit {...props} undoable={false}>
         {getForm(true)}
     </Edit>
+);
+
+const EditToolbar = props => (
+    <Toolbar {...props} >
+        <SaveButton />
+    </Toolbar>
 );
