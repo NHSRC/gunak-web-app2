@@ -4,6 +4,7 @@ import {CREATE, DELETE, DELETE_MANY, fetchUtils, GET_LIST, GET_MANY, GET_MANY_RE
 import ResourceFilter from "./ResourceFilter";
 import SpringResponse from "./SpringResponse";
 import Pagination from "./Pagination";
+import ErrorResponse from "./ErrorResponse";
 
 /**
  * Maps react-admin queries to a simple REST API
@@ -157,7 +158,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             convertHTTPResponse(response, type, resource, params)
         ).catch((error) => {
             console.log(`[GunakDataProvider][ERROR]   URL=${url}   ${JSON.stringify(error)}`);
-            throw {status: error.status, message: error.body.errorMessage.includes("DataIntegrityViolationException") ? "Cannot delete because it is used by another entity." : error.message};
+            throw ErrorResponse.toSpringAdminError(error, resource);
         });
     };
 };
