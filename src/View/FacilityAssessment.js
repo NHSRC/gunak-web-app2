@@ -36,11 +36,21 @@ import Privileges from "../model/Privileges";
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool" alwaysOn sort={{field: 'name', order: 'ASC'}}>
+        <TextInput label="Search Facility Name" source="facilityName" alwaysOn/>
+        <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool"  sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
-        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceInput label="State" source="stateId" reference="state"  sort={{field: 'name', order: 'ASC'}}>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+        <ReferenceInput label="District" source="districtId" reference="district"  sort={{field: 'name', order: 'ASC'}}>
             <AutocompleteInput optionText="name"/>
+        </ReferenceInput>
+        <ReferenceInput label="Assessment Type" source="assessmentTypeId" reference="assessmentType"  sort={{field: 'name', order: 'ASC'}}>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+        <ReferenceInput label="Facility Type" source="facilityTypeId" reference="facilityType"  sort={{field: 'name', order: 'ASC'}}>
+            <SelectInput optionText="name"/>
         </ReferenceInput>
     </Filter>
 );
