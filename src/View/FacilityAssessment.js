@@ -33,6 +33,10 @@ import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import NavigationField from "../components/NavigationField";
 import Privileges from "../model/Privileges";
+import RAFilterUtil from "../utils/RAFilterUtil";
+import ResourceFilter from "../framework/ResourceFilter";
+
+let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -40,20 +44,27 @@ const EntityFilter = (props) => (
         <ReferenceInput label="Assessment tool" source="assessmentToolId" reference="assessmentTool"  sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
-        <ReferenceInput label="State" source="stateId" reference="state"  sort={{field: 'name', order: 'ASC'}}>
-            <SelectInput optionText="name"/>
-        </ReferenceInput>
-        <ReferenceInput label="District" source="districtId" reference="district"  sort={{field: 'name', order: 'ASC'}}>
-            <AutocompleteInput optionText="name"/>
-        </ReferenceInput>
         <ReferenceInput label="Assessment Type" source="assessmentTypeId" reference="assessmentType"  sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
         <ReferenceInput label="Facility Type" source="facilityTypeId" reference="facilityType"  sort={{field: 'name', order: 'ASC'}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
+
+
+        {RAFilterUtil.createFilterItem(currentFilter, "State", "stateId", "state", {field: 'name', order: 'ASC'}, "name", {}, ["districtId"])}
+
+        {ResourceFilter.isSelected(props.filterValues.stateId) && <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}
+                                                                                  filter={{stateId: props.filterValues.stateId}}
+                                                                                  onChange={(obj, id) => {
+                                                                                      currentFilter.districtId = id;
+                                                                                  }}>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>}
     </Filter>
 );
+
+
 
 export const FacilityAssessmentList = ({privileges, ...props}) => (
     <List {...props} title='FacilityAssessments' perPage={25} filters={<EntityFilter/>}>
