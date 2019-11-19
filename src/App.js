@@ -53,130 +53,137 @@ const resourceWithWriteRestrictionOnly = function (privileges, privilege, resour
                      options={options} icon={icon} context="route"/>;
 };
 
-const faq = function () {
-    return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ'}} icon={HelpIcon} context="route"/>;
+const faq = function (menuCategory) {
+    return <Resource name="FAQ" list={FAQ} options={{label: 'FAQ',menuCategory:menuCategory}} icon={HelpIcon} context="route"/>;
 };
 
-const userHelp = function () {
-    return <Resource name="userHelp" list={AppHelp} options={{label: 'User Help'}} icon={HelpIcon} context="route"/>;
+const userHelp = function (menuCategory) {
+    return <Resource name="userHelp" list={AppHelp} options={{label: 'User Help', menuCategory:menuCategory}} icon={HelpIcon} context="route"/>;
 };
 
-const assessmentType = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentType", AssessmentTypeList, AssessmentTypeEdit, AssessmentTypeCreate, {label: 'Assessment Types'}, FolderIcon);
+const assessmentType = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentType", AssessmentTypeList, AssessmentTypeEdit, AssessmentTypeCreate, {label: 'Assessment Types',menuCategory:menuCategory}, FolderIcon);
 };
 
-const department = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "department", DepartmentList, DepartmentEdit, DepartmentCreate, {label: 'Departments'}, FolderIcon);
+const department = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "department", DepartmentList, DepartmentEdit, DepartmentCreate, {label: 'Departments', menuCategory:menuCategory}, FolderIcon);
 };
 
-const program = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentToolMode", AssessmentToolModeList, AssessmentToolModeEdit, AssessmentToolModeCreate, {label: 'Programs'}, ChecklistIcon);
+const program = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentToolMode", AssessmentToolModeList, AssessmentToolModeEdit, AssessmentToolModeCreate, {label: 'Programs',menuCategory:menuCategory}, ChecklistIcon);
 };
 
-const assessmentTool = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentTool", AssessmentToolList, AssessmentToolEdit, AssessmentToolCreate, {label: 'Assessment Tools'}, ChecklistIcon);
+const assessmentTool = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Metadata_Write', "assessmentTool", AssessmentToolList, AssessmentToolEdit, AssessmentToolCreate, {label: 'Assessment Tools', menuCategory:menuCategory}, ChecklistIcon);
 };
 
-const checklist = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checklist", ChecklistList, ChecklistEdit, ChecklistCreate, {label: 'Checklists'}, ChecklistIcon);
+const checklist = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checklist", ChecklistList, ChecklistEdit, ChecklistCreate, {label: 'Checklists',menuCategory:menuCategory}, ChecklistIcon);
 };
 
-const areaOfConcern = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "areaOfConcern", AreaOfConcernList, AreaOfConcernEdit, AreaOfConcernCreate, {label: 'Area of concerns'}, ChecklistIcon);
+const areaOfConcern = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "areaOfConcern", AreaOfConcernList, AreaOfConcernEdit, AreaOfConcernCreate, {label: 'Area of concerns', menuCategory:menuCategory}, ChecklistIcon);
 };
 
-const standard = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "standard", StandardList, StandardEdit, StandardCreate, {label: 'Standards'}, ChecklistIcon);
+const standard = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "standard", StandardList, StandardEdit, StandardCreate, {label: 'Standards',menuCategory:menuCategory}, ChecklistIcon);
 };
 
-const measurableElement = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "measurableElement", MeasurableElementList, MeasurableElementEdit, MeasurableElementCreate, {label: 'Measurable elements'}, ChecklistIcon);
+const measurableElement = function (privileges,menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "measurableElement", MeasurableElementList, MeasurableElementEdit, MeasurableElementCreate, {label: 'Measurable elements',menuCategory:menuCategory}, ChecklistIcon);
 };
 
-const checkpoint = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checkpoint", CheckpointList, CheckpointEdit, CheckpointCreate, {label: 'Checkpoints'}, ChecklistIcon);
+const checkpoint = function (privileges, menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', "checkpoint", CheckpointList, CheckpointEdit, CheckpointCreate, {label: 'Checkpoints', menuCategory:menuCategory}, ChecklistIcon);
 };
 
-const indicatorDefinition = function (privileges) {
-    return AppConfiguration.isNHSRC() ? resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', 'indicatorDefinition', IndicatorDefinitionList, null, null, {label: 'Indicator definitions'}, ChecklistIcon) : nonExistentResource;
+const indicatorDefinition = function (privileges, menuCategory) {
+    return AppConfiguration.isNHSRC() ? resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', 'indicatorDefinition', IndicatorDefinitionList, null, null, {label: 'Indicator definitions', menuCategory:menuCategory}, ChecklistIcon) : nonExistentResource;
 };
 
-const state = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "state", StateList, StateEdit, StateCreate, {label: 'States'}, GeoIcon);
+const state = function (privileges, menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "state", StateList, StateEdit, StateCreate, {label: 'States', menuCategory:menuCategory}, GeoIcon);
 };
 
-const district = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "district", DistrictList, DistrictEdit, DistrictCreate, {label: 'Districts'}, GeoIcon);
+const district = function (privileges, menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "district", DistrictList, DistrictEdit, DistrictCreate, {label: 'Districts', menuCategory:menuCategory}, GeoIcon);
 };
 
-const facility = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Write', "facility", FacilityList, FacilityEdit, FacilityCreate, {label: 'Facilities'}, FacilityIcon);
+const facility = function (privileges, menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Write', "facility", FacilityList, FacilityEdit, FacilityCreate, {label: 'Facilities', menuCategory:menuCategory}, FacilityIcon);
 };
 
-const facilityType = function (privileges) {
-    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "facilityType", FacilityTypeList, FacilityTypeEdit, FacilityTypeCreate, {label: 'Facility types'}, FacilityIcon);
+const facilityType = function (privileges, menuCategory) {
+    return resourceWithWriteRestrictionOnly(privileges, 'Facility_Metadata_Write', "facilityType", FacilityTypeList, FacilityTypeEdit, FacilityTypeCreate, {label: 'Facility types', menuCategory:menuCategory}, FacilityIcon);
 };
 
-const assessment = function (privileges) {
-    return resourceWithReadWriteRestriction(privileges, 'Assessment_Read', 'Assessment_Write', 'facilityAssessment', FacilityAssessmentList, FacilityAssessmentEdit, FacilityAssessmentCreate, {label: "Assessments"}, AssessmentIcon);
+const assessment = function (privileges, menuCategory) {
+    return resourceWithReadWriteRestriction(privileges, 'Assessment_Read', 'Assessment_Write', 'facilityAssessment', FacilityAssessmentList, FacilityAssessmentEdit, FacilityAssessmentCreate, {label: "Assessments", menuCategory:menuCategory}, AssessmentIcon);
 };
 
-const assessmentMissingCheckpoint = function (privileges) {
+const assessmentMissingCheckpoint = function (privileges, menuCategory) {
     return AppConfiguration.isNHSRC() ? resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write',
-        <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints'}}
+        <Resource name="facilityAssessmentMissingCheckpoint" options={{label: 'Missing Checkpoints' , menuCategory:menuCategory}}
                   list={AssessmentMissingCheckpointList} icon={AssessmentIcon} context="route"/>) : nonExistentResource;
 };
 
-const checklistProgress = function (privileges) {
-    return resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write', <Resource name="checklistProgress" context="registration" options={{}}/>);
+const checklistProgress = function (privileges, menuCategory) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Assessment_Write', <Resource name="checklistProgress" context="registration" options={{menuCategory:menuCategory}}/>);
 };
 
-const user = function (privileges) {
+const user = function (privileges, menuCategory) {
     return resourceRestrictedIfNotPrivileged(privileges, 'Users_Write', <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate}
-                                                                                  options={{label: 'Users'}} icon={PersonIcon} context="route"/>);
+                                                                                  options={{label: 'Users', menuCategory:menuCategory}} icon={PersonIcon} context="route"/>);
 };
 
-const role = function (privileges) {
+const role = function (privileges, menuCategory) {
     return Privileges.hasPrivilege(privileges, 'Users_Write') && <Resource name="role" list={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleList : null}
                                                                            edit={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleEdit : null}
                                                                            create={Privileges.hasPrivilege(privileges, 'Privilege_Write') ? RoleCreate : null}
-                                                                           options={{label: 'Roles'}}
+                                                                           options={{label: 'Roles', menuCategory:menuCategory}}
                                                                            icon={PersonIcon} context="route"/>;
 };
 
-const privilege = function (privileges) {
-    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges'}} list={PrivilegeList} create={PrivilegeCreate}
+const privilege = function (privileges, menuCategory) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Privilege_Write', <Resource name="privilege" options={{label: 'Privileges' , menuCategory:menuCategory}} list={PrivilegeList} create={PrivilegeCreate}
                                                                                       edit={PrivilegeEdit} icon={PersonIcon} context="route"/>);
 };
 
+
+const BASIC_SETUP = "basicSetup";
+const CHECKLIST_INDICATOR = "checkListIndicators";
+const FACILITIES = "facilities";
+const ASSESSMENTS = "assessments";
+const USERS = "users";
+
 const App = () =>
-    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider} layout={GunakRALayout}>
+    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider} appLayout={GunakRALayout}>
         {privileges => [
-            assessmentType(privileges),
-            department(privileges),
+            assessmentType(privileges,BASIC_SETUP),
+            department(privileges,BASIC_SETUP),
 
-            program(privileges),
-            assessmentTool(privileges),
-            checklist(privileges),
-            areaOfConcern(privileges),
-            standard(privileges),
-            measurableElement(privileges),
-            checkpoint(privileges),
-            indicatorDefinition(privileges),
-            state(privileges),
-            district(privileges),
-            facilityType(privileges),
-            facility(privileges),
+            program(privileges,BASIC_SETUP),
+            assessmentTool(privileges, ASSESSMENTS),
+            checklist(privileges, CHECKLIST_INDICATOR),
+            areaOfConcern(privileges, BASIC_SETUP),
+            standard(privileges, BASIC_SETUP),
+            measurableElement(privileges, BASIC_SETUP),
+            checkpoint(privileges, CHECKLIST_INDICATOR),
+            indicatorDefinition(privileges, CHECKLIST_INDICATOR),
+            state(privileges, BASIC_SETUP),
+            district(privileges, BASIC_SETUP),
+            facilityType(privileges, FACILITIES),
+            facility(privileges, FACILITIES),
 
-            assessment(privileges),
-            assessmentMissingCheckpoint(privileges),
-            checklistProgress(privileges),
-            user(privileges),
-            role(privileges),
-            privilege(privileges),
+            assessment(privileges, ASSESSMENTS),
+            assessmentMissingCheckpoint(privileges, CHECKLIST_INDICATOR ),
+            checklistProgress(privileges, CHECKLIST_INDICATOR),
+            user(privileges, USERS),
+            role(privileges, USERS),
+            privilege(privileges, USERS),
 
-            userHelp(),
-            faq()
+            userHelp(BASIC_SETUP),
+            faq(BASIC_SETUP)
         ]}
     </Admin>;
 
