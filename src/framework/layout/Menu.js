@@ -52,13 +52,11 @@ class Menu extends Component {
         });
 
     render() {
-        const { onMenuClick, open, logout, translate,resources } = this.props;
+        const { onMenuClick, open, logout, translate,resources , hasDashboard} = this.props;
         const basicSetup = () =>{return resources
             .filter(r => r.hasList)
             .filter(resource => resource.options.menuCategory==="basicSetup")
             .map(resource => {
-                {console.log("resources", resource.options.menuCategory)}
-
                 return (
                         <MenuItemLink
                             key={resource.name}
@@ -78,7 +76,6 @@ class Menu extends Component {
             .filter(r => r.hasList)
             .filter(resource => resource.options.menuCategory==="checkListIndicators")
             .map(resource => {
-                {console.log("resources", resource.options.menuCategory)}
 
                 return (
                     <MenuItemLink
@@ -236,7 +233,6 @@ const enhance = compose(
                 prev.open === next.open,
         }
     ),
-    // withStyles(styles)
 );
 
 export default enhance(Menu);
