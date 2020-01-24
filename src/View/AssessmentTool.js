@@ -33,6 +33,9 @@ export const AssessmentToolList = ({privileges, ...props}) => (
             </ReferenceField>
             <BooleanField source="inactive"/>
             <TextField source="id"/>
+            <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
+                <TextField source="name"/>
+            </ReferenceField>
         </Datagrid>
     </List></div>
 );
@@ -46,6 +49,17 @@ let getForm = function (props, isCreate) {
         <ReferenceArrayInput label="Checklists" source="checklistIds" reference="checklist" perPage={1000} style={{width: 400}} sort={{field: "assessmentTools.assessmentToolMode.name", order: "ASC"}}>
             <SelectArrayInput optionText="fullName"/>
         </ReferenceArrayInput>
+        <InlineHelp message="Choose states based on applicability." helpNumber={7}/>
+        <GunakReferenceInput label="Applicable only for state (leave empty if applicable for all)" optionText="name" source="state"
+                             sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
+        <FormDataConsumer>
+            {({formData}) =>
+                formData.stateId ? null : <ReferenceArrayInput label="Not applicable for states" source="excludedStateIds" reference="state"
+                                                               sort={{field: 'name', order: 'ASC'}} style={{width: 400}}>
+                    <SelectArrayInput optionText="name"/>
+                </ReferenceArrayInput>
+            }
+        </FormDataConsumer>
     </SimpleForm>;
 };
 export const AssessmentToolEdit = props => (
