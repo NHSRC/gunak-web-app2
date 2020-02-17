@@ -28,6 +28,7 @@ import ContextActions from "../components/ContextActions";
 import Privileges from "../model/Privileges";
 import GunakFilters from "../components/GunakFilters";
 import RAFilterUtil from "../utils/RAFilterUtil";
+import ResourceFilter from "../framework/ResourceFilter";
 
 let currentFilter = {};
 
@@ -40,7 +41,7 @@ const EntityFilter = (props) => (
             <SelectInput optionText="name"/>
         </ReferenceInput>
 
-        {GunakFilters.AssessmentTool(currentFilter)}
+        {ResourceFilter.isSelected(props.filterValues.stateId) && GunakFilters.AssessmentTool(currentFilter, [], props)}
     </Filter>
 );
 

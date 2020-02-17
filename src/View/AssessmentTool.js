@@ -14,16 +14,35 @@ import {
     TextField,
     TextInput,
     ReferenceArrayInput,
-    SelectArrayInput
+    SelectArrayInput,
+    FormDataConsumer,
+    Filter,
+    ReferenceInput,
+    SelectInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import Privileges from "../model/Privileges";
 import InlineHelp from "../components/InlineHelp";
+import AppConfiguration from "../framework/AppConfiguration";
+
+let currentFilter = {};
+
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        {AppConfiguration.isNHSRC() &&
+        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
+                        onChange={(obj, id) => {
+                            currentFilter.stateId = id;
+                        }}>
+            <SelectInput optionText="name"/>
+        </ReferenceInput>}
+    </Filter>
+);
 
 export const AssessmentToolList = ({privileges, ...props}) => (
     <div>
         <InlineHelp message="Each program can have one or more assessment tools"/>
-        <List {...props} title='Assessment Tools' sort={{field: 'assessmentToolMode.name,name', order: 'ASC,ASC'}} perPage={25}>
+        <List {...props} title='Assessment Tools' sort={{field: 'assessmentToolMode.name,name', order: 'ASC,ASC'}} perPage={25} filters={<EntityFilter/>}>
         <Datagrid>
             <EditButton/>
             <TextField source="name"/>

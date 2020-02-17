@@ -24,20 +24,20 @@ import AppConfiguration from "../framework/AppConfiguration";
 import Privileges from "../model/Privileges";
 import InlineHelp from "../components/InlineHelp";
 import GunakFilters from "../components/GunakFilters";
+import ResourceFilter from "../framework/ResourceFilter";
 
 let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        {AppConfiguration.isJSS() &&
-        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
+        {<ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.stateId = id;
                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
-        {GunakFilters.AssessmentTool(currentFilter)}
+        {ResourceFilter.isSelected(props.filterValues.stateId) && GunakFilters.AssessmentTool(currentFilter, [], props)}
     </Filter>
 );
 

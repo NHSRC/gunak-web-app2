@@ -36,15 +36,14 @@ let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        {AppConfiguration.isJSS() &&
-        <ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
+        {<ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.stateId = id;
                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
-        {GunakFilters.AssessmentTool(currentFilter, ['checklistId', 'areaOfConcernId', 'standardId', 'measurableElementId'])}
+        {ResourceFilter.isSelected(props.filterValues.stateId) && GunakFilters.AssessmentTool(currentFilter, ['checklistId', 'areaOfConcernId', 'standardId', 'measurableElementId'], props)}
 
         {ResourceFilter.isSelected(props.filterValues.assessmentToolId) && GunakFilters.Checklist(currentFilter, props, ['areaOfConcernId', 'standardId', 'measurableElementId'])}
 

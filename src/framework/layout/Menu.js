@@ -1,16 +1,11 @@
-import React ,  { Component }  from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import inflection from 'inflection';
 import compose from 'recompose/compose';
-import { withStyles, createStyles } from '@material-ui/core/styles';
-import classnames from 'classnames';
-import { getResources, translate } from 'ra-core';
+import {withStyles, createStyles} from '@material-ui/core/styles';
+import {getResources, translate} from 'ra-core';
 import DefaultIcon from '@material-ui/icons/ViewList';
-
-// import DashboardMenuItem from './DashboardMenuItem';
-// import MenuItemLink from './MenuItemLink';
-// import Responsive from '../layout/Responsive';
 
 import SubMenu from './SubMenu';
 
@@ -36,7 +31,7 @@ class Menu extends Component {
     };
 
     handleToggle = menu => {
-        this.setState(state => ({ [menu]: !state[menu] }));
+        this.setState(state => ({[menu]: !state[menu]}));
     };
 
     translatedResourceName = (resource, translate) =>
@@ -52,116 +47,129 @@ class Menu extends Component {
         });
 
     render() {
-        const { onMenuClick, open, logout, translate,resources , hasDashboard} = this.props;
-        const basicSetup = () =>{return resources
-            .filter(r => r.hasList)
-            .filter(resource => resource.options.menuCategory==="basicSetup")
-            .map(resource => {
-                return (
-                        <MenuItemLink
-                            key={resource.name}
-                            to={`/${resource.name}`}
-                            primaryText={this.translatedResourceName(resource, translate)}
-                            leftIcon={
-                                resource.icon ? <resource.icon/> : <DefaultIcon/>
-                            }
-                            onClick={onMenuClick}
-                            dense={true}
-                        />
-                )}
-            )};
-
-
-        const checkListIndicators = () =>{return resources
-            .filter(r => r.hasList)
-            .filter(resource => resource.options.menuCategory==="checkListIndicators")
-            .map(resource => {
-
-                return (
-                    <MenuItemLink
-                        key={resource.name}
-                        to={`/${resource.name}`}
-                        primaryText={this.translatedResourceName(resource, translate)}
-                        leftIcon={
-                            resource.icon ? <resource.icon/> : <DefaultIcon/>
-                        }
-                        onClick={onMenuClick}
-                        dense={true}
-                    />
-                )}
-            )};
-
-        const facilities = () =>{return resources
-            .filter(r => r.hasList)
-            .filter(resource => resource.options.menuCategory==="facilities")
-            .map(resource => {
-                {console.log("resources", resource.options.menuCategory)}
-
-                return (
-                    <MenuItemLink
-                        key={resource.name}
-                        to={`/${resource.name}`}
-                        primaryText={this.translatedResourceName(resource, translate)}
-                        leftIcon={
-                            resource.icon ? <resource.icon/> : <DefaultIcon/>
-                        }
-                        onClick={onMenuClick}
-                        dense={true}
-                    />
-                )}
-            )};
-
-        const assessments = () =>{return resources
-            .filter(r => r.hasList)
-            .filter(resource => resource.options.menuCategory==="assessments")
-            .map(resource => {
-                {console.log("resources", resource.options.menuCategory)}
-
-                return (
-                    <MenuItemLink
-                        key={resource.name}
-                        to={`/${resource.name}`}
-                        primaryText={this.translatedResourceName(resource, translate)}
-                        leftIcon={
-                            resource.icon ? <resource.icon/> : <DefaultIcon/>
-                        }
-                        onClick={onMenuClick}
-                        dense={true}
-                    />
-                )}
-            )};
-
-        const users = () =>{return resources
+        const {onMenuClick, open, logout, translate, resources, hasDashboard} = this.props;
+        const basicSetup = () => {
+            return resources
                 .filter(r => r.hasList)
-                .filter(resource => resource.options.menuCategory==="users")
+                .filter(resource => resource.options.menuCategory === "basicSetup")
                 .map(resource => {
-                    {console.log("resources", resource.options.menuCategory)}
+                        return (
+                            <MenuItemLink
+                                key={resource.name}
+                                to={`/${resource.name}`}
+                                primaryText={this.translatedResourceName(resource, translate)}
+                                leftIcon={
+                                    resource.icon ? <resource.icon/> : <DefaultIcon/>
+                                }
+                                onClick={onMenuClick}
+                                dense={true}
+                            />
+                        )
+                    }
+                )
+        };
 
-                    return (
-                        <MenuItemLink
-                            key={resource.name}
-                            to={`/${resource.name}`}
-                            primaryText={this.translatedResourceName(resource, translate)}
-                            leftIcon={
-                                resource.icon ? <resource.icon/> : <DefaultIcon/>
-                            }
-                            onClick={onMenuClick}
-                            dense={true}
-                        />
-                    )}
-                )};
+
+        const checkListIndicators = () => {
+            return resources
+                .filter(r => r.hasList)
+                .filter(resource => resource.options.menuCategory === "checkListIndicators")
+                .map(resource => {
+
+                        return (
+                            <MenuItemLink
+                                key={resource.name}
+                                to={`/${resource.name}`}
+                                primaryText={this.translatedResourceName(resource, translate)}
+                                leftIcon={
+                                    resource.icon ? <resource.icon/> : <DefaultIcon/>
+                                }
+                                onClick={onMenuClick}
+                                dense={true}
+                            />
+                        )
+                    }
+                )
+        };
+
+        const facilities = () => {
+            return resources
+                .filter(r => r.hasList)
+                .filter(resource => resource.options.menuCategory === "facilities")
+                .map(resource => {
+                        {
+                            console.log("resources", resource.options.menuCategory)
+                        }
+
+                        return (
+                            <MenuItemLink
+                                key={resource.name}
+                                to={`/${resource.name}`}
+                                primaryText={this.translatedResourceName(resource, translate)}
+                                leftIcon={
+                                    resource.icon ? <resource.icon/> : <DefaultIcon/>
+                                }
+                                onClick={onMenuClick}
+                                dense={true}
+                            />
+                        )
+                    }
+                )
+        };
+
+        const assessments = () => {
+            return resources
+                .filter(r => r.hasList)
+                .filter(resource => resource.options.menuCategory === "assessments")
+                .map(resource => {
+                        return (
+                            <MenuItemLink
+                                key={resource.name}
+                                to={`/${resource.name}`}
+                                primaryText={this.translatedResourceName(resource, translate)}
+                                leftIcon={
+                                    resource.icon ? <resource.icon/> : <DefaultIcon/>
+                                }
+                                onClick={onMenuClick}
+                                dense={true}
+                            />
+                        )
+                    }
+                )
+        };
+
+        const users = () => {
+            return resources
+                .filter(r => r.hasList)
+                .filter(resource => resource.options.menuCategory === "users")
+                .map(resource => {
+                        return (
+                            <MenuItemLink
+                                key={resource.name}
+                                to={`/${resource.name}`}
+                                primaryText={this.translatedResourceName(resource, translate)}
+                                leftIcon={
+                                    resource.icon ? <resource.icon/> : <DefaultIcon/>
+                                }
+                                onClick={onMenuClick}
+                                dense={true}
+                            />
+                        )
+                    }
+                )
+        };
 
 
         return (
             <div>
                 {' '}
-                {hasDashboard && <DashboardMenuItem onClick={onMenuClick} />}
+                {hasDashboard && <DashboardMenuItem onClick={onMenuClick}/>}
 
                 <SubMenu
                     handleToggle={() => this.handleToggle('basicSetup')}
                     isOpen={this.state.basicSetup}
                     sidebarIsOpen={open}
-                    name="Basic Setup"
+                    name="Checklist setup"
                     icon={<DefaultIcon/>}
                 >
                     {basicSetup()}
@@ -175,16 +183,6 @@ class Menu extends Component {
                     icon={<DefaultIcon/>}
                 >
                     {facilities()}
-                </SubMenu>
-
-                <SubMenu
-                    handleToggle={() => this.handleToggle('checkListIndicators')}
-                    isOpen={this.state.checkListIndicators}
-                    sidebarIsOpen={open}
-                    name="Checklist & Indicators"
-                    icon={<DefaultIcon/>}
-                >
-                    {checkListIndicators()}
                 </SubMenu>
 
                 <SubMenu

@@ -6,11 +6,14 @@ import {GunakReferenceInput} from "./Inputs";
 import {FormDataConsumer} from 'react-admin';
 
 class GunakFilters {
-    static AssessmentTool(currentFilter, dependants) {
+    static AssessmentTool(currentFilter, dependants, props) {
+        let filter = AppConfiguration.isNHSRC() ? {
+            stateId: props.filterValues.stateId
+        } : {};
         return RAFilterUtil.createFilterItem(currentFilter, "Assessment tool", "assessmentToolId", "assessmentTool", {
             field: 'assessmentToolMode.name',
             order: 'ASC'
-        }, "fullName", {}, dependants);
+        }, "fullName", filter, dependants);
     }
 
     static Checklist(currentFilter, props, dependants) {
