@@ -50,3 +50,9 @@ deploy-nhsrc-prod:
 
 test:
 	CI=true npm test
+
+open-jss-prod:
+	open https://igunatmac/app/index.html
+
+open-nhsrc-prod:
+	open https://gunak.nhsrcindia.org/app/index.html
