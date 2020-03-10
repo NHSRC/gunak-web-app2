@@ -87,9 +87,6 @@ export const CheckpointList = ({privileges, ...props}) => {
                     <ReferenceField label="Checklist" source="checklistId" reference="checklist" sortBy="checklist.name">
                         <TextField source="name"/>
                     </ReferenceField>
-                    <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
-                        <TextField source="name"/>
-                    </ReferenceField>
                     {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
                 </Datagrid>
             </List>
@@ -122,17 +119,6 @@ let form = function (isCreate) {
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={AppConfiguration.isNHSRC()}/>
         {isCreate ? <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/> : null}
-        <InlineHelp message="Choose states based on applicability." helpNumber={7}/>
-        <GunakReferenceInput label="Applicable only for state (leave empty if applicable for all)" optionText="name" source="state"
-                             sort={{field: 'name', order: 'ASC'}} mandatory={false}/>
-        <FormDataConsumer>
-            {({formData}) =>
-                formData.stateId ? null : <ReferenceArrayInput label="Not applicable for states" source="excludedStateIds" reference="state"
-                                                               sort={{field: 'name', order: 'ASC'}} style={{width: 400}}>
-                    <SelectArrayInput optionText="name"/>
-                </ReferenceArrayInput>
-            }
-        </FormDataConsumer>
 
         {isCreate ? null : <InlineHelp
             message="Multiple checkpoints within same measurable element are displayed based on their sort order. Checkpoints with smaller sort order is displayed before checkpoints with higher sort order value"
