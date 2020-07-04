@@ -27,6 +27,7 @@ import AppConfiguration from "../framework/AppConfiguration";
 import Privileges from "../model/Privileges";
 import ResourceFilter from "../framework/ResourceFilter";
 import GunakFilters from "../components/GunakFilters";
+import AuditView from "../components/AuditView";
 
 let currentFilter = {};
 
@@ -83,6 +84,8 @@ let getForm = function (props, isEdit) {
         <TextInput source="name" validate={[required("Mandatory")]}/>
         {GunakFilters.AreaOfConcernForm()}
         <BooleanInput source="inactive" defaultValue={false}/>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 

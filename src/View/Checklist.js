@@ -18,7 +18,8 @@ import {
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    DateField
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import AppConfiguration from "../framework/AppConfiguration";
@@ -29,6 +30,7 @@ import Privileges from "../model/Privileges";
 import GunakFilters from "../components/GunakFilters";
 import RAFilterUtil from "../utils/RAFilterUtil";
 import ResourceFilter from "../framework/ResourceFilter";
+import AuditView from "../components/AuditView";
 
 let currentFilter = {};
 
@@ -37,6 +39,8 @@ const EntityFilter = (props) => (
         <ReferenceInput label="State" source="stateId" reference="state" alwaysOn perPage={100} sort={{field: 'name', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.stateId = id;
+                            props.filterValues.assessmentToolId = undefined;
+                            props.filterValues.stateId = id;
                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
@@ -91,6 +95,8 @@ let getForm = function (props, isCreate) {
         </ReferenceArrayInput>
 
         <BooleanInput source="inactive" defaultValue={false}/>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 export const ChecklistEdit = props => (

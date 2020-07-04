@@ -2,6 +2,7 @@ import React from 'react';
 import {BooleanField, BooleanInput, Create, ReferenceManyField, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput,ReferenceField,SingleFieldList,ChipField} from 'react-admin';
 import Privileges from "../model/Privileges";
 import InlineHelp from "../components/InlineHelp";
+import AuditView from "../components/AuditView";
 
 export const DepartmentList = ({privileges, ...props}) => (
     <div>
@@ -28,6 +29,8 @@ const getForm = function (props, isEdit) {
                 <ChipField source="fullName" />
             </SingleFieldList>
         </ReferenceManyField>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 

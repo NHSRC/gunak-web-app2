@@ -1,6 +1,7 @@
 import React from 'react';
 import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, required, SimpleForm, TextField, TextInput} from 'react-admin';
 import Privileges from "../model/Privileges";
+import AuditView from "../components/AuditView";
 
 export const StateList = ({privileges, ...props}) => (
     <List {...props} title='States' perPage={25}>
@@ -20,6 +21,8 @@ let getForm = function (props, isEdit) {
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <TextInput source="shortName"/>
         <BooleanInput source="inactive" defaultValue={false}/>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 export const StateCreate = (props) => (

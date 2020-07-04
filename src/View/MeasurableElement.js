@@ -30,7 +30,7 @@ let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
-        {<ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}}
+        {<ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}} perPage={50}
                                                      onChange={(obj, id) => {
                                                          currentFilter.stateId = id;
                                                      }}>

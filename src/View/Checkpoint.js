@@ -31,6 +31,7 @@ import Privileges from "../model/Privileges";
 import ToggleActiveInactiveButton from '../components/ToggleActiveInactiveButton';
 import GunakFilters from "../components/GunakFilters";
 import ResourceFilter from "../framework/ResourceFilter";
+import AuditView from "../components/AuditView";
 
 let currentFilter = {};
 
@@ -140,6 +141,8 @@ let form = function (isCreate) {
                 </Datagrid>
             </ReferenceManyField>
         }
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 

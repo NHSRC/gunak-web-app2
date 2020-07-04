@@ -20,6 +20,7 @@ import {
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import Privileges from "../model/Privileges";
+import AuditView from "../components/AuditView";
 
 let currentFilter = {};
 
@@ -63,6 +64,8 @@ let getForm = function (isCreate, props) {
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <GunakReferenceInput label="State" optionText="name" source="state"/>
         <BooleanInput source="inactive" defaultValue={false}/>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 

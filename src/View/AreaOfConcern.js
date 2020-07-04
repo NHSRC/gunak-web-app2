@@ -25,6 +25,7 @@ import Privileges from "../model/Privileges";
 import InlineHelp from "../components/InlineHelp";
 import GunakFilters from "../components/GunakFilters";
 import ResourceFilter from "../framework/ResourceFilter";
+import AuditView from "../components/AuditView";
 
 let currentFilter = {};
 
@@ -76,6 +77,8 @@ let getForm = function (props, isEdit) {
         }]} style={{width: 400}} perPage={1000}>
             <SelectArrayInput optionText="fullName"/>
         </ReferenceArrayInput>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 export const AreaOfConcernEdit = props => (

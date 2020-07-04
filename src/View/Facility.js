@@ -24,6 +24,7 @@ import ContextActions from "../components/ContextActions";
 import Privileges from "../model/Privileges";
 import ResourceFilter from "../framework/ResourceFilter";
 import RAFilterUtil from "../utils/RAFilterUtil";
+import AuditView from "../components/AuditView";
 
 let currentFilter = {};
 
@@ -78,6 +79,8 @@ let getForm = function (isCreate) {
                                      filter={formData.stateId ? {stateId: formData.stateId} : {}}/>}
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={false}/>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 

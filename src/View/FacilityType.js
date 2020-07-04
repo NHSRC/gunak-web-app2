@@ -1,6 +1,7 @@
 import React from 'react';
 import {BooleanField, BooleanInput, Create, Datagrid, DisabledInput, Edit, EditButton, List, SimpleForm, TextField, TextInput} from 'react-admin';
 import Privileges from "../model/Privileges";
+import AuditView from "../components/AuditView";
 
 export const FacilityTypeList = ({privileges, ...props}) => (
     <List {...props} title='FacilityTypes'>
@@ -19,6 +20,8 @@ let getForm = function (isEdit) {
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="name"/>
         <BooleanInput source="inactive" defaultValue={false}/>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 

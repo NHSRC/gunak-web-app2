@@ -24,6 +24,7 @@ import {GunakReferenceInput} from "../components/Inputs";
 import Privileges from "../model/Privileges";
 import InlineHelp from "../components/InlineHelp";
 import AppConfiguration from "../framework/AppConfiguration";
+import AuditView from "../components/AuditView";
 
 let currentFilter = {};
 
@@ -80,6 +81,8 @@ let getForm = function (props, isCreate) {
                 </ReferenceArrayInput>
             }
         </FormDataConsumer>
+        {AuditView.createdDate()}
+        {AuditView.lastModifiedDate()}
     </SimpleForm>;
 };
 export const AssessmentToolEdit = props => (
