@@ -52,7 +52,7 @@ export const MeasurableElementList = ({privileges, ...props}) => {
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="measurableElement"/>
-            <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}>
+            <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}} filter={{ showMEWithoutCheckpoints: true }}>
                 <Datagrid>
                     <EditButton/>
                     <TextField source="reference"/>
