@@ -20,20 +20,20 @@ import {
     SaveButton
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
-import AppConfiguration from "../framework/AppConfiguration";
 import InlineHelp from "../components/InlineHelp";
 import Privileges from "../model/Privileges";
 import ResourceFilter from "../framework/ResourceFilter";
 import GunakFilters from "../components/GunakFilters";
+import _ from 'lodash';
 
 let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
         {<ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}} perPage={50}
-                                                     onChange={(obj, id) => {
-                                                         currentFilter.stateId = id;
-                                                     }}>
+                         onChange={(obj, id) => {
+                             currentFilter.stateId = id;
+                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
         }
@@ -52,7 +52,8 @@ export const MeasurableElementList = ({privileges, ...props}) => {
     return (
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="measurableElement"/>
-            <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}} filter={{ showMEWithoutCheckpoints: true }}>
+            <List {...props} title='Measurable elements' filters={<EntityFilter/>} perPage={50} sort={{field: 'reference', order: 'ASC'}}
+                  filter={!_.isEmpty(currentFilter) && {showMEWithoutCheckpoints: true}}>
                 <Datagrid>
                     <EditButton/>
                     <TextField source="reference"/>
@@ -95,6 +96,6 @@ export const MeasurableElementEdit = props => (
 
 const EditToolbar = props => (
     <Toolbar {...props} >
-        <SaveButton />
+        <SaveButton/>
     </Toolbar>
 );
