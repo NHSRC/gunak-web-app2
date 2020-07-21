@@ -99,7 +99,7 @@ let form = function (isCreate) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
         <LongTextInput source="name" validate={[required("Mandatory")]}/>
-        <LongTextInput source="meansOfVerification" validate={[required("Mandatory")]}/>
+        <LongTextInput source="meansOfVerification" validate={[]}/>
         <BooleanInput source="assessmentMethodObservation" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodStaffInterview" validate={[required("Mandatory")]} defaultValue={false}/>
         <BooleanInput source="assessmentMethodPatientInterview" validate={[required("Mandatory")]} defaultValue={false}/>
