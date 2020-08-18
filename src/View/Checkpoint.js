@@ -33,14 +33,15 @@ import GunakFilters from "../components/GunakFilters";
 import ResourceFilter from "../framework/ResourceFilter";
 import AuditView from "../components/AuditView";
 
-let currentFilter = {};
+let currentFilter = {
+};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
         {<ReferenceInput label="State" source="stateId" reference="state" alwaysOn sort={{field: 'name', order: 'ASC'}} perPage={50}
-                        onChange={(obj, id) => {
-                            currentFilter.stateId = id;
-                        }}>
+                         onChange={(obj, id) => {
+                             currentFilter.stateId = id;
+                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>}
 
@@ -77,7 +78,7 @@ export const CheckpointList = ({privileges, ...props}) => {
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
             <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>}
-                  sort={{field: 'measurableElement.reference', order: 'ASC'}}>
+                  sort={{field: 'measurableElement.reference', order: 'ASC'}} filterDefaultValues={{ inactive: false }}>
                 <Datagrid>
                     <EditButton/>
                     <TextField source="name"/>
