@@ -60,6 +60,8 @@ const EntityFilter = (props) => (
                         }}>
             <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
+
+        <BooleanInput source="inactive" defaultValue={false} alwaysOn/>
     </Filter>
 );
 
