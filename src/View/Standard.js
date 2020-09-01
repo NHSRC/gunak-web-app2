@@ -18,7 +18,9 @@ import {
     SelectInput,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    CardActions,
+    ShowButton
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
@@ -89,8 +91,17 @@ let getForm = function (props, isEdit) {
     </SimpleForm>;
 };
 
+const EditActions = ({ basePath, data, resource }) => {
+    // Remove areaOfConcernUUID field because it is not edited by the user
+    if (data)
+        data["areaOfConcernUUID"] = undefined;
+    return <CardActions>
+        <ShowButton basePath={basePath} record={data}/>
+    </CardActions>;
+};
+
 export const StandardEdit = props => (
-    <Edit {...props} undoable={false}>
+    <Edit {...props} undoable={false} actions={<EditActions/>}>
         {getForm(props, true)}
     </Edit>
 );

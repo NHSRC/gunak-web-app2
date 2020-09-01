@@ -17,7 +17,9 @@ import {
     TextField,
     TextInput,
     Toolbar,
-    SaveButton
+    SaveButton,
+    CardActions,
+    ShowButton
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import InlineHelp from "../components/InlineHelp";
@@ -88,8 +90,18 @@ let getForm = function (props, isEdit) {
         <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
+
+const EditActions = ({ basePath, data, resource }) => {
+    // Remove standardUUID field because it is not edited by the user
+    if (data)
+        data["standardUUID"] = undefined;
+    return <CardActions>
+        <ShowButton basePath={basePath} record={data}/>
+    </CardActions>;
+};
+
 export const MeasurableElementEdit = props => (
-    <Edit {...props} undoable={false}>
+    <Edit {...props} undoable={false} actions={<EditActions/>}>
         {getForm(props, true)}
     </Edit>
 );

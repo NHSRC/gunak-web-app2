@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import {
     BooleanField,
     BooleanInput,
+    CardActions,
     Create,
     Datagrid,
     DisabledInput,
@@ -18,10 +19,9 @@ import {
     ReferenceManyField,
     required,
     SelectInput,
+    ShowButton,
     SimpleForm,
-    TextField,
-    ReferenceArrayInput,
-    SelectArrayInput
+    TextField
 } from 'react-admin';
 import ContextActions from "../components/ContextActions";
 import {GunakReferenceInput} from "../components/Inputs";
@@ -33,8 +33,7 @@ import GunakFilters from "../components/GunakFilters";
 import ResourceFilter from "../framework/ResourceFilter";
 import AuditView from "../components/AuditView";
 
-let currentFilter = {
-};
+let currentFilter = {};
 
 const EntityFilter = (props) => (
     <Filter {...props}>
@@ -78,7 +77,7 @@ export const CheckpointList = ({privileges, ...props}) => {
         <div>
             <ContextActions userFilter={currentFilter} label="Create (with filter values)" childResource="checkpoint"/>
             <List {...props} title='Checkpoints' perPage={25} filters={<EntityFilter/>} bulkActionButtons={<BulkActionButtons/>}
-                  sort={{field: 'measurableElement.reference', order: 'ASC'}} filterDefaultValues={{ inactive: false }}>
+                  sort={{field: 'measurableElement.reference', order: 'ASC'}} filterDefaultValues={{inactive: false}}>
                 <Datagrid>
                     <EditButton/>
                     <TextField source="name"/>
@@ -149,11 +148,20 @@ let form = function (isCreate) {
     </SimpleForm>;
 };
 
-export const CheckpointEdit = props => (
-    <Edit {...props} undoable={false}>
+const EditActions = ({ basePath, data, resource }) => {
+    // Remove measurableElementUUID field because it is not edited by the user
+    if (data)
+        data["measurableElementUUID"] = undefined;
+    return <CardActions>
+        <ShowButton basePath={basePath} record={data}/>
+    </CardActions>;
+};
+
+export const CheckpointEdit = props => {
+    return <Edit {...props} undoable={false} actions={<EditActions/>}>
         {form(false)}
-    </Edit>
-);
+    </Edit>;
+};
 
 export const CheckpointCreate = (props) => {
     return (<Create {...props}>
