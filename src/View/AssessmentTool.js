@@ -43,7 +43,6 @@ const EntityFilter = (props) => (
 
 export const AssessmentToolList = ({privileges, ...props}) => (
     <div>
-        <InlineHelp message="Each program can have one or more assessment tools"/>
         <List {...props} title='Assessment Tools' sort={{field: 'assessmentToolMode.name,name', order: 'ASC,ASC'}} perPage={25} filters={<EntityFilter/>}>
         <Datagrid>
             <EditButton/>
@@ -52,6 +51,7 @@ export const AssessmentToolList = ({privileges, ...props}) => (
             <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name">
                 <TextField source="name"/>
             </ReferenceField>
+            <NumberField source="level"/>
             <BooleanField source="inactive"/>
             <TextField source="id"/>
             <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
@@ -66,6 +66,7 @@ let getForm = function (props, isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode"/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
+        <NumberInput source="level" step={1} validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
         <ReferenceArrayInput label="Checklists" source="checklistIds" reference="checklist" perPage={1000} style={{width: 400}} sort={{field: "assessmentTools.assessmentToolMode.name", order: "ASC"}}>
             <SelectArrayInput optionText="fullName"/>
