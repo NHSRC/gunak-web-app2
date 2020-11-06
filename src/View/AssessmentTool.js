@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+    NumberField,
+    NumberInput,
     BooleanField,
     BooleanInput,
     Create,
@@ -51,7 +53,7 @@ export const AssessmentToolList = ({privileges, ...props}) => (
             <ReferenceField label="Program" source="assessmentToolModeId" reference="assessmentToolMode" sortBy="assessmentToolMode.name">
                 <TextField source="name"/>
             </ReferenceField>
-            <NumberField source="level"/>
+            <NumberField source="sortOrder"/>
             <BooleanField source="inactive"/>
             <TextField source="id"/>
             <ReferenceField label="State" source="stateId" reference="state" sortBy="state.name" allowEmpty>
@@ -66,7 +68,7 @@ let getForm = function (props, isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode"/>
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <NumberInput source="level" step={1} validate={[required("Mandatory")]}/>
+        <NumberInput source="sortOrder" step={1} validate={[required("Mandatory")]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
         <ReferenceArrayInput label="Checklists" source="checklistIds" reference="checklist" perPage={1000} style={{width: 400}} sort={{field: "assessmentTools.assessmentToolMode.name", order: "ASC"}}>
             <SelectArrayInput optionText="fullName"/>
