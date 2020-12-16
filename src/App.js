@@ -10,7 +10,7 @@ import {ChecklistCreate, ChecklistEdit, ChecklistList} from './View/Checklist';
 import {AreaOfConcernCreate, AreaOfConcernEdit, AreaOfConcernList} from './View/AreaOfConcern';
 import {StandardCreate, StandardEdit, StandardList} from './View/Standard';
 import {MeasurableElementCreate, MeasurableElementEdit, MeasurableElementList} from './View/MeasurableElement';
-import {IndicatorDefinitionList} from './View/IndicatorDefinition';
+import {IndicatorDefinitionCreate, IndicatorDefinitionEdit, IndicatorDefinitionList} from './View/IndicatorDefinition';
 import {CheckpointCreate, CheckpointEdit, CheckpointList} from "./View/Checkpoint";
 import {StateCreate, StateEdit, StateList} from "./View/State";
 import {DistrictCreate, DistrictEdit, DistrictList} from "./View/District";
@@ -121,7 +121,7 @@ const checkpoint = function (privileges, menuCategory) {
 };
 
 const indicatorDefinition = function (privileges, menuCategory) {
-    return AppConfiguration.isNHSRC() ? resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', 'indicatorDefinition', IndicatorDefinitionList, null, null, {
+    return AppConfiguration.isNHSRC() ? resourceWithWriteRestrictionOnly(privileges, 'Checklist_Write', 'indicatorDefinition', IndicatorDefinitionList, IndicatorDefinitionEdit, IndicatorDefinitionCreate, {
         label: 'Indicator definitions',
         menuCategory: menuCategory
     }, FolderIcon) : nonExistentResource;

@@ -7,32 +7,49 @@ import {
     DisabledInput,
     Edit,
     EditButton,
+    Filter,
     List,
     NumberField,
     NumberInput,
     ReferenceField,
     SimpleForm,
     TextField,
-    TextInput
+    TextInput,
+    ReferenceInput,
+    SelectInput,
+    LongTextInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import Privileges from "../model/Privileges";
 
+let currentFilter = {};
+
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        <ReferenceInput label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'sortOrder', order: 'ASC'}}
+                        onChange={(obj, id) => {
+                            currentFilter.assessmentToolId = id;
+                        }} filter={{assessmentToolType: "INDICATOR"}} >
+            <SelectInput optionText="name"/>
+        </ReferenceInput>
+    </Filter>
+);
+
 export const IndicatorDefinitionList = ({privileges, ...props}) => (
-    <List {...props} title='Indicator definitions'>
+    <List {...props} title='Indicator definitions' filters={<EntityFilter/>}>
         <Datagrid rowClick="edit">
-            <TextField source="name" />
-            <TextField source="dataType" />
-            <TextField source="formula" />
+            <NumberField source="sortOrder"/>
+            <TextField source="name" style={{width: "30em"}}/>
+            <TextField source="dataType"/>
+            <TextField source="formula"/>
             <BooleanField source="output"/>
             <TextField source="symbol"/>
-            <NumberField source="sortOrder"/>
             <TextField source="codedValues"/>
-            <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
+            {currentFilter.assessmentToolId && <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                 <TextField source="name"/>
-            </ReferenceField>
+            </ReferenceField>}
             <BooleanField source="inactive"/>
-            <TextField source="id" />
+            <TextField source="id"/>
             {Privileges.hasPrivilege(privileges, 'Checklist_Write') && <EditButton/>}
         </Datagrid>
     </List>
@@ -41,12 +58,13 @@ export const IndicatorDefinitionList = ({privileges, ...props}) => (
 let getForm = function (isCreate) {
     return <SimpleForm>
         {isCreate ? null : <DisabledInput source="id"/>}
-        <TextInput source="name"/>
+        <NumberInput source="sortOrder"/>
+        <LongTextInput source="name"/>
         <TextInput source="dataType"/>
+        <LongTextInput source="description"/>
         <TextInput source="formula"/>
         <BooleanInput source="output"/>
         <TextInput source="symbol"/>
-        <NumberInput source="sortOrder"/>
         <TextInput source="codedValues"/>
         <BooleanInput source="inactive" defaultValue={false}/>
         <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
