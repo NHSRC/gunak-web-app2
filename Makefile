@@ -24,10 +24,10 @@ post-ra-upgrade: clean
 
 #	HTTPS=true
 start-nhsrc:
-	PORT=3001 REACT_APP_TENANT=NHSRC yarn start
+	PORT=6003 REACT_APP_TENANT=NHSRC yarn start
 
 start-jss:
-	PORT=3002 REACT_APP_TENANT=JSS yarn start
+	PORT=6004 REACT_APP_TENANT=JSS yarn start
 
 deploy-local:
 	rm -rf ../facilities-assessment-server/app/* && cp -r build/* ../facilities-assessment-server/app/
