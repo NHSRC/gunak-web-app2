@@ -57,7 +57,7 @@ const EntityFilter = (props) => (
                         filter={{standardId: props.filterValues.standardId, checklistId: props.filterValues.checklistId}}
                         onChange={(obj, id) => {
                             currentFilter.measurableElementId = id;
-                        }}>
+                        }} perPage={100}>
             <SelectInput optionText="referenceAndName"/>
         </ReferenceInput>}
 
