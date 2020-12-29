@@ -39,7 +39,8 @@ export const IndicatorDefinitionList = ({privileges, ...props}) => (
     <List {...props} title='Indicator definitions' filters={<EntityFilter/>}>
         <Datagrid rowClick="edit">
             <NumberField source="sortOrder"/>
-            <TextField source="name" style={{width: "30em"}}/>
+            <TextField source="name" style={{width: "20em"}}/>
+            <TextField source="description" style={{width: "20em"}}/>
             <TextField source="dataType"/>
             <TextField source="formula"/>
             <BooleanField source="output"/>
