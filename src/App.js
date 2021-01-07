@@ -1,5 +1,5 @@
 import React from 'react';
-import {Admin, Resource} from 'react-admin';
+import {Admin, Resource, Login} from 'react-admin';
 import dataProvider from './framework/gunak-data-provider';
 import authProvider from './framework/auth-provider';
 import {AssessmentTypeCreate, AssessmentTypeEdit, AssessmentTypeList} from './View/AssessmentType';
@@ -199,8 +199,10 @@ const FACILITIES = "facilities";
 const ASSESSMENTS = "assessments";
 const USERS = "users";
 
+const MyLoginPage = () => <Login backgroundImage={null} />;
+
 const App = () =>
-    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider} appLayout={GunakRALayout}>
+    <Admin dataProvider={dataProvider('/api')} authProvider={authProvider} appLayout={GunakRALayout} loginPage={MyLoginPage}>
         {privileges => [
             assessmentType(privileges, BASIC_SETUP),
             department(privileges, BASIC_SETUP),
