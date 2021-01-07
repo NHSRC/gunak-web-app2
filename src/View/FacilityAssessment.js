@@ -119,6 +119,8 @@ let getForm = function (isEdit) {
         <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"/>
         <DateInput source="startDate" label="Assessment start date" validate={[required("Mandatory")]}/>
         <DateInput source="endDate" label="Assessment end date" validate={[required("Mandatory")]}/>
+        <TextInput source="assessorName" validate={[required("Mandatory")]}/>
+        <TextInput source="seriesName" validate={[required("Mandatory")]}/>
         {AppConfiguration.isNHSRC() && <BooleanInput source="inactive" defaultValue={false}/>}
         {AppConfiguration.isNHSRC() &&
         <FileInput source="files" label="Assessment file (only .XLSX file supported)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
