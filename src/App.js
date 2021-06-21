@@ -29,6 +29,7 @@ import HelpIcon from '@material-ui/icons/QuestionAnswer';
 import PersonIcon from '@material-ui/icons/PersonOutline';
 import AppHelp from "./View/GunakMobileAppHelp";
 import GunakRALayout from "./framework/layout/Layout";
+import {AssessmentNumberAssignmentCreate, AssessmentNumberAssignmentEdit, AssessmentNumberAssignmentList} from "./View/AssessmentNumberAssignment";
 
 const nonExistentResource = <Resource name="placeholder" context="registration" options={{}}/>;
 
@@ -193,13 +194,20 @@ const privilege = function (privileges, menuCategory) {
                                                                                       edit={PrivilegeEdit} icon={PersonIcon} context="route"/>);
 };
 
+const assessmentNumberAssignment = function (privileges, menuCategory) {
+    return resourceRestrictedIfNotPrivileged(privileges, 'Users_Write', <Resource name="assessmentNumberAssignment"
+                                                                                  options={{label: 'Assessment numbers', menuCategory: menuCategory}}
+                                                                                  list={AssessmentNumberAssignmentList} create={AssessmentNumberAssignmentCreate}
+                                                                                  edit={AssessmentNumberAssignmentEdit} icon={FolderIcon} context="route"/>);
+};
+
 
 const BASIC_SETUP = "basicSetup";
 const FACILITIES = "facilities";
 const ASSESSMENTS = "assessments";
 const USERS = "users";
 
-const MyLoginPage = () => <Login backgroundImage={null} />;
+const MyLoginPage = () => <Login backgroundImage={null}/>;
 
 const App = () =>
     <Admin dataProvider={dataProvider('/api')} authProvider={authProvider} appLayout={GunakRALayout} loginPage={MyLoginPage}>
@@ -223,6 +231,8 @@ const App = () =>
             assessment(privileges, ASSESSMENTS),
             assessmentMissingCheckpoint(privileges, ASSESSMENTS),
             checklistProgress(privileges, ASSESSMENTS),
+
+            assessmentNumberAssignment(privileges, USERS),
             user(privileges, USERS),
             role(privileges, USERS),
             privilege(privileges, USERS),
