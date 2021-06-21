@@ -1,18 +1,21 @@
 import {
-    CardActions,
     AutocompleteArrayInput,
+    CardActions,
     Create,
+    CreateButton,
     Datagrid,
     DisabledInput,
     Edit,
-    CreateButton,
     EditButton,
+    Filter,
     FormDataConsumer,
     List,
     ReferenceArrayInput,
     ReferenceField,
+    ReferenceInput,
     required,
     SaveButton,
+    SelectInput,
     SimpleForm,
     TextField,
     TextInput,
@@ -20,12 +23,30 @@ import {
 } from 'react-admin';
 import React from 'react';
 import {GunakReferenceInput} from "../components/Inputs";
+import ResourceFilter from "../framework/ResourceFilter";
+import GunakFilters from "../components/GunakFilters";
+
+let currentFilter = {};
+
+const EntityFilter = (props) => (
+    <Filter {...props}>
+        {GunakFilters.State(currentFilter, props, ["districtId"])}
+        {ResourceFilter.isSelected(props.filterValues.stateId) && GunakFilters.District(currentFilter, props)}
+    </Filter>
+);
+
 
 export const AssessmentNumberAssignmentList = props => (
-    <List {...props} title='Facility assessment assignment' perPage={25} sortBy="assessmentNumber">
+    <List {...props} title='Facility assessment assignment' perPage={25} sortBy="assessmentNumber" filters={<EntityFilter/>}>
         <Datagrid>
             <EditButton/>
             <TextField source="assessmentNumber"/>
+            <ReferenceField label="State" source="stateId" reference="state">
+                <TextField source="name"/>
+            </ReferenceField>
+            <ReferenceField label="District" source="districtId" reference="district">
+                <TextField source="name"/>
+            </ReferenceField>
             <ReferenceField label="Facility" source="facilityId" reference="facility">
                 <TextField source="name"/>
             </ReferenceField>
@@ -111,7 +132,7 @@ export const AssessmentNumberAssignmentCreate = (props) => (
     </Create>
 );
 
-const EditActions = ({ basePath, data, resource }) => {
+const EditActions = ({basePath, data, resource}) => {
     return <CardActions>
         <CreateButton basePath={basePath}/>
     </CardActions>;

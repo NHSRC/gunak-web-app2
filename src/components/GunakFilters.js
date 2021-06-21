@@ -43,6 +43,19 @@ class GunakFilters {
         }, "referenceAndName", {areaOfConcernId: props.filterValues.areaOfConcernId}, dependants);
     }
 
+    static State(currentFilter, props, dependants = []) {
+        return RAFilterUtil.createFilterItem(currentFilter, "State", "stateId", "state", {
+            field: 'name',
+            order: 'ASC'
+        }, "name", {}, dependants);
+    }
+    static District(currentFilter, props, dependants = []) {
+        return RAFilterUtil.createFilterItem(currentFilter, "District", "districtId", "district", {
+            field: 'name',
+            order: 'ASC'
+        }, "name", {stateId: props.filterValues.stateId}, dependants);
+    }
+
     static AreaOfConcernForm() {
         return <FormDataConsumer>
             {({formData}) =>
