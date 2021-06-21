@@ -4,7 +4,7 @@ import {ReferenceInput, required, SelectInput, AutocompleteInput} from 'react-ad
 
 export const GunakReferenceInput = ({label, source, optionText, record, onChange = () => {}, sort = "name", filter = {}, mandatory = true, perPage = 100, autoComplete = false}) => {
     return <ReferenceInput label={label} source={`${source}Id`} reference={source} validate={mandatory ? [required("Mandatory")] : []} perPage={perPage} resource={source}
-                           sort={sort} filter={filter} style={{width: 500}} onChange={onChange}>
+                           sort={{field: sort, order: 'ASC'}} filter={filter} style={{width: 500}} onChange={onChange}>
         {autoComplete ? <AutocompleteInput optionText={optionText} options={{ fullWidth: true }} resettable={true}/> : <SelectInput optionText={optionText} resettable={true}/>}
     </ReferenceInput>;
 };
