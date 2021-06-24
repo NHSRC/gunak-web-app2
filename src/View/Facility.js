@@ -25,6 +25,7 @@ import Privileges from "../model/Privileges";
 import ResourceFilter from "../framework/ResourceFilter";
 import RAFilterUtil from "../utils/RAFilterUtil";
 import AuditView from "../components/AuditView";
+import GunakFilters from "../components/GunakFilters";
 
 let currentFilter = {};
 
@@ -39,13 +40,17 @@ const EntityFilter = (props) => (
 
         {RAFilterUtil.createFilterItem(currentFilter, "State", "stateId", "state", {field: 'name', order: 'ASC'}, "name", {}, ["districtId"])}
 
-        {ResourceFilter.isSelected(props.filterValues.stateId) && <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}
-                                                       filter={{stateId: props.filterValues.stateId}}
-                                                       onChange={(obj, id) => {
-                                                           currentFilter.districtId = id;
-                                                       }}>
+        {ResourceFilter.isSelected(props.filterValues.stateId) &&
+        <ReferenceInput label="District" source="districtId" reference="district" alwaysOn sort={{field: 'name', order: 'ASC'}}
+                        filter={{stateId: props.filterValues.stateId}}
+                        onChange={(obj, id) => {
+                            currentFilter.districtId = id;
+                        }}>
             <SelectInput optionText="name"/>
-        </ReferenceInput>}
+        </ReferenceInput>
+        }
+
+        {GunakFilters.Inactive(currentFilter)}
     </Filter>
 );
 

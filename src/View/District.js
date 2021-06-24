@@ -21,6 +21,7 @@ import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
 import Privileges from "../model/Privileges";
 import AuditView from "../components/AuditView";
+import GunakFilters from "../components/GunakFilters";
 
 let currentFilter = {};
 
@@ -32,6 +33,8 @@ const EntityFilter = (props) => (
                         }}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
+
+        {GunakFilters.Inactive(currentFilter)}
     </Filter>
 );
 

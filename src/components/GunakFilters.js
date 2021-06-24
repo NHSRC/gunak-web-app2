@@ -3,9 +3,16 @@ import RAFilterUtil from "../utils/RAFilterUtil";
 import ChecklistConfiguration from "../model/ChecklistConfiguration";
 import AppConfiguration from "../framework/AppConfiguration";
 import {GunakReferenceInput} from "./Inputs";
-import {FormDataConsumer} from 'react-admin';
+import {FormDataConsumer, BooleanInput} from 'react-admin';
 
 class GunakFilters {
+    static Inactive(currentFilter) {
+        return <BooleanInput label="Inactive" source="inactive" alwaysOn onChange={(obj, value) => {
+            currentFilter.inactive = value;
+        }}>
+        </BooleanInput>;
+    }
+
     static AssessmentTool(currentFilter, dependants, props) {
         let filter = AppConfiguration.isNHSRC() ? {
             stateId: props.filterValues.stateId

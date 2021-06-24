@@ -87,11 +87,12 @@ let getForm = function (isEdit) {
             <FormDataConsumer>
                 {({formData}) =>
                     <GunakReferenceInput label="District" optionText="name" source="district"
-                                         filter={(formData && formData.stateId) ? {stateId: formData.stateId} : {}}/>}
+                                         filter={(formData && formData.stateId) ? {stateId: formData.stateId, inactive: false} : {}}/>}
             </FormDataConsumer>
             <FormDataConsumer>
                 {({formData}) =>
-                    <GunakReferenceInput label="Facility type" optionText="name" source="facilityType" mandatory={false}/>}
+                    <GunakReferenceInput label="Facility type" optionText="name" source="facilityType" mandatory={false}
+                                         filter={(formData && formData.districtId) ? {districtId: formData.districtId} : {}}/>}
             </FormDataConsumer>
             <FormDataConsumer>
                 {({formData}) =>
