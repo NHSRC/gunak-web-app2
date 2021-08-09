@@ -12,10 +12,8 @@ import {
     List,
     ReferenceArrayInput,
     ReferenceField,
-    ReferenceInput,
     required,
     SaveButton,
-    SelectInput,
     SimpleForm,
     TextField,
     TextInput,
@@ -25,6 +23,7 @@ import React from 'react';
 import {GunakReferenceInput} from "../components/Inputs";
 import ResourceFilter from "../framework/ResourceFilter";
 import GunakFilters from "../components/GunakFilters";
+import FacilitySelect from "../components/FacilitySelect";
 
 let currentFilter = {};
 
@@ -58,15 +57,6 @@ export const AssessmentNumberAssignmentList = props => (
     </List>
 );
 
-function facilityFilter(formData) {
-    let filter = {};
-    if (formData && formData.districtId)
-        filter.districtId = formData.districtId;
-    if (formData && formData.facilityTypeId)
-        filter.facilityTypeId = formData.facilityTypeId;
-    return filter;
-}
-
 function assessmentTypeFilter(formData) {
     let filter = {};
     if (formData && formData.assessmentToolModeId)
@@ -81,28 +71,7 @@ let getForm = function (isEdit) {
 
         <br/>
         <br/>
-        <fieldset>
-            <legend>Find and select the facility</legend>
-            <GunakReferenceInput label="State" optionText="name" source="state"/>
-            <FormDataConsumer>
-                {({formData}) =>
-                    <GunakReferenceInput label="District" optionText="name" source="district"
-                                         filter={(formData && formData.stateId) ? {stateId: formData.stateId, inactive: false} : {}}/>}
-            </FormDataConsumer>
-            <FormDataConsumer>
-                {({formData}) =>
-                    <GunakReferenceInput label="Facility type" optionText="name" source="facilityType" mandatory={false}
-                                         filter={(formData && formData.districtId) ? {districtId: formData.districtId} : {}}/>}
-            </FormDataConsumer>
-            <FormDataConsumer>
-                {({formData}) =>
-                    <GunakReferenceInput label="Facility" optionText="name" source="facility"
-                                         filter={facilityFilter(formData)} perPage={500}/>}
-            </FormDataConsumer>
-            <br/>
-            <br/>
-            <br/>
-        </fieldset>
+        <FacilitySelect/>
 
         <br/>
         <br/>

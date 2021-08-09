@@ -18,9 +18,11 @@ import {
     SimpleForm,
     SingleFieldList,
     TextField,
-    TextInput
+    TextInput,
+    AutocompleteArrayInput
 } from 'react-admin';
 import Privileges from "../model/Privileges";
+import FacilitySelect from "../components/FacilitySelect";
 
 const validateEmail = email();
 
@@ -54,6 +56,11 @@ let getForm = function (isEdit) {
             <SelectArrayInput optionText="name"/>
         </ReferenceArrayInput>
         <BooleanInput source="inactive" defaultValue={false}/>
+        <ReferenceArrayField label="Accessible facilities" reference="facility" source="accessibleFacilityIds">
+            <SingleFieldList>
+                <ChipField source="name"/>
+            </SingleFieldList>
+        </ReferenceArrayField>
     </SimpleForm>;
 };
 

@@ -17,7 +17,9 @@ import {
     SimpleForm,
     TextField,
     TextInput,
-    BooleanInput
+    BooleanInput,
+    ReferenceArrayInput,
+    AutocompleteArrayInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import ContextActions from "../components/ContextActions";
@@ -84,6 +86,10 @@ let getForm = function (isCreate) {
                                      filter={formData.stateId ? {stateId: formData.stateId} : {}}/>}
         </FormDataConsumer>
         <BooleanInput source="inactive" defaultValue={false}/>
+        <ReferenceArrayInput source="userIdsWithAccess" reference="user" label="Users (facility access)" filter={{inactive: false}}>
+            <AutocompleteArrayInput optionText="email"/>
+        </ReferenceArrayInput>
+        <br/>
         {AuditView.createdDate()}
         {AuditView.lastModifiedDate()}
     </SimpleForm>;
