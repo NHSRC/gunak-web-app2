@@ -96,7 +96,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      * @returns {Object} Data response
      */
     const convertHTTPResponse = (response, type, resource, params) => {
-        const {json} = response;
+        const {json, text} = response;
         switch (type) {
             case GET_LIST:
             case GET_MANY_REFERENCE:

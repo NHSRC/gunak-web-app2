@@ -25,7 +25,7 @@ let getForm = function (isEdit) {
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="name" validate={[required("Mandatory")]}/>
         <GunakReferenceInput label="State" optionText="name" source="state" mandatory={false}/>
-        <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode" mandatory={false}/>
+        <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode" mandatory={false} filter={{inactive: false}}/>
     </SimpleForm>;
 };
 
