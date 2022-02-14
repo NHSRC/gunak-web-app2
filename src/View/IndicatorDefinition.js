@@ -29,7 +29,7 @@ const EntityFilter = (props) => (
         <ReferenceInput label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" alwaysOn perPage={100} sort={{field: 'sortOrder', order: 'ASC'}}
                         onChange={(obj, id) => {
                             currentFilter.assessmentToolId = id;
-                        }} filter={{assessmentToolType: "INDICATOR"}} >
+                        }} filter={{assessmentToolType: "INDICATOR"}}>
             <SelectInput optionText="name"/>
         </ReferenceInput>
     </Filter>
@@ -61,14 +61,27 @@ let getForm = function (isCreate) {
         {isCreate ? null : <DisabledInput source="id"/>}
         <NumberInput source="sortOrder"/>
         <LongTextInput source="name"/>
-        <TextInput source="dataType"/>
+        <SelectInput source="dataType" choices={[
+            {id: 'Numeric', name: 'Numeric'},
+            {id: 'Percentage', name: 'Percentage'},
+            {id: 'Date', name: 'Date'},
+            {id: 'Month', name: 'Month'},
+            {id: 'Coded', name: 'Coded'}
+        ]}/>
         <LongTextInput source="description"/>
         <TextInput source="formula"/>
         <BooleanInput source="output"/>
         <TextInput source="symbol"/>
-        <TextInput source="codedValues"/>
+        <SelectInput source="codedValues" choices={[
+            {id: '', name: ''},
+            {id: 'Yes', name: 'Yes'},
+            {id: 'No', name: 'No'},
+            {id: 'N/A', name: 'N/A'},
+            {id: 'In Progress', name: 'In Progress'}
+
+        ]}/>
         <BooleanInput source="inactive" defaultValue={false}/>
-        <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool"/>
+        <GunakReferenceInput label="Assessment Tool" optionText="name" source="assessmentTool" filter={{assessmentToolType: 'INDICATOR'}}/>
     </SimpleForm>;
 };
 export const IndicatorDefinitionEdit = props => (
