@@ -17,7 +17,8 @@ import {
     TextInput,
     ReferenceInput,
     SelectInput,
-    LongTextInput
+    LongTextInput,
+    SelectArrayInput
 } from 'react-admin';
 import {GunakReferenceInput} from "../components/Inputs";
 import Privileges from "../model/Privileges";
@@ -45,7 +46,7 @@ export const IndicatorDefinitionList = ({privileges, ...props}) => (
             <TextField source="formula"/>
             <BooleanField source="output"/>
             <TextField source="symbol"/>
-            <TextField source="codedValues"/>
+            <TextField source="codedValuesJson" label="Coded Values"/>
             {currentFilter.assessmentToolId && <ReferenceField label="Assessment Tool" source="assessmentToolId" reference="assessmentTool" sortBy="assessmentTool.name">
                 <TextField source="name"/>
             </ReferenceField>}
@@ -72,7 +73,7 @@ let getForm = function (isCreate) {
         <TextInput source="formula"/>
         <BooleanInput source="output"/>
         <TextInput source="symbol"/>
-        <SelectInput source="codedValues" choices={[
+        <SelectArrayInput source="codedValuesJson" label="Coded Values" choices={[
             {id: '', name: ''},
             {id: 'Yes', name: 'Yes'},
             {id: 'No', name: 'No'},
