@@ -52,7 +52,7 @@ let getForm = function (isEdit) {
         <TextInput source="firstName" validate={[required("Mandatory")]}/>
         <TextInput source="lastName" validate={[required("Mandatory")]}/>
         <TextInput label="New password" source="password" type="password" validate={isEdit ? [] : [required("Mandatory")]}/>
-        <ReferenceArrayInput label="Roles" source="roleIds" reference="role" sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceArrayInput label="Roles" source="roleIds" reference="role" sort={{field: 'name', order: 'ASC'}} perPage={200}>
             <SelectArrayInput optionText="name"/>
         </ReferenceArrayInput>
         <BooleanInput source="inactive" defaultValue={false}/>

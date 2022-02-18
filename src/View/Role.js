@@ -38,7 +38,7 @@ let getForm = function (isEdit) {
     return <SimpleForm>
         {isEdit && <DisabledInput source="id"/>}
         <TextInput source="name" validate={[required("Mandatory")]}/>
-        <ReferenceArrayInput label="Privileges" source="privilegeIds" reference="privilege" sort={{field: 'name', order: 'ASC'}}>
+        <ReferenceArrayInput label="Privileges" source="privilegeIds" reference="privilege" sort={{field: 'name', order: 'ASC'}} perPage={200}>
             <SelectArrayInput optionText="name"/>
         </ReferenceArrayInput>
     </SimpleForm>;
