@@ -1,4 +1,6 @@
 import {
+    BooleanField,
+    BooleanInput,
     AutocompleteArrayInput,
     CardActions,
     Create,
@@ -52,6 +54,7 @@ export const AssessmentNumberAssignmentList = props => (
             <ReferenceField label="Assessment type" source="assessmentTypeId" reference="assessmentType">
                 <TextField source="name"/>
             </ReferenceField>
+            <BooleanField source="inactive"/>
             <TextField source="id"/>
         </Datagrid>
     </List>
@@ -93,6 +96,7 @@ let getForm = function (isEdit) {
         <ReferenceArrayInput source="userIds" reference="user" label="Users" validate={[required("Mandatory")]} filter={{inactive: false}}>
             <AutocompleteArrayInput optionText="email"/>
         </ReferenceArrayInput>
+        <BooleanInput source="inactive" defaultValue={false}/>
     </SimpleForm>;
 };
 
