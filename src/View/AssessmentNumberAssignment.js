@@ -51,6 +51,9 @@ export const AssessmentNumberAssignmentList = props => (
             <ReferenceField label="Facility" source="facilityId" reference="facility">
                 <TextField source="name"/>
             </ReferenceField>
+            <ReferenceField label="Assessment tool" source="assessmentToolId" reference="assessmentTool">
+                <TextField source="name"/>
+            </ReferenceField>
             <ReferenceField label="Assessment type" source="assessmentTypeId" reference="assessmentType">
                 <TextField source="name"/>
             </ReferenceField>
@@ -61,6 +64,13 @@ export const AssessmentNumberAssignmentList = props => (
 );
 
 function assessmentTypeFilter(formData) {
+    let filter = {};
+    if (formData && formData.assessmentToolModeId)
+        filter.assessmentToolModeId = formData.assessmentToolModeId;
+    return filter;
+}
+
+function assessmentToolFilter(formData) {
     let filter = {};
     if (formData && formData.assessmentToolModeId)
         filter.assessmentToolModeId = formData.assessmentToolModeId;
@@ -79,8 +89,13 @@ let getForm = function (isEdit) {
         <br/>
         <br/>
         <fieldset>
-            <legend>Choose assessment type</legend>
+            <legend>Choose assessment tool and assessment type</legend>
             <GunakReferenceInput label="Program" optionText="name" source="assessmentToolMode" mandatory={true}/>
+            <FormDataConsumer>
+                {({formData}) =>
+                    <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"
+                                         filter={assessmentToolFilter(formData)} perPage={20} mandatory={true}/>}
+            </FormDataConsumer>
             <FormDataConsumer>
                 {({formData}) =>
                     <GunakReferenceInput label="Assessment type" optionText="name" source="assessmentType"
