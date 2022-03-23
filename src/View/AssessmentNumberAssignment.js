@@ -94,7 +94,7 @@ let getForm = function (isEdit) {
             <FormDataConsumer>
                 {({formData}) =>
                     <GunakReferenceInput label="Assessment tool" optionText="name" source="assessmentTool"
-                                         filter={assessmentToolFilter(formData)} perPage={20} mandatory={true}/>}
+                                         filter={assessmentToolFilter(formData)} perPage={100} mandatory={true}/>}
             </FormDataConsumer>
             <FormDataConsumer>
                 {({formData}) =>
