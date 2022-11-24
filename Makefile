@@ -50,3 +50,6 @@ deploy-nhsrc-prod:
 
 test:
 	CI=true npm test
+
+build-app:
+	$(call _build,NHSRC)
