@@ -5,6 +5,7 @@ import ResourceFilter from "./ResourceFilter";
 import SpringResponse from "./SpringResponse";
 import Pagination from "./Pagination";
 import ErrorResponse from "./ErrorResponse";
+import GunakService from "../services/GunakService";
 
 /**
  * Maps react-admin queries to a simple REST API
@@ -120,16 +121,21 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         // simple-rest doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
         if (type === UPDATE_MANY) {
             let payload = JSON.stringify(params.ids.map(id => Object.assign({id: id}, params.data)));
-            let options = {
-                method: 'PATCH',
-                body: payload
-            };
             let url = `${apiUrl}/${resource}s`;
-            console.log(`[GunakDataProvider][UPDATE_MANY]   URL=${url}   Options: ${JSON.stringify(options)}`);
-            return httpClient(url, options).then(responses => {
-                console.log(responses);
-                return {data: responses.json};
-            });
+
+            return httpClient("/api/ping").then(() => {
+                let options = {
+                    method: 'PATCH',
+                    body: payload,
+                    headers: new Headers({'Content-Type': 'application/JSON', 'X-XSRF-TOKEN': GunakService.getCsrfToken()})
+                };
+                console.log(`[GunakDataProvider][UPDATE_MANY]   URL=${url}   Options: ${JSON.stringify(options)}`);
+                return httpClient(url, options).then(responses => {
+                    console.log(responses);
+                    return {data: responses.json};
+                });
+            })
+
         }
         // simple-rest doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
         if (type === DELETE_MANY) {
@@ -154,9 +160,10 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             params
         );
         console.log(`[GunakDataProvider][OTHERS]   URL=${url}   Options: ${JSON.stringify(options)}`);
-        return httpClient(url, options).then(response =>
-            convertHTTPResponse(response, type, resource, params)
-        ).catch((error) => {
+        return httpClient("/api/ping").then(() => {
+            options.headers = new Headers({'Content-Type': 'application/JSON', 'X-XSRF-TOKEN': GunakService.getCsrfToken()})
+            return httpClient(url, options).then(response => convertHTTPResponse(response, type, resource, params));
+        }).catch((error) => {
             console.log(`[GunakDataProvider][ERROR]   URL=${url}   ${JSON.stringify(error)}`);
             throw ErrorResponse.toSpringAdminError(error, resource);
         });

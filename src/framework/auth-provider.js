@@ -1,5 +1,6 @@
 import {AUTH_CHECK, AUTH_ERROR, AUTH_GET_PERMISSIONS, AUTH_LOGIN, AUTH_LOGOUT} from 'react-admin';
 import _ from 'lodash';
+import GunakService from "../services/GunakService";
 
 const sessionDurationSeconds = 1000 * 60 * 60 * 24 * 5;
 const lastActionTimeStorageKey = "LAST_ACTION_TIME";
@@ -30,18 +31,20 @@ export default (type, params) => {
         let encodedObj = _.keys(postObject).map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(postObject[key])}`);
         let formBody = encodedObj.join("&");
 
-        const request = new Request('/api/login', {
-            method: 'POST',
-            body: formBody,
-            headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded'})
-        });
-
         const verifyLoginRequest = new Request('/api/currentUser', {
             method: 'GET'
         });
 
-        console.log(`[AUTH PROVIDER][AUTH_LOGIN]   Request: ${JSON.stringify(request)}`);
-        return fetch(request)
+        return fetch(GunakService.getPingRequest())
+            .then((response) => {
+                const csrfToken = GunakService.getCsrfToken();
+                const request = new Request('/api/login', {
+                    method: 'POST',
+                    body: formBody,
+                    headers: new Headers({'Content-Type': 'application/x-www-form-urlencoded', 'X-XSRF-TOKEN': csrfToken})
+                });
+                return fetch(request);
+            })
             .then(response => {
                 if (response.status < 200 || response.status >= 300) {
                     throw new Error(response.statusText);
