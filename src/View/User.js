@@ -23,6 +23,7 @@ import {
 } from 'react-admin';
 import Privileges from "../model/Privileges";
 import FacilitySelect from "../components/FacilitySelect";
+import InlineHelp from "../components/InlineHelp";
 
 const validateEmail = email();
 
@@ -52,6 +53,7 @@ let getForm = function (isEdit) {
         <TextInput source="firstName" validate={[required("Mandatory")]}/>
         <TextInput source="lastName" validate={[required("Mandatory")]}/>
         <TextInput label="New password" source="password" type="password" validate={isEdit ? [] : [required("Mandatory")]}/>
+        <InlineHelp message="Password must be between 12 to 20 character, with 1 upper case, 1 lower case, 1 number and 1 special character."/>
         <ReferenceArrayInput label="Roles" source="roleIds" reference="role" sort={{field: 'name', order: 'ASC'}} perPage={200}>
             <SelectArrayInput optionText="name"/>
         </ReferenceArrayInput>
