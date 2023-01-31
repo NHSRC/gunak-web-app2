@@ -17,6 +17,7 @@ clean:
 
 deps:
 	npm install
+	npx patch-package
 
 post-ra-upgrade: clean
 	npm install
@@ -53,6 +54,3 @@ test:
 
 build-app:
 	$(call _build,NHSRC)
-
-apply_patch:
-	npx patch-package
