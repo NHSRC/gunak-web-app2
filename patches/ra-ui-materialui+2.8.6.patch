@@ -1,0 +1,16 @@
+diff --git a/node_modules/ra-ui-materialui/esm/auth/LoginForm.js b/node_modules/ra-ui-materialui/esm/auth/LoginForm.js
+index 64d8d27..1fb3022 100644
+--- a/node_modules/ra-ui-materialui/esm/auth/LoginForm.js
++++ b/node_modules/ra-ui-materialui/esm/auth/LoginForm.js
+@@ -57,9 +57,9 @@ var LoginForm = function (_a) {
+     return (React.createElement("form", { onSubmit: handleSubmit(login) },
+         React.createElement("div", { className: classes.form },
+             React.createElement("div", { className: classes.input },
+-                React.createElement(Field, { autoFocus: true, id: "username", name: "username", component: renderInput, label: translate('ra.auth.username'), disabled: isLoading })),
++                React.createElement(Field, { autoFocus: true, id: "username", name: "username", component: renderInput, label: translate('ra.auth.username'), disabled: isLoading, autoComplete: "off" })),
+             React.createElement("div", { className: classes.input },
+-                React.createElement(Field, { id: "password", name: "password", component: renderInput, label: translate('ra.auth.password'), type: "password", disabled: isLoading }))),
++                React.createElement(Field, { id: "password", name: "password", component: renderInput, label: translate('ra.auth.password'), type: "password", disabled: isLoading, autoComplete: "off" }))),
+         React.createElement(CardActions, null,
+             React.createElement(Button, { variant: "raised", type: "submit", color: "primary", disabled: isLoading, className: classes.button },
+                 isLoading && React.createElement(CircularProgress, { size: 25, thickness: 2 }),

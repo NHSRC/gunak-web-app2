@@ -53,3 +53,6 @@ test:
 
 build-app:
 	$(call _build,NHSRC)
+
+apply_patch:
+	npx patch-package
