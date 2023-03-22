@@ -2,7 +2,7 @@
   "name": "gunak-web-app2",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:6001",
+  "proxy": "https://localhost:6002",
   "homepage": "/app",
   "dependencies": {
     "prop-types": "^15.6.2",
